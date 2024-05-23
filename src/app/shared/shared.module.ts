@@ -6,5 +6,6 @@ import { ErrorPageComponent } from './pages/error/error-page.component';
 @NgModule({
   declarations: [ErrorPageComponent],
   imports: [CommonModule, RouterModule],
+  exports: [ErrorPageComponent],
 })
 export class SharedModule {}

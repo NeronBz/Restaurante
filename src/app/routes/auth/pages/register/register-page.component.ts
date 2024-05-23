@@ -1,11 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-register-page',
-  templateUrl: 'register-page.component.html',
+  templateUrl: './register-page.component.html',
+  styleUrls: ['../layout/layout-page.component.css'],
 })
-export class RegisterPageComponent implements OnInit {
-  constructor() {}
+export class RegisterPageComponent {
+  username: string = '';
+  password: string = '';
 
-  ngOnInit() {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  register() {
+    if (this.username !== '' || this.password !== '') {
+      if (this.authService.register(this.username, this.password)) {
+        this.router.navigate(['/auth/login']);
+      } else {
+        alert('Credenciales incorrectas');
+      }
+    } else {
+      alert('Tiene que escribir en los campos');
+    }
+  }
 }
