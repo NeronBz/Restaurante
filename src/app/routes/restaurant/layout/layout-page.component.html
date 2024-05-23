@@ -46,7 +46,14 @@
       </ul>
       <!-- Información del usuario -->
       <div class="d-flex align-items-center" *ngIf="currentUser">
-        <span class="navbar-text me-3">{{ currentUser.username }}</span>
+        <span
+          class="navbar-text me-3"
+          [ngClass]="{
+            'text-dark': !isLightTheme,
+            'text-light': isLightTheme
+          }"
+          >{{ currentUser.username }}</span
+        >
         <button class="btn btn-outline-danger" (click)="onLogout()">
           Logout
         </button>

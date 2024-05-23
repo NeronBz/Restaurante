@@ -1,0 +1,8 @@
+<section id="carrito">
+  <h2>Carrito de Compras</h2>
+  <div *ngFor="let item of comidas">
+    <h3>{{ item.nombre }}</h3>
+    <p>Restaurante: {{ item.restaurante }}</p>
+    <p>{{ item.descripcion }}</p>
+  </div>
+</section>
