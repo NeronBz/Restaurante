@@ -12,12 +12,12 @@ export class CartPageComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.carrito = this.cartService.getCart();
-    console.log(this.carrito);
+    // this.carrito = this.cartService.getCart();
+    // console.log(this.carrito);
   }
 
-  clearCarrito(): void {
-    this.cartService.clearCart();
-    this.carrito = [];
-  }
+  // clearCarrito(): void {
+  //   this.cartService.clearCart();
+  //   this.carrito = [];
+  // }
 }

@@ -7,9 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './routes/auth/guards/auth.guard';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { RestaurantModule } from './routes/restaurant/restaurant.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,8 +17,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
     AppRoutingModule,
     FormsModule,
     SharedModule,
-    FontAwesomeModule,
     HttpClientModule,
+    RestaurantModule,
   ],
   providers: [provideAnimationsAsync(), AuthGuard],
   bootstrap: [AppComponent],

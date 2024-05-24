@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipesService } from '../../../../shared/services/recipes.service';
-import { tap, catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipes-page',
@@ -10,21 +10,15 @@ import { tap, catchError, throwError } from 'rxjs';
 export class RecipesPageComponent implements OnInit {
   recipes: any[] = [];
 
-  constructor(private recipesService: RecipesService) {}
+  constructor(private recipesService: RecipesService, private router: Router) {}
 
   ngOnInit(): void {
-    this.recipesService
-      .getRecipes()
-      .pipe(
-        tap((data: any[]) => {
-          this.recipes = data;
-          console.log(data);
-        }),
-        catchError((error: any) => {
-          console.error('Error fetching recipes', error);
-          return throwError(() => error);
-        })
-      )
-      .subscribe();
+    this.recipes = this.recipesService.getRecipes();
+    console.log(this.recipes);
+  }
+
+  redirectToOnlyRecipe(id: number) {
+    console.log(id);
+    return this.router.navigate(['recipes', id]);
   }
 }

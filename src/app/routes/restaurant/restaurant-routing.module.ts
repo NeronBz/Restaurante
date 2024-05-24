@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutRestaurantPageComponent } from './layout/layout-page.component';
 import { HomePageComponent } from './home/home-page.component';
 import { CartPageComponent } from './cart/cart-page.component';
-import { ProductsPageComponent } from './products/page/products-page.component';
-import { RecipesPageComponent } from './recipes/page/recipes-page.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
 
 const routes: Routes = [
@@ -24,12 +22,14 @@ const routes: Routes = [
       {
         path: 'products',
         data: { title: 'Productos' },
-        component: ProductsPageComponent,
+        loadChildren: () =>
+          import('./products/products.module').then((m) => m.ProductsModule),
       },
       {
         path: 'recipes',
         data: { title: 'Recetas' },
-        component: RecipesPageComponent,
+        loadChildren: () =>
+          import('./recipes/recipes.module').then((m) => m.RecipesModule),
       },
       {
         path: 'cart',

@@ -1,16 +1,20 @@
 <div class="container">
   <h1 class="text-center my-4">Nuestras Recetas</h1>
   <div class="row">
-    <div class="col-md-4" *ngFor="let recipe of recipes">
+    <div
+      class="col-md-4"
+      *ngFor="let recipe of recipes"
+      (click)="redirectToOnlyRecipe(recipe.id)"
+    >
       <div class="card mb-4">
         <img
           [src]="recipe.imageUrl"
           class="card-img-top"
-          alt="{{ recipe.title }}"
+          alt="{{ recipe.nombre }}"
         />
         <div class="card-body">
-          <h5 class="card-title">{{ recipe.title }}</h5>
-          <p class="card-text">{{ recipe.description }}</p>
+          <h5 class="card-title">{{ recipe.nombre }}</h5>
+          <p class="card-text">{{ recipe.restaurante }}</p>
         </div>
       </div>
     </div>
@@ -25,23 +29,23 @@
       <span>Conéctate con nosotros en las redes sociales:</span>
     </div>
     <div>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-facebook-f"></i>
+      <a href="#" class="me-4 text-reset">
+        <i class="fa fa-facebook-f"></i>
       </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-twitter"></i>
+      <a href="#" class="me-4 text-reset">
+        <i class="fa fa-twitter"></i>
       </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-google"></i>
+      <a href="#" class="me-4 text-reset">
+        <i class="fa fa-google"></i>
       </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-instagram"></i>
+      <a href="#" class="me-4 text-reset">
+        <i class="fa fa-instagram"></i>
       </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-linkedin"></i>
+      <a href="#" class="me-4 text-reset">
+        <i class="fa fa-linkedin"></i>
       </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-github"></i>
+      <a href="#" class="me-4 text-reset">
+        <i class="fa fa-github"></i>
       </a>
     </div>
   </section>
@@ -49,9 +53,7 @@
     <div class="container text-center text-md-start mt-5">
       <div class="row mt-3">
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>Compañía
-          </h6>
+          <h6 class="text-uppercase fw-bold mb-4">Compañía</h6>
           <p>
             Aquí puedes usar filas y columnas para organizar el contenido de tu
             pie de página. Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -90,13 +92,13 @@
         </div>
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-          <p><i class="fas fa-home me-3"></i> Nueva York, NY 10012, US</p>
+          <p><i class="fa fa-home me-3"></i> Nueva York, NY 10012, US</p>
           <p>
-            <i class="fas fa-envelope me-3"></i>
+            <i class="fa fa-envelope me-3"></i>
             info&example.com
           </p>
-          <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-          <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+          <p><i class="fa fa-phone me-3"></i> + 01 234 567 88</p>
+          <p><i class="fa fa-print me-3"></i> + 01 234 567 89</p>
         </div>
       </div>
     </div>

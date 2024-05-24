@@ -40,8 +40,6 @@ export class FoodService {
     },
   ];
 
-  constructor() {}
-
   getComidas() {
     return this.comidas;
   }
