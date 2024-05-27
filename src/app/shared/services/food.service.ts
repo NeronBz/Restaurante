@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Comida } from '../interfaces/food.interface';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -42,5 +43,13 @@ export class FoodService {
 
   getComidas() {
     return this.comidas;
+  }
+
+  getComidaById(id: number): Observable<any> {
+    let comidaById: any;
+    comidaById = this.comidas.find((comida) => comida.id == id);
+    console.log(comidaById);
+
+    return of(comidaById);
   }
 }
