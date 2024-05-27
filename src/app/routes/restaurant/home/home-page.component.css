@@ -1,91 +1,58 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
-body{
-
-    background-color: rgb(141, 140, 140);
-}
-
-h2{
-    text-align: center;
+body {
+  background-color: rgb(141, 140, 140);
 }
 
-
-.imagenx{
-    height: 100vh;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    display:table;
-    background-attachment: fixed;
-    background-size: cover;
+h2 {
+  text-align: center;
 }
 
-
-h3{
-    background-color: #33373a;
-    bottom: 0;
-    color: white;
-    display: block;
-    font-size: 60px;
-    font-weight: bold;
-    margin-top: 500px;
-    opacity: 0.5;
-    text-align: center;
-    text-shadow: 1px 1px 1px #666;
-    text-transform: uppercase;
-    width: 100%;
-
+.imagenx {
+  height: 100vh;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: table;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
-
-h4{
-    text-align: justify;
+h3 {
+  background-color: #33373a;
+  bottom: 0;
+  color: white;
+  display: block;
+  font-size: 60px;
+  font-weight: bold;
+  margin-top: 500px;
+  opacity: 0.5;
+  text-align: center;
+  text-shadow: 1px 1px 1px #666;
+  text-transform: uppercase;
+  width: 100%;
 }
 
-
-
-.imagen1{
-   
-    background-image: url("../../../../assets/img/home1.jpg");
-    
+h4 {
+  text-align: justify;
 }
 
-.imagen2{
-   
-    background-image: url("../../../../assets/img/home2.jpg");
-    
-
+.imagen1 {
+  background-image: url("../../../../assets/img/home1.jpg");
 }
 
-.imagen3{
-   
-    background-image: url("../../../../assets/img/yosemite3.jpg");
-    
-
+.imagen2 {
+  background-image: url("../../../../assets/img/home2.jpg");
 }
 
-.imagen4{
-   
-    background-image: url("../../../../assets/img/yosemite4.jpg");
-    
-
+.imagen3 {
+  background-image: url("../../../../assets/img/home3.jpg");
 }
-.imagen5{
-   
-    background-image: url("../../../../assets/img/yosemite5.jpg");
-    
 
+.imagen4 {
+  background-image: url("../../../../assets/img/yosemite4.jpg");
 }
-.imagen6{
-   
-    background-image: url("../../../../assets/img/yosemite6.jpg");
-    
-
-}
-.imagen7{
-   
-    background-image: url("../../../../assets/img/yosemite7.jpg");
-    
-
+.imagen5 {
+  background-image: url("../../../../assets/img/yosemite5.jpg");
 }
