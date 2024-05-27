@@ -10,6 +10,7 @@ export class FoodService {
     {
       id: 1,
       nombre: 'Hamburguesa Clásica',
+      imagen: '../../../assets/img/burguer.jpg',
       descripcion:
         'Una deliciosa hamburguesa con carne de res, queso, lechuga, tomate y salsa especial.',
       restaurante: 'Burger House',
@@ -21,6 +22,7 @@ export class FoodService {
     {
       id: 2,
       nombre: 'Pizza Margarita',
+      imagen: '../../../assets/img/pizza-margarita.jpg',
       descripcion: 'Pizza clásica italiana con tomate, mozzarella y albahaca.',
       restaurante: 'Pizzeria Italiana',
       comentarios: [
@@ -31,6 +33,7 @@ export class FoodService {
     {
       id: 3,
       nombre: 'Tacos al Pastor',
+      imagen: '../../../assets/img/tacos.jpg',
       descripcion:
         'Tacos tradicionales mexicanos con carne de cerdo adobada y piña.',
       restaurante: 'El Sabor Mexicano',

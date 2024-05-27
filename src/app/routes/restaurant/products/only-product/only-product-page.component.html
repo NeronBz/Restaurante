@@ -1,28 +1,16 @@
 <div class="container">
   <header>
-    <h1>{{ comida.length > 0 ? comida[0].nombre : "No recipe found" }}</h1>
+    <h1>{{ nombreComida }}</h1>
+    <h3>{{ nombreRestaurante }}</h3>
   </header>
 
   <div class="recipe-image">
-    <img src="ruta-a-la-imagen.jpg" alt="Imagen de la receta" />
-  </div>
-
-  <div class="ingredients">
-    <h2>Ingredientes</h2>
-    <ul>
-      <li><img src="icono-alergeno.png" alt="Alergeno" /> Ingrediente 1</li>
-      <li><img src="icono-alergeno.png" alt="Alergeno" /> Ingrediente 2</li>
-      <li><img src="icono-alergeno.png" alt="Alergeno" /> Ingrediente 3</li>
-      <li><img src="icono-alergeno.png" alt="Alergeno" /> Ingrediente 4</li>
-    </ul>
+    <img [src]="imagenComida" alt="Imagen de la receta" />
   </div>
 
   <div class="description">
-    <h2>Descripción de la Preparación</h2>
-    <p>
-      Esta es una breve descripción de cómo se cocina la receta. Incluye los
-      pasos básicos y el tiempo estimado de cocción.
-    </p>
+    <h2>Descripción</h2>
+    <p>{{ descripcionComida }}</p>
   </div>
 
   <footer class="text-center text-lg-start text-muted mt-4">

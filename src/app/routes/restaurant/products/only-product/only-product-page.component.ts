@@ -7,7 +7,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: 'only-product-page.component.html',
 })
 export class OnlyProductPageComponent implements OnInit {
-  comida: any[] = [];
+  nombreComida: string = '';
+  imagenComida: string = '';
+  descripcionComida: string = '';
+  nombreRestaurante: string = '';
   id: number = 0;
 
   constructor(
@@ -20,8 +23,10 @@ export class OnlyProductPageComponent implements OnInit {
       this.id = params['productId'];
     });
     this.foodService.getComidaById(this.id).subscribe((data) => {
-      this.comida = data;
+      this.nombreComida = data.nombre;
+      this.imagenComida = data.imagen;
+      this.descripcionComida = data.descripcion;
+      this.nombreRestaurante = data.restaurante;
     });
-    console.log(this.comida);
   }
 }

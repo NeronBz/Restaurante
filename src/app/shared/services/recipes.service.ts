@@ -7,6 +7,7 @@ export class RecipesService {
     {
       id: 1,
       nombre: 'Hamburguesa Clásica',
+      imagen: '../../../assets/img/burguer.jpg',
       ingredientes: [
         'carne de vaca',
         'pan',
@@ -28,6 +29,7 @@ export class RecipesService {
     {
       id: 2,
       nombre: 'Pizza Margarita',
+      imagen: '../../../assets/img/pizza-margarita.jpg',
       ingredients: [
         'masa de pizza',
         'tomate',
@@ -47,8 +49,9 @@ export class RecipesService {
     {
       id: 3,
       nombre: 'Tacos al Pastor',
+      imagen: '../../../assets/img/tacos.jpg',
       ingredients: [
-        'carne de puerco',
+        'carne de cerdo',
         'cebolla',
         'chile',
         'cilantro',

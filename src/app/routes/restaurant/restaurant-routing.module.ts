@@ -5,9 +5,9 @@ import { HomePageComponent } from './home/home-page.component';
 import { CartPageComponent } from './cart/cart-page.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { OnlyRecipePageComponent } from './recipes/only-recipes/only-recipe-page.component';
+import { OnlyProductPageComponent } from './products/only-product/only-product-page.component';
 import { ProductsPageComponent } from './products/page/products-page.component';
 import { RecipesPageComponent } from './recipes/page/recipes-page.component';
-import { OnlyProductPageComponent } from './products/only-product/only-product-page.component';
 
 const routes: Routes = [
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'products',
-        data: { title: 'Productos' },
+        data: { title: 'Platos' },
         component: ProductsPageComponent,
       },
       {

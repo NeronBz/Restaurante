@@ -7,7 +7,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: 'only-recipe-page.component.html',
 })
 export class OnlyRecipePageComponent implements OnInit {
-  recipe: any[] = [];
+  nombreReceta: string = '';
+  imagenReceta: string = '';
+  ingredientesReceta: any[] = [];
+  preparacionReceta: any[] = [];
   id: number = 0;
 
   constructor(
@@ -20,8 +23,11 @@ export class OnlyRecipePageComponent implements OnInit {
       this.id = params['recipeId'];
     });
     this.recipesService.getRecipeById(this.id).subscribe((data) => {
-      this.recipe = data;
+      this.nombreReceta = data.nombre;
+      this.imagenReceta = data.imagen;
+      this.ingredientesReceta = data.ingredients;
+      this.preparacionReceta = data.cocina;
     });
-    console.log(this.recipe);
+    console.log(this.ingredientesReceta);
   }
 }
