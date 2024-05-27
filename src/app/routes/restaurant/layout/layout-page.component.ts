@@ -14,6 +14,7 @@ export class LayoutRestaurantPageComponent implements OnInit {
   currentRouteTitle: string = '';
   currentUser: User | null = null;
   isLightTheme: boolean = true;
+  selectedItemIndex: number = 0;
 
   public sidebarItems = [
     {
@@ -82,10 +83,11 @@ export class LayoutRestaurantPageComponent implements OnInit {
     this.themeService.setTheme(theme);
   }
 
-  collapse(id: string) {
+  collapse(id: string, index: any) {
     const element = document.getElementById(id);
     if (element) {
       element.classList.toggle('show');
     }
+    this.selectedItemIndex = this.sidebarItems.indexOf(index);
   }
 }

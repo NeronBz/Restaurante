@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
@@ -67,5 +68,13 @@ export class RecipesService {
 
   getRecipes() {
     return this.recetas;
+  }
+
+  getRecipeById(id: number): Observable<any> {
+    let recetaById: any;
+    recetaById = this.recetas.find((receta) => receta.id == id);
+    console.log(recetaById);
+
+    return of(recetaById);
   }
 }

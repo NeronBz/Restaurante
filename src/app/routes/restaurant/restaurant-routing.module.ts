@@ -4,17 +4,16 @@ import { LayoutRestaurantPageComponent } from './layout/layout-page.component';
 import { HomePageComponent } from './home/home-page.component';
 import { CartPageComponent } from './cart/cart-page.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { OnlyRecipePageComponent } from './recipes/only-recipes/only-recipe-page.component';
+import { ProductsPageComponent } from './products/page/products-page.component';
+import { RecipesPageComponent } from './recipes/page/recipes-page.component';
+import { OnlyProductPageComponent } from './products/only-product/only-product-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutRestaurantPageComponent,
     children: [
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
       {
         path: 'home',
         data: { title: 'Home' },
@@ -23,14 +22,20 @@ const routes: Routes = [
       {
         path: 'products',
         data: { title: 'Productos' },
-        loadChildren: () =>
-          import('./products/products.module').then((m) => m.ProductsModule),
+        component: ProductsPageComponent,
+      },
+      {
+        path: 'products/:productId',
+        component: OnlyProductPageComponent,
       },
       {
         path: 'recipes',
         data: { title: 'Recetas' },
-        loadChildren: () =>
-          import('./recipes/recipes.module').then((m) => m.RecipesModule),
+        component: RecipesPageComponent,
+      },
+      {
+        path: 'recipes/:recipeId',
+        component: OnlyRecipePageComponent,
       },
       {
         path: 'cart',
@@ -39,8 +44,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: '**',
-        redirectTo: 'error',
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
       },
     ],
   },
