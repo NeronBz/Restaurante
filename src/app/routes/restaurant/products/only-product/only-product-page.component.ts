@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-only-products-page',
   templateUrl: 'only-product-page.component.html',
+  styleUrls: ['only-product-page.component.css'],
 })
 export class OnlyProductPageComponent implements OnInit {
   nombreComida: string = '';

@@ -1,17 +1,42 @@
 <div class="container">
-  <header>
-    <h1>{{ nombreComida }}</h1>
-    <h3>{{ nombreRestaurante }}</h3>
-  </header>
-
-  <div class="recipe-image">
-    <img [src]="imagenComida" alt="Imagen de la receta" />
-  </div>
-
-  <div class="description">
-    <h2>Descripción</h2>
-    <p>{{ descripcionComida }}</p>
-  </div>
+  <main class="d-flex justify-content-center align-items-center p-4">
+    <div class="card w-75 p-3">
+      <div
+        class="d-flex flex-column flex-lg-row justify-content-between card-content"
+      >
+        <div class="mb-3 mb-lg-0 text-center">
+          <h1 class="display-4">{{ nombreComida }}</h1>
+          <h3 class="h5 text-muted">{{ nombreRestaurante }}</h3>
+          <h2 class="h6 mt-3">Descripción</h2>
+          <p>{{ descripcionComida }}</p>
+        </div>
+        <div class="recipe-image d-flex justify-items-center">
+          <img
+            [src]="imagenComida"
+            alt="Imagen de la receta"
+            class="img-fluid"
+          />
+        </div>
+      </div>
+      <hr />
+      <div class="d-flex justify-content-between mt-4">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="history.back(-1)"
+        >
+          Volver
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="window.location.href='https://otra-pagina.com'"
+        >
+          Receta
+        </button>
+      </div>
+    </div>
+  </main>
 
   <footer class="text-center text-lg-start text-muted mt-4">
     <section

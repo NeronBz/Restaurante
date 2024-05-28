@@ -1,50 +1,45 @@
-.container {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.card {
+  background-color: #222;
+  border: none;
 }
-header {
-  background-color: #f8f8f8;
-  padding: 20px;
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-header h1 {
-  margin: 0;
-  font-size: 2.5em;
-}
-.recipe-image {
-  margin: 20px 0;
-  text-align: center;
-}
+
 .recipe-image img {
+  border-radius: 8px;
   max-width: 100%;
   height: auto;
 }
-.ingredients {
-  text-align: center;
-  margin: 20px 0;
+
+@media (min-width: 992px) {
+  .card-content {
+    flex-wrap: nowrap;
+  }
+
+  .card-content > div {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+
+  .recipe-image {
+    margin-left: 2rem;
+    margin-top: 0;
+  }
 }
-.ingredients ul {
-  list-style: none;
-  padding: 0;
+
+@media (max-width: 992px) {
+  .recipe-image {
+    margin-top: 2rem;
+  }
 }
-.ingredients li {
-  margin: 5px 0;
+
+::ng-deep [data-bs-theme="dark"] .card {
+  background-color: #ececec;
 }
-.ingredients li img {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-.description {
-  margin: 20px;
-  text-align: center;
+
+::ng-deep [data-bs-theme="dark"] h1,
+::ng-deep [data-bs-theme="dark"] h2,
+::ng-deep [data-bs-theme="dark"] h3,
+::ng-deep [data-bs-theme="dark"] p {
+  color: #424242 !important;
 }
 footer {
   background-color: #f8f8f8;
