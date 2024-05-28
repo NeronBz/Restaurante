@@ -1,86 +1,68 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   background-color: rgb(141, 140, 140);
 }
 
-/* Mobile First Styles */
-.tituloP {
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-.cajasRandom .col-12 {
-  flex: 0 0 100%;
-  max-width: 100%;
-  margin-bottom: 1rem;
-}
-
-.bordeLetras {
-  font-size: 1rem;
-}
-
-.imagenx {
-  height: 100vh; 
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-/* Larger Devices (Tablets) */
-@media (min-width: 768px) {
-  .tituloP {
-    font-size: 2rem;
-  }
-
-  .bordeLetras {
-    font-size: 1.5rem;
-  }
-}
-
-/* Larger Devices (Desktops) */
 @media (min-width: 992px) {
-  .tituloP {
+
+  .tituloP{
     color: white;
     font-size: 60px;
     font-weight: bold;
+    
     background-color: rgba(0, 0, 0, 0.8);
+  
   }
-
-  .cajasRandom {
-    background-color: rgba(0, 0, 0, 0.8);
-    margin-left: 10rem;
-    margin-right: 10rem;
-    align-self: center;
+  
+  .cajasRandom{
+      background-color: rgba(0, 0, 0, 0.8);
+      /* margin-top: 23rem; */
+      margin-left: 10rem;
+      margin-right: 10rem;
+      align-self: center;
+      
   }
-
-  .bordeLetras {
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-    font-size: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+  
+  .bordeLetras{
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: black;
+      font-size: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
   }
-
+  
   h2 {
     text-align: center;
     font-size: 60px;
   }
-
-  #caja {
-    margin-left: 0;
-    margin-right: 0;
+  
+  .imagenx {
+    height: 100vh; 
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    background-attachment: fixed;
+    background-size: cover;
+    
   }
-
+  
+  #caja{
+      margin-left: 0;
+      margin-right: 0;
+  }
+  
+  
+  
   h4 {
     text-align: justify;
   }
+  
 }
+
+
 
 .imagen1 {
   background-image: url("../../../../assets/img/home1.jpg");
@@ -97,3 +79,21 @@ body {
 .imagen4 {
   background-image: url("../../../../assets/img/home4.jpg");
 }
+
+
+@media (max-width: 767.98px) {
+    .tituloP {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+  
+    .cajasRandom .col-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .bordeLetras {
+      font-size: 1rem;
+    }
+  }
