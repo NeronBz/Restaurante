@@ -3,13 +3,83 @@
 }
 body {
   background-color: rgb(141, 140, 140);
+  margin:0;
 }
+
+.imagen1 {
+  background-image: url("../../../../assets/img/home1.jpg");
+}
+
+.imagen2 {
+  background-image: url("../../../../assets/img/home2.jpg");
+}
+
+.imagen3 {
+  background-image: url("../../../../assets/img/home3.jpg");
+}
+
+.imagen4 {
+  background-image: url("../../../../assets/img/home4.jpg");
+}
+
+.tituloP{
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.8);
+
+}
+
+.cajasRandom{
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-left: 10rem;
+    margin-right: 10rem;
+    align-self: center;
+    
+}
+
+.bordeLetras{
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 1.3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.imagenx {
+  height: 100vh; 
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  background-attachment: fixed;
+  background-size: cover;
+  
+}
+
+#caja{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+
+h4 {
+  text-align: center;
+}
+
+
 
 @media (min-width: 992px) {
 
   .tituloP{
     color: white;
-    font-size: 60px;
+    font-size: 2rem;
     font-weight: bold;
     
     background-color: rgba(0, 0, 0, 0.8);
@@ -18,7 +88,6 @@ body {
   
   .cajasRandom{
       background-color: rgba(0, 0, 0, 0.8);
-      /* margin-top: 23rem; */
       margin-left: 10rem;
       margin-right: 10rem;
       align-self: center;
@@ -26,9 +95,11 @@ body {
   }
   
   .bordeLetras{
+    color: white;
+    
       -webkit-text-stroke-width: 1px;
       -webkit-text-stroke-color: black;
-      font-size: 2rem;
+      font-size: 1.5rem;
       padding-top: 2rem;
       padding-bottom: 2rem;
   }
@@ -57,43 +128,119 @@ body {
   
   
   h4 {
-    text-align: justify;
+    text-align: center;
   }
   
 }
 
 
 
-.imagen1 {
-  background-image: url("../../../../assets/img/home1.jpg");
-}
-
-.imagen2 {
-  background-image: url("../../../../assets/img/home2.jpg");
-}
-
-.imagen3 {
-  background-image: url("../../../../assets/img/home3.jpg");
-}
-
-.imagen4 {
-  background-image: url("../../../../assets/img/home4.jpg");
-}
 
 
-@media (max-width: 767.98px) {
-    .tituloP {
+
+@media (min-width: 768px) {
+  .tituloP{
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    
+    background-color: rgba(0, 0, 0, 0.8);
+  
+  }
+  
+  .cajasRandom{
+      background-color: rgba(0, 0, 0, 0.8);
+      margin-left: 10rem;
+      margin-right: 10rem;
+      align-self: center;
+      
+  }
+  
+  .bordeLetras{
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: black;
       font-size: 1.5rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 60px;
+  }
+  
+  .imagenx {
+    height: 100vh; 
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    background-attachment: fixed;
+    background-size: cover;
+    
+  }
+  
+  #caja{
+      margin-left: 0;
+      margin-right: 0;
+  }
+  
+  
+  
+  h4 {
+    text-align: center;
+  }
+  }
+
+  @media (max-width: 576px) {
+    .tituloP{
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.8);
+    
+    }
+    
+    .cajasRandom{
+        background-color: rgba(0, 0, 0, 0.8);
+        margin-left: 5rem;
+        margin-right: 5rem;
+        align-self: center;
+        
+    }
+    
+    .bordeLetras{
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+        font-size: 1rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+    }
+    
+    .imagenx {
+      height: 100vh; 
+      width: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      background-attachment: fixed;
+      background-size: cover;
+      
+    }
+    
+    #caja{
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    
+    
+    h4 {
       text-align: center;
     }
-  
-    .cajasRandom .col-4 {
-      flex: 0 0 100%;
-      max-width: 100%;
-      margin-bottom: 1rem;
     }
-  
-    .bordeLetras {
-      font-size: 1rem;
-    }
-  }
