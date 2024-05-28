@@ -1,6 +1,7 @@
 <div class="row justify-content-start">
   <div class="col">
-    <button class="link-button" [routerLink]="['/']" routerLinkActive="router-link-active" align="center" role="button">
+    <button class="link-button-warning btn btn-warning" [routerLink]="['/']" routerLinkActive="router-link-active"
+      align="center" role="button">
       <i class="bi bi-arrow-left"></i>
       Home Page
     </button>
@@ -8,16 +9,16 @@
 </div>
 <div class="row">
   <div class="col">
-    <div class="main">
-      <p class="sign" align="center">Acceder</p>
+    <div class="main shadow-lg p-3 mb-5 bg-white rounded">
+      <p class="sign text-warning" align="center">Acceder</p>
       <form class="form1">
-        <input class="un" type="text" align="center" placeholder="Nombre de usuario" name="username"
-          [(ngModel)]="username" />
-        <input class="pass" type="password" align="center" placeholder="Contraseña" name="password"
-          [(ngModel)]="password" />
-        <a class="submit" align="center" (click)="login()">Log in</a>
+        <input class="un form-control border-warning" type="text" align="center" placeholder="Nombre de usuario"
+          name="username" [(ngModel)]="username" />
+        <input class="pass form-control border-warning" type="password" align="center" placeholder="Contraseña"
+          name="password" [(ngModel)]="password" />
+        <a class="text-black btn btn-warning" align="center" (click)="login()">Log in</a>
         <p class="forgot" align="center">
-          <a routerLink="/auth/register">¿No tienes cuenta?</a>
+          <a class="text-black" routerLink="/auth/register">¿No tienes cuenta?</a>
         </p>
       </form>
     </div>
