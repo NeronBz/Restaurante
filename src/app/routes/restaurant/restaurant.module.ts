@@ -6,6 +6,8 @@ import { LayoutRestaurantPageComponent } from './layout/layout-page.component';
 import { RecipesPageComponent } from './recipes/page/recipes-page.component';
 import { ProductsPageComponent } from './products/page/products-page.component';
 import { OnlyRecipePageComponent } from './recipes/only-recipes/only-recipe-page.component';
+import { HomePageComponent } from './home/home-page.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,8 +15,9 @@ import { OnlyRecipePageComponent } from './recipes/only-recipes/only-recipe-page
     RecipesPageComponent,
     ProductsPageComponent,
     OnlyRecipePageComponent,
+    HomePageComponent,
   ],
-  imports: [CommonModule, RouterModule, RestaurantRoutingModule],
+  imports: [CommonModule, RouterModule, RestaurantRoutingModule, SharedModule],
   exports: [LayoutRestaurantPageComponent],
 })
 export class RestaurantModule {}

@@ -1,45 +1,83 @@
 <!-- Navbar Principal -->
-<nav class="navbar navbar-expand-md fs-4 sticky-top" [ngClass]="{ 'bg-dark': isLightTheme, 'bg-light': !isLightTheme }">
+<nav
+  class="navbar navbar-expand-md fs-4 sticky-top"
+  [ngClass]="{ 'bg-dark': isLightTheme, 'bg-light': !isLightTheme }"
+>
   <div class="container-fluid">
     <!-- Botón de hamburguesa y título de la página -->
     <div class="d-flex">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"
-        [ngClass]="{ 'bg-dark': !isLightTheme, 'bg-light': isLightTheme }">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarContent"
+        aria-controls="navbarContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        [ngClass]="{ 'bg-dark': !isLightTheme, 'bg-light': isLightTheme }"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand ms-2 fs-3" [ngClass]="{ 'text-dark': !isLightTheme, 'text-light': isLightTheme }">{{
-        currentRouteTitle }}</a>
-      <div class="vr d-none d-md-block" [ngClass]="{ 'bg-dark': !isLightTheme, 'bg-light': isLightTheme }"></div>
+      <a
+        class="navbar-brand ms-2 fs-3"
+        [ngClass]="{ 'text-dark': !isLightTheme, 'text-light': isLightTheme }"
+        >{{ currentRouteTitle }}</a
+      >
+      <div
+        class="vr d-none d-md-block"
+        [ngClass]="{ 'bg-dark': !isLightTheme, 'bg-light': isLightTheme }"
+      ></div>
     </div>
     <!-- Contenido del navbar -->
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav nav-pills primary me-auto mb-2 mb-md-0">
         <li class="nav-item" *ngFor="let item of sidebarItems; let i = index">
-          <a [routerLink]="[item.url]" class="nav-link" [ngClass]="{
+          <a
+            [routerLink]="[item.url]"
+            class="nav-link"
+            [ngClass]="{
               'text-dark': !isLightTheme,
               'text-light': isLightTheme
-            }" (click)="collapse('navbarContent', i)">{{ item.label }}</a>
+            }"
+            (click)="collapse('navbarContent', i)"
+            >{{ item.label }}</a
+          >
         </li>
       </ul>
       <!-- Información del usuario -->
       <div class="d-flex align-items-center">
-        <div class="d-inline-block d-md-flex align-items-center me-3" *ngIf="currentUser">
+        <div
+          class="d-inline-block d-md-flex align-items-center me-3"
+          *ngIf="currentUser"
+        >
           <span class="navbar-text me-3 text-primary">{{
             currentUser.username
-            }}</span>
+          }}</span>
           <button class="btn btn-outline-danger" (click)="onLogout()">
             Logout
           </button>
         </div>
-        <div class="d-inline-block d-md-flex align-items-center me-3" *ngIf="!currentUser">
-          <button class="btn btn-outline-primary" [routerLink]="['/auth/login']">
+        <div
+          class="d-inline-block d-md-flex align-items-center me-3"
+          *ngIf="!currentUser"
+        >
+          <button
+            class="btn btn-outline-warning"
+            [routerLink]="['/auth/login']"
+          >
             Login
           </button>
         </div>
         <!-- Dark mode toggle visible at all sizes -->
-        <div class="d-inline-block float-end form-check form-switch ms-auto p-0 mb-0">
-          <input class="form-check-input" type="checkbox" id="darkmode-toggle" (change)="changeColor()" />
+        <div
+          class="d-inline-block float-end form-check form-switch ms-auto p-0 mb-0"
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="darkmode-toggle"
+            (change)="changeColor()"
+          />
           <label class="form-check-label" for="darkmode-toggle"></label>
         </div>
       </div>
@@ -48,3 +86,4 @@
 </nav>
 
 <router-outlet [attr.data-bs-theme]="themeService.getTheme()"></router-outlet>
+<app-footer></app-footer>
