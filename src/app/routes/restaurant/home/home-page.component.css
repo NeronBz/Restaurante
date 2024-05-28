@@ -81,7 +81,6 @@ h4 {
     color: white;
     font-size: 5rem;
     font-weight: bold;
-    
     background-color: rgba(0, 0, 0, 0.8);
   
   }
@@ -138,12 +137,12 @@ h4 {
 
 
 
-@media (min-width: 768px) {
+@media (max-width: 992px) {
   .tituloP{
     color: white;
-    font-size: 2rem;
+   
     font-weight: bold;
-    
+    font-size: 3rem;
     background-color: rgba(0, 0, 0, 0.8);
   
   }
