@@ -1,12 +1,32 @@
 .card {
   background-color: #222;
   border: none;
+  color: #fff;
 }
 
 .recipe-image img {
   border-radius: 8px;
   max-width: 100%;
   height: auto;
+}
+
+.btn-responsive {
+  font-size: 1.25rem;
+  padding: 0.75rem 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .btn-responsive {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .recipe-image {
+    margin-left: 10%;
+    max-width: 80%;
+  }
 }
 
 @media (min-width: 992px) {
@@ -25,19 +45,13 @@
   }
 }
 
-@media (max-width: 992px) {
-  .recipe-image {
-    margin-top: 2rem;
-  }
-}
-
 ::ng-deep [data-bs-theme="dark"] .card {
   background-color: #ececec;
+  color: #424242;
 }
 
-::ng-deep [data-bs-theme="dark"] h1,
-::ng-deep [data-bs-theme="dark"] h2,
-::ng-deep [data-bs-theme="dark"] h3,
-::ng-deep [data-bs-theme="dark"] p {
+::ng-deep [data-bs-theme="dark"] .card h1,
+::ng-deep [data-bs-theme="dark"] .card h2,
+::ng-deep [data-bs-theme="dark"] .card p {
   color: #424242 !important;
 }

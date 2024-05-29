@@ -14,11 +14,7 @@ const routes: Routes = [
     path: '',
     component: LayoutRestaurantPageComponent,
     children: [
-      {
-        path: 'home',
-        data: { title: 'Home' },
-        component: HomePageComponent,
-      },
+      { path: 'home', data: { title: 'Home' }, component: HomePageComponent },
       {
         path: 'products',
         data: { title: 'Platos' },
@@ -26,6 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'products/:productId',
+        data: { title: 'Plato' },
         component: OnlyProductPageComponent,
       },
       {
@@ -35,6 +32,7 @@ const routes: Routes = [
       },
       {
         path: 'recipes/:recipeId',
+        data: { title: 'Receta' },
         component: OnlyRecipePageComponent,
       },
       {
@@ -43,11 +41,7 @@ const routes: Routes = [
         component: CartPageComponent,
         canActivate: [AuthGuard],
       },
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
 ];

@@ -20,3 +20,12 @@
 .card-body {
   padding: 16px;
 }
+
+::ng-deep [data-bs-theme="dark"] .card {
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.4);
+  transition: 0.3s;
+}
+
+::ng-deep [data-bs-theme="dark"] .card:hover {
+  box-shadow: 0 4px 16px 0 rgba(255, 255, 255, 0.4);
+}

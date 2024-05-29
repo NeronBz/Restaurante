@@ -8,6 +8,7 @@ import { ProductsPageComponent } from './products/page/products-page.component';
 import { OnlyRecipePageComponent } from './recipes/only-recipes/only-recipe-page.component';
 import { HomePageComponent } from './home/home-page.component';
 import { SharedModule } from '../../shared/shared.module';
+import { OnlyProductPageComponent } from './products/only-product/only-product-page.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SharedModule } from '../../shared/shared.module';
     RecipesPageComponent,
     ProductsPageComponent,
     OnlyRecipePageComponent,
+    OnlyProductPageComponent,
     HomePageComponent,
   ],
   imports: [CommonModule, RouterModule, RestaurantRoutingModule, SharedModule],

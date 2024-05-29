@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Comida } from '../interfaces/food.interface';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

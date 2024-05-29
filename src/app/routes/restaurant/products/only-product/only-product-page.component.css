@@ -3,38 +3,6 @@
   border: none;
 }
 
-.card-header {
-  border-bottom: 1px solid #444;
-}
-
-.card-header h1 {
-  font-size: 24px;
-  margin: 0;
-  color: #aaa;
-}
-
-.card-header h3 {
-  font-size: 18px;
-  margin: 0;
-  color: #aaa;
-}
-
-.card img {
-  border-radius: 8px;
-}
-
-.card-body h2 {
-  font-size: 20px;
-  margin-top: 0;
-  color: #aaa;
-}
-
-.card-body p {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #aaa;
-}
-
 .card-content {
   display: flex;
   justify-content: space-between;

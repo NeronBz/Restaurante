@@ -1,52 +1,58 @@
 <div class="container">
   <main class="d-flex justify-content-center align-items-center p-4">
-    <div class="card w-75 p-3">
-      <header class="text-center">
-        <h1 class="display-4">{{ nombreReceta }}</h1>
-      </header>
-      <div
-        class="d-flex flex-column flex-lg-row justify-content-between card-content"
-      >
-        <div>
-          <div class="ingredients">
-            <h2 class="h6 mt-3">Ingredientes</h2>
-            <ul class="list-unstyled">
-              <li *ngFor="let ingrediente of ingredientesReceta">
-                {{ ingrediente }}
-              </li>
-            </ul>
+    <div class="card p-3">
+      <div class="card-content">
+        <!-- Recipe title -->
+        <div class="text-center mb-4">
+          <h1 class="fs-1 text-decoration-underline">{{ nombreReceta }}</h1>
+        </div>
+        <!-- Ingredients, Description and Image -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <div class="ingredients text-center">
+              <h2>Ingredientes</h2>
+              <ul class="list-unstyled">
+                <li *ngFor="let ingrediente of ingredientesReceta">
+                  - {{ ingrediente }}
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="description">
-            <h2 class="h6 mt-3">Descripción de la Preparación</h2>
-            <ul class="list-unstyled">
-              <li *ngFor="let cocina of preparacionReceta">{{ cocina }}</li>
-            </ul>
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <div class="description text-center">
+              <h2>Preparación</h2>
+              <ul class="list-unstyled">
+                <li *ngFor="let cocina of preparacionReceta">- {{ cocina }}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-lg-4 mb-3">
+            <div class="recipe-image d-flex justify-content-center">
+              <img
+                [src]="imagenReceta"
+                alt="Imagen de la receta"
+                class="img-fluid w-100"
+              />
+            </div>
           </div>
         </div>
-        <div class="recipe-image d-flex justify-content-center">
-          <img
-            [src]="imagenReceta"
-            alt="Imagen de la receta"
-            class="img-fluid"
-          />
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center mt-4">
+          <button
+            type="button"
+            class="btn btn-secondary btn-lg btn-responsive m-2"
+            onclick="history.back(-1)"
+          >
+            Volver
+          </button>
+          <button
+            type="button"
+            class="btn btn-warning btn-lg btn-responsive m-2"
+            (click)="goToProduct()"
+          >
+            Plato
+          </button>
         </div>
-      </div>
-      <hr />
-      <div class="d-flex justify-content-between mt-4">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          onclick="history.back(-1)"
-        >
-          Volver
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          onclick="window.location.href='https://otra-pagina.com'"
-        >
-          Ir a otra página
-        </button>
       </div>
     </div>
   </main>

@@ -12,28 +12,16 @@ import { ThemeService } from '../../../shared/services/theme.service';
 })
 export class LayoutRestaurantPageComponent implements OnInit {
   currentRouteTitle: string = '';
+  currentId: string = '';
   currentUser: User | null = null;
   isLightTheme: boolean = true;
   selectedItemIndex: number = 0;
 
   public sidebarItems = [
-    {
-      label: 'Home',
-      url: 'home',
-    },
-    {
-      label: 'Platos',
-      url: 'products',
-    },
-    {
-      label: 'Recetas',
-      url: 'recipes',
-    },
-    {
-      label: 'Carrito',
-      icon: 'bi bi-cart2-fill',
-      url: 'cart',
-    },
+    { label: 'Home', url: 'home' },
+    { label: 'Platos', url: 'products' },
+    { label: 'Recetas', url: 'recipes' },
+    { label: 'Carrito', url: 'cart' },
   ];
 
   constructor(
@@ -52,6 +40,10 @@ export class LayoutRestaurantPageComponent implements OnInit {
           event = event.firstChild;
         }
         this.currentRouteTitle = event.snapshot.data['title'] || 'Home';
+        this.currentId =
+          event.snapshot.params['productId'] ||
+          event.snapshot.params['recipeId'] ||
+          '';
       });
   }
 
@@ -59,11 +51,7 @@ export class LayoutRestaurantPageComponent implements OnInit {
     const theme = this.themeService.getTheme();
     if (theme) {
       this.themeService.setTheme(theme);
-      if (theme === 'light') {
-        this.isLightTheme = true;
-      } else {
-        this.isLightTheme = false;
-      }
+      this.isLightTheme = theme === 'light';
     }
     this.currentUser = this.authService.getCurrentUser();
     const checkbox = document.getElementById('checkbox');
@@ -79,7 +67,7 @@ export class LayoutRestaurantPageComponent implements OnInit {
 
   changeColor() {
     this.isLightTheme = !this.isLightTheme;
-    const theme = this.themeService.getTheme() === 'light' ? 'dark' : 'light';
+    const theme = this.isLightTheme ? 'light' : 'dark';
     this.themeService.setTheme(theme);
   }
 

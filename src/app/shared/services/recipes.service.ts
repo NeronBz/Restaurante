@@ -8,7 +8,7 @@ export class RecipesService {
       id: 1,
       nombre: 'Hamburguesa Clásica',
       imagen: '../../../assets/img/burguer.jpg',
-      ingredientes: [
+      ingredients: [
         'carne de vaca',
         'pan',
         'queso',

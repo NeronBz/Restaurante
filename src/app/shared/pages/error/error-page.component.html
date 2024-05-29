@@ -1,4 +1,7 @@
-<div class="contenedor">
+<div
+  class="contenedor"
+  [ngClass]="{ 'bg-dark': isLightTheme, 'bg-light': !isLightTheme }"
+>
   <svg
     width="380px"
     height="500px"
@@ -54,8 +57,22 @@
     </g>
   </svg>
   <div class="message-box">
-    <h1 class="text-dark">404</h1>
-    <p class="text-dark">Page not found</p>
+    <h1
+      [ngClass]="{
+        'text-dark': isLightTheme,
+        'text-light': !isLightTheme
+      }"
+    >
+      404
+    </h1>
+    <p
+      [ngClass]="{
+        'text-dark': isLightTheme,
+        'text-light': !isLightTheme
+      }"
+    >
+      Page not found
+    </p>
     <div class="buttons-con">
       <div class="action-link-wrap">
         <a onclick="history.back(-1)" class="link-button link-back-button"
