@@ -4,6 +4,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { filter, map } from 'rxjs';
 import { User } from '../../../shared/interfaces/user.interface';
 import { ThemeService } from '../../../shared/services/theme.service';
+import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-layout-restaurant-page',
@@ -16,6 +17,7 @@ export class LayoutRestaurantPageComponent implements OnInit {
   currentUser: User | null = null;
   isLightTheme: boolean = true;
   selectedItemIndex: number = 0;
+  cartItemCount: number = 0;
 
   public sidebarItems = [
     { label: 'Home', url: 'home' },
@@ -28,7 +30,8 @@ export class LayoutRestaurantPageComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    public themeService: ThemeService
+    public themeService: ThemeService,
+    private cartService: CartService
   ) {
     this.router.events
       .pipe(
@@ -45,6 +48,9 @@ export class LayoutRestaurantPageComponent implements OnInit {
           event.snapshot.params['recipeId'] ||
           '';
       });
+    this.cartService.getItems().subscribe((items) => {
+      this.cartItemCount = items.length;
+    });
   }
 
   ngOnInit(): void {
@@ -58,6 +64,16 @@ export class LayoutRestaurantPageComponent implements OnInit {
     checkbox?.addEventListener('change', () => {
       document.body.classList.toggle('dark-mode');
     });
+
+    this.cartService
+      .getItems()
+      .subscribe(
+        (items) =>
+          (this.cartItemCount = items.reduce(
+            (total, item) => total + item.cantidad,
+            0
+          ))
+      );
   }
 
   onLogout(): void {
@@ -71,11 +87,11 @@ export class LayoutRestaurantPageComponent implements OnInit {
     this.themeService.setTheme(theme);
   }
 
-  collapse(id: string, index: any) {
+  collapse(id: string, index: number): void {
     const element = document.getElementById(id);
-    if (element) {
-      element.classList.toggle('show');
+    if (element && window.getComputedStyle(element).display === 'block') {
+      element.classList.remove('show');
     }
-    this.selectedItemIndex = this.sidebarItems.indexOf(index);
+    this.selectedItemIndex = index;
   }
 }

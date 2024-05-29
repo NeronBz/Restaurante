@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FoodService } from '../../../../shared/services/food.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from '../../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-only-products-page',
@@ -17,7 +18,8 @@ export class OnlyProductPageComponent implements OnInit {
   constructor(
     private foodService: FoodService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -34,5 +36,17 @@ export class OnlyProductPageComponent implements OnInit {
 
   goToRecipe() {
     this.router.navigate(['/restaurant/recipes', this.id]);
+  }
+
+  addToCart() {
+    this.cartService.addToCart({
+      id: this.id,
+      nombre: this.nombreComida,
+      descripcion: this.descripcionComida,
+      imagen: this.imagenComida,
+      restaurante: this.nombreRestaurante,
+      cantidad: 1,
+      precio: 10, // Asegúrate de ajustar esto según tu lógica
+    });
   }
 }
