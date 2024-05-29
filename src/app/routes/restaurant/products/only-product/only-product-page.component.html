@@ -4,32 +4,31 @@
       <div
         class="d-flex flex-column flex-lg-row justify-content-between card-content"
       >
-        <div class="mb-3 mb-lg-0 text-center">
-          <h1 class="display-4">{{ nombreComida }}</h1>
-          <h3 class="h5 text-muted">{{ nombreRestaurante }}</h3>
-          <h2 class="h6 mt-3">Descripción</h2>
+        <div class="mb-3 mb-lg-0 text-center text-white">
+          <h1 class="fs-1">{{ nombreComida }}</h1>
+          <h3>{{ nombreRestaurante }}</h3>
+          <h2>Descripción</h2>
           <p>{{ descripcionComida }}</p>
         </div>
         <div class="recipe-image d-flex justify-items-center">
           <img
             [src]="imagenComida"
             alt="Imagen de la receta"
-            class="img-fluid"
+            class="img-fluid w-100"
           />
         </div>
       </div>
-      <hr />
-      <div class="d-flex justify-content-between mt-4">
+      <div class="d-flex justify-content-center mt-4">
         <button
           type="button"
-          class="btn btn-secondary"
+          class="btn btn-secondary btn-lg btn-responsive m-2"
           onclick="history.back(-1)"
         >
           Volver
         </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-warning btn-lg btn-responsive m-2"
           onclick="window.location.href='https://otra-pagina.com'"
         >
           Receta

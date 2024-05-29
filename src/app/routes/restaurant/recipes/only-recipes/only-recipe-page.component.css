@@ -41,17 +41,3 @@
 ::ng-deep [data-bs-theme="dark"] p {
   color: #424242 !important;
 }
-footer {
-  background-color: #f8f8f8;
-  width: 100%;
-  padding: 20px;
-  border-top: 1px solid #ddd;
-  display: flex;
-  justify-content: space-around;
-}
-footer div {
-  width: 30%;
-}
-footer h3 {
-  margin-top: 0;
-}

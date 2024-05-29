@@ -18,11 +18,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a
-        class="navbar-brand ms-2 fs-3"
-        [ngClass]="{ 'text-dark': !isLightTheme, 'text-light': isLightTheme }"
-        >{{ currentRouteTitle }}</a
-      >
+      <a class="navbar-brand ms-2 fs-3 text-warning">{{ currentRouteTitle }}</a>
       <div
         class="vr d-none d-md-block"
         [ngClass]="{ 'bg-dark': !isLightTheme, 'bg-light': isLightTheme }"

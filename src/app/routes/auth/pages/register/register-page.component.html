@@ -1,26 +1,28 @@
-<div class="main">
-  <p class="sign" align="center">Registrar</p>
-  <form class="form1">
-    <input
-      class="un"
-      type="text"
-      align="center"
-      placeholder="Nombre de usuario"
-      name="username"
-      [(ngModel)]="username"
-    />
-    <input class="un" type="text" align="center" placeholder="Nombre" />
-    <input
-      class="pass"
-      type="password"
-      align="center"
-      placeholder="Contraseña"
-      name="password"
-      [(ngModel)]="password"
-    />
-    <a class="submit" align="center" (click)="register()">Sign in</a>
-    <p class="forgot" align="center">
-      <a routerLink="/auth/login">¿Ya tienes cuenta?</a>
-    </p>
-  </form>
+<div class="h-100 d-flex justify-content-center align-items-center">
+  <div class="main">
+    <p class="sign" align="center">Registrar</p>
+    <form class="form1">
+      <input
+        class="un"
+        type="text"
+        align="center"
+        placeholder="Nombre de usuario"
+        name="username"
+        [(ngModel)]="username"
+      />
+      <input class="un" type="text" align="center" placeholder="Nombre" />
+      <input
+        class="pass"
+        type="password"
+        align="center"
+        placeholder="Contraseña"
+        name="password"
+        [(ngModel)]="password"
+      />
+      <a class="submit" align="center" (click)="register()">Sign in</a>
+      <p class="forgot" align="center">
+        <a routerLink="/auth/login">¿Ya tienes cuenta?</a>
+      </p>
+    </form>
+  </div>
 </div>

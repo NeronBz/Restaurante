@@ -22,7 +22,7 @@ export class LayoutRestaurantPageComponent implements OnInit {
       url: 'home',
     },
     {
-      label: 'Productos',
+      label: 'Platos',
       url: 'products',
     },
     {

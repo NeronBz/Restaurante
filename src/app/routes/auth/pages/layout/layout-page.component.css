@@ -12,7 +12,7 @@
 
 .sign {
   padding-top: 40px;
-  color: #000000;
+  color: #caa425;
   font-family: "Ubuntu", sans-serif;
   font-weight: bold;
   font-size: 23px;
@@ -105,6 +105,10 @@ form.form1 > * {
   background-image: linear-gradient(#b384c9, #391f5b 50%);
 }
 
+.fila-principal {
+  height: calc(100vh - 65px);
+}
+
 @media (min-width: 768px) {
   .button-72 {
     font-size: 21px;
@@ -115,7 +119,7 @@ form.form1 > * {
 .forgot,
 a {
   text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-  color: #000000;
+  color: #c2c515;
 }
 
 a {
