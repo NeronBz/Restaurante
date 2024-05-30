@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-payment',
@@ -7,10 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./payment-page.component.css'],
 })
 export class PaymentPageComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cartService: CartService) {}
 
   pay() {
-    // Implementa la lógica de pago aquí
+    this.cartService.clearCart();
     alert('Pago realizado con éxito!');
     this.router.navigate(['/']);
   }

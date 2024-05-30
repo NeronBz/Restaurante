@@ -16,7 +16,10 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand ms-2 fs-3 text-warning">{{ currentRouteTitle }}</a>
+      <a class="navbar-brand ms-2 fs-3 text-warning"
+        >{{ currentRouteTitle }}
+        <span *ngIf="currentId">{{ currentId }}</span></a
+      >
       <div
         class="vr d-none d-lg-block"
         [ngClass]="{ 'bg-dark': !isLightTheme, 'bg-light': isLightTheme }"
@@ -43,9 +46,8 @@
                 >
                   {{ item.label }}
                   <span
-                    *ngIf="item.label === 'Carrito'"
-                    class="badge bg-danger ms-1 align-self-start"
-                    style="margin-left: 5px"
+                    *ngIf="item.label === 'Carrito' && currentUser"
+                    class="badge bg-danger ms-1"
                   >
                     {{ cartItemCount }}
                   </span>
@@ -65,7 +67,11 @@
           <span class="navbar-text me-3 text-warning">{{
             currentUser.username
           }}</span>
-          <button class="btn btn-outline-danger" (click)="onLogout()">
+          <button
+            class="btn btn-outline-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
             Logout
           </button>
         </div>
@@ -95,6 +101,6 @@
     </div>
   </div>
 </nav>
-
+<app-logout-modal></app-logout-modal>
 <router-outlet [attr.data-bs-theme]="themeService.getTheme()"></router-outlet>
 <app-footer></app-footer>

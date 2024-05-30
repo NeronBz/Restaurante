@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private itemsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
-    this.loadItems()
-  );
-  private items: any[] = this.itemsSubject.value;
+  private itemsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  private items: any[] = [];
+
+  constructor(private authService: AuthService) {
+    this.loadItems();
+  }
 
   addToCart(item: any) {
     const existingItem = this.items.find((cartItem) => cartItem.id === item.id);
@@ -50,12 +53,22 @@ export class CartService {
     this.itemsSubject.next(this.items);
   }
 
-  private loadItems(): any[] {
-    const items = localStorage.getItem('cartItems');
-    return items ? JSON.parse(items) : [];
+  private loadItems() {
+    const user = this.authService.getCurrentUser();
+    if (user) {
+      const items = localStorage.getItem(`cartItems_${user.username}`);
+      this.items = items ? JSON.parse(items) : [];
+      this.itemsSubject.next(this.items);
+    }
   }
 
   private saveItems() {
-    localStorage.setItem('cartItems', JSON.stringify(this.items));
+    const user = this.authService.getCurrentUser();
+    if (user) {
+      localStorage.setItem(
+        `cartItems_${user.username}`,
+        JSON.stringify(this.items)
+      );
+    }
   }
 }

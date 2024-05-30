@@ -13,6 +13,7 @@ export class OnlyProductPageComponent implements OnInit {
   imagenComida: string = '';
   descripcionComida: string = '';
   nombreRestaurante: string = '';
+  precio: number = 0;
   id: number = 0;
 
   constructor(
@@ -31,6 +32,7 @@ export class OnlyProductPageComponent implements OnInit {
       this.imagenComida = data.imagen;
       this.descripcionComida = data.descripcion;
       this.nombreRestaurante = data.restaurante;
+      this.precio = data.precio;
     });
   }
 
@@ -46,7 +48,7 @@ export class OnlyProductPageComponent implements OnInit {
       imagen: this.imagenComida,
       restaurante: this.nombreRestaurante,
       cantidad: 1,
-      precio: 10, // Asegúrate de ajustar esto según tu lógica
+      precio: this.precio,
     });
   }
 }

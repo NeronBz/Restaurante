@@ -84,11 +84,6 @@ export class LayoutRestaurantPageComponent implements OnInit {
     return groupedItems;
   }
 
-  onLogout(): void {
-    this.authService.logout();
-    this.router.navigate(['/auth/login']);
-  }
-
   changeColor() {
     this.isLightTheme = !this.isLightTheme;
     const theme = this.isLightTheme ? 'light' : 'dark';

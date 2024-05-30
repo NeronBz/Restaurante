@@ -32,8 +32,7 @@ export class CartPageComponent implements OnInit {
   }
 
   checkout() {
-    // Implementar lógica para redirigir a la pasarela de pago
-    this.router.navigate(['/payment']);
+    this.router.navigate(['/restaurant/payment']);
   }
 
   private updateCart() {
@@ -50,16 +49,27 @@ export class CartPageComponent implements OnInit {
     ) as HTMLElement;
     modalElement.classList.add('show');
     modalElement.setAttribute('aria-hidden', 'false');
-    modalElement.setAttribute('style', 'display: block;');
+    modalElement.setAttribute('style', 'display: block');
     document.body.appendChild(document.createElement('div')).className =
       'modal-backdrop fade show';
   }
 
-  updateItemQuantity(newQuantity: number) {
+  onQuantityChange(newQuantity: number) {
     if (this.selectedItem) {
       this.selectedItem.cantidad = newQuantity;
       this.cartService.updateCart(this.items);
       this.updateCart();
+      this.closeQuantityModal();
     }
+  }
+
+  closeQuantityModal() {
+    const modalElement = document.getElementById(
+      'quantityModal'
+    ) as HTMLElement;
+    modalElement.classList.remove('show');
+    modalElement.setAttribute('aria-hidden', 'true');
+    modalElement.setAttribute('style', 'display: none');
+    document.querySelector('.modal-backdrop')?.remove();
   }
 }

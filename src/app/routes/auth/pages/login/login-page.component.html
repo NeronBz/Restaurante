@@ -12,6 +12,12 @@
       </button>
     </div>
   </div>
+
+  <!-- Notificación -->
+  <div *ngIf="isRegistered" class="notification success">
+    {{ notificationMessage }}
+  </div>
+
   <div class="row fila-principal">
     <div class="col d-flex justify-content-center align-items-center">
       <div class="main">

@@ -16,9 +16,11 @@ export class RegisterPageComponent {
   register() {
     if (this.username !== '' || this.password !== '') {
       if (this.authService.register(this.username, this.password)) {
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/auth/login'], {
+          queryParams: { registered: 'true' },
+        });
       } else {
-        alert('Credenciales incorrectas');
+        alert('Ya existe un usuario con ese nombre');
       }
     } else {
       alert('Tiene que escribir en los campos');
