@@ -5,6 +5,7 @@ import { ErrorPageComponent } from './pages/error/error-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CartQuantityModalComponent } from './components/cart-quantity-modal/cart-quantity-modal.component';
 import { LogOutModalComponent } from './components/logout-modal/logout-modal.component';
+
 @NgModule({
   declarations: [
     ErrorPageComponent,
