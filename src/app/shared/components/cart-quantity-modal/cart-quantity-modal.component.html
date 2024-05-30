@@ -1,0 +1,43 @@
+<div
+  class="modal fade"
+  id="quantityModal"
+  tabindex="-1"
+  aria-labelledby="quantityModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="quantityModalLabel">Ajustar Cantidad</h5>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="btn btn-secondary" (click)="decreaseQuantity()">
+            -
+          </button>
+          <input
+            type="text"
+            class="form-control text-center mx-3"
+            [value]="currentQuantity"
+            readonly
+          />
+          <button class="btn btn-secondary" (click)="increaseQuantity()">
+            +
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="confirmQuantity()"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

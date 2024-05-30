@@ -10,6 +10,7 @@ import { CartService } from '../../../shared/services/cart.service';
 export class CartPageComponent implements OnInit {
   items: any[] = [];
   total: number = 0;
+  selectedItem: any;
 
   constructor(private cartService: CartService, private router: Router) {}
 
@@ -40,5 +41,25 @@ export class CartPageComponent implements OnInit {
       this.items = items;
       this.total = this.cartService.getTotal();
     });
+  }
+
+  openQuantityModal(item: any) {
+    this.selectedItem = item;
+    const modalElement = document.getElementById(
+      'quantityModal'
+    ) as HTMLElement;
+    modalElement.classList.add('show');
+    modalElement.setAttribute('aria-hidden', 'false');
+    modalElement.setAttribute('style', 'display: block;');
+    document.body.appendChild(document.createElement('div')).className =
+      'modal-backdrop fade show';
+  }
+
+  updateItemQuantity(newQuantity: number) {
+    if (this.selectedItem) {
+      this.selectedItem.cantidad = newQuantity;
+      this.cartService.updateCart(this.items);
+      this.updateCart();
+    }
   }
 }

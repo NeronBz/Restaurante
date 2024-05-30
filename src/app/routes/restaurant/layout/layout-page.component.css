@@ -40,10 +40,6 @@ label:active::after {
 }
 
 @media (max-width: 768px) {
-  li {
-    display: flex;
-    justify-content: center;
-  }
   .form-check-label {
     width: 60px;
     height: 24px;

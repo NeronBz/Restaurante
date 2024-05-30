@@ -44,6 +44,12 @@ export class CartService {
     );
   }
 
+  updateCart(updatedItems: any[]) {
+    this.items = updatedItems;
+    this.saveItems();
+    this.itemsSubject.next(this.items);
+  }
+
   private loadItems(): any[] {
     const items = localStorage.getItem('cartItems');
     return items ? JSON.parse(items) : [];

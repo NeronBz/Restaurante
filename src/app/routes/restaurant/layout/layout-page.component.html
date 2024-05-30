@@ -1,5 +1,5 @@
 <nav
-  class="navbar navbar-expand-md fs-4 sticky-top"
+  class="navbar navbar-expand-lg fs-4 sticky-top"
   [ngClass]="{ 'bg-dark': isLightTheme, 'bg-light': !isLightTheme }"
 >
   <div class="container-fluid">
@@ -13,33 +13,49 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
         [ngClass]="{ 'bg-dark': !isLightTheme, 'bg-light': isLightTheme }"
-      ></button>
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <a class="navbar-brand ms-2 fs-3 text-warning">{{ currentRouteTitle }}</a>
       <div
-        class="vr d-none d-md-block"
+        class="vr d-none d-lg-block"
         [ngClass]="{ 'bg-dark': !isLightTheme, 'bg-light': isLightTheme }"
       ></div>
     </div>
     <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav nav-pills primary me-auto mb-2 mb-md-0">
-        <li class="nav-item" *ngFor="let item of sidebarItems; let i = index">
-          <a
-            [routerLink]="[item.url]"
-            class="nav-link"
-            [ngClass]="{
-              'text-dark': !isLightTheme,
-              'text-light': isLightTheme
-            }"
-            (click)="collapse('navbarContent', i)"
-            >{{ item.label }}
-            <span
-              *ngIf="item.label === 'Carrito'"
-              class="badge bg-danger ms-1"
-              >{{ cartItemCount }}</span
-            >
-          </a>
-        </li>
+      <ul class="navbar-nav primary me-auto mb-2 mb-md-0">
+        <ng-container
+          *ngFor="let row of groupItems(sidebarItems, 2); let rowIndex = index"
+        >
+          <div class="row g-0" *ngIf="row.length > 0">
+            <div *ngFor="let item of row" class="col-12 col-sm-6">
+              <li
+                class="nav-item d-flex justify-content-center align-items-center"
+              >
+                <a
+                  [routerLink]="[item.url]"
+                  class="nav-link text-center d-flex align-items-center"
+                  [ngClass]="{
+                    'text-dark': !isLightTheme,
+                    'text-light': isLightTheme
+                  }"
+                  (click)="collapse('navbarContent', rowIndex)"
+                >
+                  {{ item.label }}
+                  <span
+                    *ngIf="item.label === 'Carrito'"
+                    class="badge bg-danger ms-1 align-self-start"
+                    style="margin-left: 5px"
+                  >
+                    {{ cartItemCount }}
+                  </span>
+                </a>
+              </li>
+            </div>
+          </div>
+        </ng-container>
       </ul>
+
       <!-- User info and dark mode toggle -->
       <div class="d-flex align-items-center">
         <div

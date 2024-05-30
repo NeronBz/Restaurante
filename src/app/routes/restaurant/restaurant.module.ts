@@ -10,6 +10,7 @@ import { HomePageComponent } from './home/home-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { OnlyProductPageComponent } from './products/only-product/only-product-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CartPageComponent } from './cart/cart-page.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     OnlyRecipePageComponent,
     OnlyProductPageComponent,
     HomePageComponent,
+    CartPageComponent,
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card mt-4">
-    <div class="card-header">
+    <div class="card-header text-center">
       <h2>Carrito de Compras</h2>
     </div>
     <div class="card-body">
@@ -18,7 +18,7 @@
           </div>
           <div class="col-4">
             <h4>{{ item.nombre }}</h4>
-            <p>{{ item.descripcion }}</p>
+            <p>{{ item.restaurante }}</p>
           </div>
           <div class="col-2">
             <p>
@@ -27,31 +27,42 @@
           </div>
           <div class="col-2">
             <p>
-              <strong>Precio: ${{ item.precio }}</strong>
+              <strong>Precio: {{ item.precio }}€</strong>
             </p>
           </div>
           <div class="col-2 text-end">
             <button class="btn btn-danger" (click)="removeFromCart(item.id)">
               Eliminar
             </button>
+            <!-- Botón para ajustar la cantidad -->
+            <button
+              type="button"
+              class="btn btn-warning btn-sm"
+              (click)="openQuantityModal(item)"
+            >
+              Ajustar Cantidad
+            </button>
           </div>
         </div>
-        <div class="row mt-4">
-          <div class="col-12 text-end">
-            <h4>Total: ${{ total }}</h4>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-6 text-start">
+        <div class="row border-top">
+          <div class="col">
             <button class="btn btn-warning" (click)="clearCart()">
               Borrar Todo
             </button>
           </div>
-          <div class="col-6 text-end">
+          <div class="col">
             <button class="btn btn-success" (click)="checkout()">Pagar</button>
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <h4>Total: {{ total }}€</h4>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-cart-quantity-modal
+  [currentQuantity]="selectedItem?.cantidad"
+  (quantityChange)="updateItemQuantity($event)"
+>
+</app-cart-quantity-modal>

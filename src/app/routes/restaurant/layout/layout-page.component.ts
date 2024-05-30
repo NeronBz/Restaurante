@@ -76,6 +76,14 @@ export class LayoutRestaurantPageComponent implements OnInit {
       );
   }
 
+  groupItems(items: any[], groupSize: number): any[][] {
+    let groupedItems = [];
+    for (let i = 0; i < items.length; i += groupSize) {
+      groupedItems.push(items.slice(i, i + groupSize));
+    }
+    return groupedItems;
+  }
+
   onLogout(): void {
     this.authService.logout();
     this.router.navigate(['/auth/login']);
