@@ -17,6 +17,7 @@ export class FoodService {
         { autor: 'Juan', comentario: 'Excelente sabor y muy jugosa.' },
         { autor: 'Ana', comentario: 'Me encantó la salsa especial.' },
       ],
+      precio: 15,
     },
     {
       id: 2,
@@ -28,6 +29,7 @@ export class FoodService {
         { autor: 'Mario', comentario: 'Auténtica pizza italiana, deliciosa.' },
         { autor: 'Lucia', comentario: 'La masa estaba perfecta.' },
       ],
+      precio: 20,
     },
     {
       id: 3,
@@ -40,6 +42,7 @@ export class FoodService {
         { autor: 'Carlos', comentario: 'Los mejores tacos que he probado.' },
         { autor: 'Sofia', comentario: 'Muy auténticos y llenos de sabor.' },
       ],
+      precio: 10,
     },
   ];
 
