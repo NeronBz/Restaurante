@@ -8,6 +8,7 @@ import { OnlyRecipePageComponent } from './recipes/only-recipes/only-recipe-page
 import { OnlyProductPageComponent } from './products/only-product/only-product-page.component';
 import { ProductsPageComponent } from './products/page/products-page.component';
 import { RecipesPageComponent } from './recipes/page/recipes-page.component';
+import { PaymentPageComponent } from './payment/payment-page.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,12 @@ const routes: Routes = [
         path: 'cart',
         data: { title: 'Carrito' },
         component: CartPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'payment',
+        data: { title: 'Pago' },
+        component: PaymentPageComponent,
         canActivate: [AuthGuard],
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' },

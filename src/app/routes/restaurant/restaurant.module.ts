@@ -9,6 +9,8 @@ import { OnlyRecipePageComponent } from './recipes/only-recipes/only-recipe-page
 import { HomePageComponent } from './home/home-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { OnlyProductPageComponent } from './products/only-product/only-product-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CartPageComponent } from './cart/cart-page.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,15 @@ import { OnlyProductPageComponent } from './products/only-product/only-product-p
     OnlyRecipePageComponent,
     OnlyProductPageComponent,
     HomePageComponent,
+    CartPageComponent,
   ],
-  imports: [CommonModule, RouterModule, RestaurantRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    RestaurantRoutingModule,
+    HttpClientModule,
+    SharedModule,
+  ],
   exports: [LayoutRestaurantPageComponent],
 })
 export class RestaurantModule {}

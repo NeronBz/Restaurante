@@ -39,11 +39,11 @@ label:active::after {
   width: 45px;
 }
 
+span.badge {
+  border-radius: 46%;
+}
+
 @media (max-width: 768px) {
-  li {
-    display: flex;
-    justify-content: center;
-  }
   .form-check-label {
     width: 60px;
     height: 24px;

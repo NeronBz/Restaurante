@@ -49,15 +49,13 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    const isAuthenticated = !!sessionStorage.getItem('currentUser');
-    return isAuthenticated;
+    return !!sessionStorage.getItem(this.currentUserKey);
   }
 
   getCurrentUser(): User | null {
     const currentUserJson = sessionStorage.getItem(this.currentUserKey);
     if (currentUserJson) {
-      const currentUser = JSON.parse(currentUserJson);
-      return currentUser;
+      return JSON.parse(currentUserJson);
     }
     return null;
   }
