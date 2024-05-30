@@ -13,6 +13,7 @@ export class OnlyProductPageComponent implements OnInit {
   descripcionComida: string = '';
   nombreRestaurante: string = '';
   id: number = 0;
+  showComments: boolean = false;
 
   constructor(
     private foodService: FoodService,
@@ -30,6 +31,10 @@ export class OnlyProductPageComponent implements OnInit {
       this.descripcionComida = data.descripcion;
       this.nombreRestaurante = data.restaurante;
     });
+  }
+
+  toggleComments() {
+    this.showComments = !this.showComments;
   }
 
   goToRecipe() {

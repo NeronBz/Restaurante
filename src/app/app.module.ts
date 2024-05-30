@@ -9,6 +9,7 @@ import { AuthGuard } from './routes/auth/guards/auth.guard';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HttpClientModule } from '@angular/common/http';
 import { RestaurantModule } from './routes/restaurant/restaurant.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

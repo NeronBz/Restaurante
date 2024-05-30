@@ -1,39 +1,29 @@
 <div class="container">
-  <main class="d-flex justify-content-center align-items-center p-4">
+  <main class="d-flex justify-content-center align-items-center flex-column p-4">
     <div class="card p-3">
-      <div
-        class="d-flex flex-column flex-lg-row justify-content-between card-content"
-      >
+      <div class="d-flex flex-column flex-lg-row justify-content-between card-content">
         <div class="mb-3 mb-lg-0 text-center text-white">
           <h1 class="fs-1 text-decoration-underline">{{ nombreComida }}</h1>
           <h3>{{ nombreRestaurante }}</h3>
           <h2>Descripción</h2>
           <p>{{ descripcionComida }}</p>
+          <button type="button" class="btn btn-link" (click)="toggleComments()">
+            Ver Comentarios
+          </button>
         </div>
         <div class="recipe-image d-flex justify-items-center">
-          <img
-            [src]="imagenComida"
-            alt="Imagen del plato"
-            class="img-fluid w-100"
-          />
+          <img [src]="imagenComida" alt="Imagen del plato" class="img-fluid w-100" />
         </div>
       </div>
       <div class="d-flex justify-content-center mt-4">
-        <button
-          type="button"
-          class="btn btn-secondary btn-lg btn-responsive m-2"
-          onclick="history.back(-1)"
-        >
+        <button type="button" class="btn btn-secondary btn-lg btn-responsive m-2" onclick="history.back(-1)">
           Volver
         </button>
-        <button
-          type="button"
-          class="btn btn-warning btn-lg btn-responsive m-2"
-          (click)="goToRecipe()"
-        >
+        <button type="button" class="btn btn-warning btn-lg btn-responsive m-2" (click)="goToRecipe()">
           Receta
         </button>
       </div>
     </div>
+
   </main>
 </div>
