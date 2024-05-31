@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { AuthGuard } from './routes/auth/guards/auth.guard';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HttpClientModule } from '@angular/common/http';
 import { RestaurantModule } from './routes/restaurant/restaurant.module';
+import { AuthGuard } from './routes/auth/guards/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +19,7 @@ import { RestaurantModule } from './routes/restaurant/restaurant.module';
     HttpClientModule,
     RestaurantModule,
   ],
-  providers: [provideAnimationsAsync(), AuthGuard],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

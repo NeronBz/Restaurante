@@ -8,11 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['only-recipe-page.component.css'],
 })
 export class OnlyRecipePageComponent implements OnInit {
-  nombreReceta: string = '';
-  imagenReceta: string = '';
+  nombreReceta = '';
+  imagenReceta = '';
   ingredientesReceta: string[] = [];
   preparacionReceta: string[] = [];
-  id: number = 0;
+  id = 0;
 
   constructor(
     private recipesService: RecipesService,
@@ -20,7 +20,7 @@ export class OnlyRecipePageComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params['recipeId'];
     });
@@ -33,7 +33,7 @@ export class OnlyRecipePageComponent implements OnInit {
     console.log(this.ingredientesReceta);
   }
 
-  goToProduct() {
+  goToProduct(): void {
     this.router.navigate(['/restaurant/products', this.id]);
   }
 }

@@ -9,40 +9,40 @@ import { CartService } from '../../../shared/services/cart.service';
 })
 export class CartPageComponent implements OnInit {
   items: any[] = [];
-  total: number = 0;
+  total = 0;
   selectedItem: any;
 
   constructor(private cartService: CartService, private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.cartService.getItems().subscribe((items) => {
       this.items = items;
       this.total = this.cartService.getTotal();
     });
   }
 
-  removeFromCart(id: number) {
+  removeFromCart(id: number): void {
     this.cartService.removeFromCart(id);
     this.updateCart();
   }
 
-  clearCart() {
+  clearCart(): void {
     this.cartService.clearCart();
     this.updateCart();
   }
 
-  checkout() {
+  checkout(): void {
     this.router.navigate(['/restaurant/payment']);
   }
 
-  private updateCart() {
+  private updateCart(): void {
     this.cartService.getItems().subscribe((items) => {
       this.items = items;
       this.total = this.cartService.getTotal();
     });
   }
 
-  openQuantityModal(item: any) {
+  openQuantityModal(item: any): void {
     this.selectedItem = item;
     const modalElement = document.getElementById(
       'quantityModal'
@@ -54,7 +54,7 @@ export class CartPageComponent implements OnInit {
       'modal-backdrop fade show';
   }
 
-  onQuantityChange(newQuantity: number) {
+  onQuantityChange(newQuantity: number): void {
     if (this.selectedItem) {
       this.selectedItem.cantidad = newQuantity;
       this.cartService.updateCart(this.items);
@@ -63,7 +63,7 @@ export class CartPageComponent implements OnInit {
     }
   }
 
-  closeQuantityModal() {
+  closeQuantityModal(): void {
     const modalElement = document.getElementById(
       'quantityModal'
     ) as HTMLElement;

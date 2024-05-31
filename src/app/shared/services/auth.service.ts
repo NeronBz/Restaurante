@@ -10,9 +10,9 @@ export class AuthService {
 
   register(username: string, password: string): boolean {
     const users = this.getUsersFromStorage();
-    const user = users.find((u) => u.username === username);
+    const userExists = users.some((u) => u.username === username);
 
-    if (user) {
+    if (userExists) {
       return false;
     } else {
       users.push({ username, password });
@@ -28,11 +28,10 @@ export class AuthService {
     );
 
     if (user) {
-      sessionStorage.setItem('currentUser', JSON.stringify({ username }));
+      sessionStorage.setItem(this.currentUserKey, JSON.stringify({ username }));
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   private getUsersFromStorage(): User[] {
@@ -45,7 +44,7 @@ export class AuthService {
   }
 
   logout(): void {
-    sessionStorage.removeItem('currentUser');
+    sessionStorage.removeItem(this.currentUserKey);
   }
 
   isLoggedIn(): boolean {
@@ -54,9 +53,6 @@ export class AuthService {
 
   getCurrentUser(): User | null {
     const currentUserJson = sessionStorage.getItem(this.currentUserKey);
-    if (currentUserJson) {
-      return JSON.parse(currentUserJson);
-    }
-    return null;
+    return currentUserJson ? JSON.parse(currentUserJson) : null;
   }
 }

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FoodService } from '../../../../shared/services/food.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../../../shared/services/cart.service';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from '../../../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-only-products-page',
@@ -9,22 +12,29 @@ import { CartService } from '../../../../shared/services/cart.service';
   styleUrls: ['only-product-page.component.css'],
 })
 export class OnlyProductPageComponent implements OnInit {
-  nombreComida: string = '';
-  imagenComida: string = '';
-  descripcionComida: string = '';
-  nombreRestaurante: string = '';
-  precio: number = 0;
-  id: number = 0;
-  showComments: boolean = false;
+  nombreComida = '';
+  imagenComida = '';
+  descripcionComida = '';
+  nombreRestaurante = '';
+  precio = 0;
+  id = 0;
+  showComments = false;
+  commentForm!: FormGroup;
+  newComment = '';
+  comments: any[] = [];
+  isLoggedIn = false;
+  currentUser: User | null = null;
 
   constructor(
+    private formBuilder: FormBuilder,
     private foodService: FoodService,
     private route: ActivatedRoute,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private authService: AuthService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params['productId'];
     });
@@ -34,18 +44,27 @@ export class OnlyProductPageComponent implements OnInit {
       this.descripcionComida = data.descripcion;
       this.nombreRestaurante = data.restaurante;
       this.precio = data.precio;
+      this.comments = data.comentarios;
+    });
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.currentUser = this.authService.getCurrentUser();
+    console.log(this.currentUser);
+
+    this.commentForm = this.formBuilder.group({
+      comentario: ['', Validators.required],
+      estrellas: ['', Validators.required],
+    });
+
+    this.commentForm.get('comentario')?.valueChanges.subscribe((value) => {
+      this.newComment = value;
     });
   }
 
-  toggleComments() {
-    this.showComments = !this.showComments;
-  }
-
-  goToRecipe() {
+  goToRecipe(): void {
     this.router.navigate(['/restaurant/recipes', this.id]);
   }
 
-  addToCart() {
+  addToCart(): void {
     this.cartService.addToCart({
       id: this.id,
       nombre: this.nombreComida,
@@ -55,5 +74,21 @@ export class OnlyProductPageComponent implements OnInit {
       cantidad: 1,
       precio: this.precio,
     });
+  }
+
+  viewAllComments(): void {
+    this.router.navigate(['/restaurant/products', this.id, 'comments']);
+  }
+
+  publishComment(): void {
+    if (this.commentForm.valid) {
+      this.comments.push({
+        autor: this.currentUser?.username || 'Anonimo',
+        comentario: this.commentForm.value.comentario,
+        estrellas: this.commentForm.value.estrellas,
+      });
+
+      this.commentForm.reset();
+    }
   }
 }

@@ -17,7 +17,7 @@ export class RecipesPageComponent implements OnInit {
     console.log(this.recipes);
   }
 
-  redirectToOnlyRecipe(id: number) {
+  redirectToOnlyRecipe(id: number): void {
     console.log(id);
     this.router.navigate(['restaurant/recipes', id]);
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../shared/services/auth.service';
 
@@ -7,11 +7,11 @@ import { AuthService } from '../../../../shared/services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['../layout/layout-page.component.css'],
 })
-export class LoginPageComponent {
-  username: string = '';
-  password: string = '';
-  isRegistered: boolean = false;
-  notificationMessage: string = '';
+export class LoginPageComponent implements OnInit {
+  username = '';
+  password = '';
+  isRegistered = false;
+  notificationMessage = '';
   notificationType: 'success' | 'error' = 'success';
 
   constructor(
@@ -22,25 +22,20 @@ export class LoginPageComponent {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      if (params['registered'] === 'true') {
-        this.isRegistered = true;
-        this.notificationMessage = 'Registro exitoso';
-        this.notificationType = 'success';
-        this.hideNotificationAfterDelay();
-      } else {
-        this.isRegistered = false;
-        this.notificationMessage = 'Registro fallido';
-        this.notificationType = 'error';
-        this.hideNotificationAfterDelay();
-      }
+      this.isRegistered = params['registered'] === 'true';
+      this.notificationMessage = this.isRegistered
+        ? 'Registro exitoso'
+        : 'Registro fallido';
+      this.notificationType = this.isRegistered ? 'success' : 'error';
+      this.hideNotificationAfterDelay();
     });
   }
 
-  login() {
-    if (this.username !== '' && this.password !== '') {
+  login(): void {
+    if (this.username && this.password) {
       if (this.authService.login(this.username, this.password)) {
         this.router.navigate(['/']);
-        setInterval(() => {
+        setTimeout(() => {
           location.reload();
         }, 1);
       } else {
@@ -51,7 +46,7 @@ export class LoginPageComponent {
     }
   }
 
-  hideNotificationAfterDelay() {
+  hideNotificationAfterDelay(): void {
     setTimeout(() => {
       this.isRegistered = false;
     }, 5000);

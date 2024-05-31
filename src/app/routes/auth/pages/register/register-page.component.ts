@@ -8,13 +8,13 @@ import { AuthService } from '../../../../shared/services/auth.service';
   styleUrls: ['../layout/layout-page.component.css'],
 })
 export class RegisterPageComponent {
-  username: string = '';
-  password: string = '';
+  username = '';
+  password = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  register() {
-    if (this.username !== '' || this.password !== '') {
+  register(): void {
+    if (this.username && this.password) {
       if (this.authService.register(this.username, this.password)) {
         this.router.navigate(['/auth/login'], {
           queryParams: { registered: 'true' },

@@ -9,6 +9,7 @@ import { OnlyProductPageComponent } from './products/only-product/only-product-p
 import { ProductsPageComponent } from './products/page/products-page.component';
 import { RecipesPageComponent } from './recipes/page/recipes-page.component';
 import { PaymentPageComponent } from './payment/payment-page.component';
+import { AllCommentsPageComponent } from './products/all-comments/all-comments-page.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
         path: 'products/:productId',
         data: { title: 'Plato' },
         component: OnlyProductPageComponent,
+      },
+      {
+        path: 'products/:productId/comments',
+        data: { title: 'Comentarios' },
+        component: AllCommentsPageComponent,
       },
       {
         path: 'recipes',

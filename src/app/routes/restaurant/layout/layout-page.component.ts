@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
+
 import { AuthService } from '../../../shared/services/auth.service';
-import { filter, map } from 'rxjs';
-import { User } from '../../../shared/interfaces/user.interface';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { CartService } from '../../../shared/services/cart.service';
+import { User } from '../../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-layout-restaurant-page',
@@ -12,12 +13,12 @@ import { CartService } from '../../../shared/services/cart.service';
   styleUrls: ['./layout-page.component.css'],
 })
 export class LayoutRestaurantPageComponent implements OnInit {
-  currentRouteTitle: string = '';
-  currentId: string = '';
+  currentRouteTitle = '';
+  currentId = '';
   currentUser: User | null = null;
-  isLightTheme: boolean = true;
-  selectedItemIndex: number = 0;
-  cartItemCount: number = 0;
+  isLightTheme = true;
+  selectedItemIndex = 0;
+  cartItemCount = 0;
 
   public sidebarItems = [
     { label: 'Home', url: 'home' },
@@ -60,34 +61,28 @@ export class LayoutRestaurantPageComponent implements OnInit {
       this.isLightTheme = theme === 'light';
     }
     this.currentUser = this.authService.getCurrentUser();
-    const checkbox = document.getElementById('checkbox');
-    checkbox?.addEventListener('change', () => {
+    document.getElementById('checkbox')?.addEventListener('change', () => {
       document.body.classList.toggle('dark-mode');
     });
-
-    this.cartService
-      .getItems()
-      .subscribe(
-        (items) =>
-          (this.cartItemCount = items.reduce(
-            (total, item) => total + item.cantidad,
-            0
-          ))
+    this.cartService.getItems().subscribe((items) => {
+      this.cartItemCount = items.reduce(
+        (total, item) => total + item.cantidad,
+        0
       );
+    });
   }
 
   groupItems(items: any[], groupSize: number): any[][] {
-    let groupedItems = [];
+    const groupedItems = [];
     for (let i = 0; i < items.length; i += groupSize) {
       groupedItems.push(items.slice(i, i + groupSize));
     }
     return groupedItems;
   }
 
-  changeColor() {
+  changeColor(): void {
     this.isLightTheme = !this.isLightTheme;
-    const theme = this.isLightTheme ? 'light' : 'dark';
-    this.themeService.setTheme(theme);
+    this.themeService.setTheme(this.isLightTheme ? 'light' : 'dark');
   }
 
   collapse(id: string, index: number): void {

@@ -10,7 +10,7 @@ import { CartService } from '../../../shared/services/cart.service';
 export class PaymentPageComponent {
   constructor(private router: Router, private cartService: CartService) {}
 
-  pay() {
+  pay(): void {
     this.cartService.clearCart();
     alert('Pago realizado con éxito!');
     this.router.navigate(['/']);

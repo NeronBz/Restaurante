@@ -17,7 +17,7 @@ export class ProductsPageComponent implements OnInit {
     console.log(this.comidas);
   }
 
-  redirectToOnlyProduct(id: number) {
+  redirectToOnlyProduct(id: number): void {
     console.log(id);
     this.router.navigate(['restaurant/products', id]);
   }
