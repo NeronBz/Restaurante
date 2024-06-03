@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodService } from '../../../../shared/services/food.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CartService } from '../../../../shared/services/cart.service';
-import { AuthService } from '../../../../shared/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FoodService } from '../../../../shared/services/food.service';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { CartService } from '../../../../shared/services/cart.service';
 import { User } from '../../../../shared/interfaces/user.interface';
 
 @Component({
@@ -18,12 +18,11 @@ export class OnlyProductPageComponent implements OnInit {
   nombreRestaurante = '';
   precio = 0;
   id = 0;
-  showComments = false;
   commentForm!: FormGroup;
-  newComment = '';
   comments: any[] = [];
   isLoggedIn = false;
   currentUser: User | null = null;
+  hasText = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,27 +36,31 @@ export class OnlyProductPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params['productId'];
+      this.foodService.getComidaById(this.id).subscribe((data) => {
+        this.nombreComida = data.nombre;
+        this.imagenComida = data.imagen;
+        this.descripcionComida = data.descripcion;
+        this.nombreRestaurante = data.restaurante;
+        this.precio = data.precio;
+        this.comments = data.comentarios;
+      });
     });
-    this.foodService.getComidaById(this.id).subscribe((data) => {
-      this.nombreComida = data.nombre;
-      this.imagenComida = data.imagen;
-      this.descripcionComida = data.descripcion;
-      this.nombreRestaurante = data.restaurante;
-      this.precio = data.precio;
-      this.comments = data.comentarios;
-    });
+
     this.isLoggedIn = this.authService.isLoggedIn();
     this.currentUser = this.authService.getCurrentUser();
-    console.log(this.currentUser);
 
     this.commentForm = this.formBuilder.group({
       comentario: ['', Validators.required],
       estrellas: ['', Validators.required],
     });
 
-    this.commentForm.get('comentario')?.valueChanges.subscribe((value) => {
-      this.newComment = value;
+    this.commentForm.valueChanges.subscribe((value) => {
+      this.hasText = value.comentario.trim().length > 0;
     });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/restaurant/products']);
   }
 
   goToRecipe(): void {
@@ -82,13 +85,17 @@ export class OnlyProductPageComponent implements OnInit {
 
   publishComment(): void {
     if (this.commentForm.valid) {
-      this.comments.push({
+      const newComment = {
         autor: this.currentUser?.username || 'Anonimo',
         comentario: this.commentForm.value.comentario,
         estrellas: this.commentForm.value.estrellas,
-      });
+      };
 
-      this.commentForm.reset();
+      this.foodService.publishComment(this.id, newComment).subscribe((data) => {
+        this.comments = data.comentarios;
+        this.commentForm.reset();
+        this.hasText = false;
+      });
     }
   }
 }

@@ -33,6 +33,10 @@ export class OnlyRecipePageComponent implements OnInit {
     console.log(this.ingredientesReceta);
   }
 
+  goBack(): void {
+    this.router.navigate(['/restaurant/recipes']);
+  }
+
   goToProduct(): void {
     this.router.navigate(['/restaurant/products', this.id]);
   }

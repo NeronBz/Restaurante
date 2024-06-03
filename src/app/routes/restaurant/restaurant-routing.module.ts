@@ -10,6 +10,7 @@ import { ProductsPageComponent } from './products/page/products-page.component';
 import { RecipesPageComponent } from './recipes/page/recipes-page.component';
 import { PaymentPageComponent } from './payment/payment-page.component';
 import { AllCommentsPageComponent } from './products/all-comments/all-comments-page.component';
+import { ProfilePageComponent } from './profile/profile-page.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,12 @@ const routes: Routes = [
         path: 'payment',
         data: { title: 'Pago' },
         component: PaymentPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'profile',
+        data: { title: 'Perfil' },
+        component: ProfilePageComponent,
         canActivate: [AuthGuard],
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
