@@ -21,6 +21,10 @@
   padding: 16px;
 }
 
+#cardPrincipal {
+  cursor: pointer;
+}
+
 ::ng-deep [data-bs-theme="dark"] .card {
   box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.4);
   transition: 0.3s;

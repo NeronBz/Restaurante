@@ -54,10 +54,18 @@ export class FoodService {
   }
 
   getComidaById(id: number): Observable<any> {
-    let comidaById: any;
-    comidaById = this.comidas.find((comida) => comida.id == id);
-    console.log(comidaById);
+    const comida = this.comidas.find((comida) => comida.id === id);
+    return of(comida);
+  }
 
-    return of(comidaById);
+  publishComment(
+    id: number,
+    comment: { autor: string; comentario: string; estrellas: number }
+  ): Observable<any> {
+    const comida = this.comidas.find((comida) => comida.id === id);
+    if (comida) {
+      comida.comentarios.push(comment);
+    }
+    return of(comida);
   }
 }

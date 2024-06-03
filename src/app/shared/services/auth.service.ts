@@ -8,14 +8,18 @@ export class AuthService {
 
   constructor() {}
 
-  register(username: string, password: string): boolean {
+  register(username: string, name: string, password: string): boolean {
     const users = this.getUsersFromStorage();
     const userExists = users.some((u) => u.username === username);
 
     if (userExists) {
       return false;
     } else {
-      users.push({ username, password });
+      users.push({
+        username,
+        password,
+        name,
+      });
       this.saveUsersToStorage(users);
       return true;
     }
@@ -28,10 +32,26 @@ export class AuthService {
     );
 
     if (user) {
-      sessionStorage.setItem(this.currentUserKey, JSON.stringify({ username }));
+      sessionStorage.setItem(this.currentUserKey, JSON.stringify(user));
       return true;
     }
     return false;
+  }
+
+  updateUser(updatedUser: User): void {
+    const users = this.getUsersFromStorage();
+    const index = users.findIndex((u) => u.username === updatedUser.username);
+    if (index !== -1) {
+      users[index] = updatedUser;
+      this.saveUsersToStorage(users);
+      sessionStorage.setItem(this.currentUserKey, JSON.stringify(updatedUser));
+    }
+  }
+
+  deleteUser(username: string): void {
+    const users = this.getUsersFromStorage();
+    const updatedUsers = users.filter((u) => u.username !== username);
+    this.saveUsersToStorage(updatedUsers);
   }
 
   private getUsersFromStorage(): User[] {

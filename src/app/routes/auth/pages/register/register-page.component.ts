@@ -10,12 +10,13 @@ import { AuthService } from '../../../../shared/services/auth.service';
 export class RegisterPageComponent {
   username = '';
   password = '';
+  name = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   register(): void {
     if (this.username && this.password) {
-      if (this.authService.register(this.username, this.password)) {
+      if (this.authService.register(this.username, this.name, this.password)) {
         this.router.navigate(['/auth/login'], {
           queryParams: { registered: 'true' },
         });

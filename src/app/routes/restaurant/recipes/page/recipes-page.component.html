@@ -1,12 +1,12 @@
 <div class="container">
   <h1 class="text-center my-4">Nuestras Recetas</h1>
   <div class="row">
-    <div
-      class="col-md-4"
-      *ngFor="let recipe of recipes"
-      (click)="redirectToOnlyRecipe(recipe.id)"
-    >
-      <div class="card mb-4">
+    <div class="col-md-4" *ngFor="let recipe of recipes">
+      <div
+        class="card mb-4"
+        id="cardPrincipal"
+        (click)="redirectToOnlyRecipe(recipe.id)"
+      >
         <img
           [src]="recipe.imagen"
           class="card-img-top"
