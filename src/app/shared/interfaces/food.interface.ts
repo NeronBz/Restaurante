@@ -9,9 +9,11 @@ export interface Comida {
   restaurante: string;
   comentarios: Comentario[];
   tipo: string;
+ 
 }
 
 export interface Comentario {
   autor: string;
   comentario: string;
 }
+

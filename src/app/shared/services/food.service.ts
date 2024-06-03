@@ -19,6 +19,7 @@ export class FoodService {
       ],
       precio: 15,
       tipo: 'postre',
+      
     },
     {
       id: 2,
@@ -32,6 +33,7 @@ export class FoodService {
       ],
       precio: 20,
       tipo: 'entrante',
+      
     },
     {
       id: 3,
@@ -46,6 +48,7 @@ export class FoodService {
       ],
       precio: 10,
       tipo: 'segundo',
+      
     },
   ];
 

@@ -5,4 +5,6 @@ export interface Recipe {
   restaurante: string;
   cocina: string[];
   ingredients?: string[];
+  alergenos: string[];
 }
+

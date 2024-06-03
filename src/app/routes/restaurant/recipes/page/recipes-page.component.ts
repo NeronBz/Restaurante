@@ -17,6 +17,16 @@ export class RecipesPageComponent implements OnInit {
     console.log(this.recipes);
   }
 
+  onFilterChange(event: Event) {
+    const filterValue = (event.target as HTMLSelectElement).value;
+
+    if (filterValue === 'all') {
+      this.recipes = this.recipesService.getRecipes();
+    } else {
+      this.recipes = this.recipesService.getRecipes().filter(recipes => recipes.alergenos.includes(filterValue));
+    }
+  }
+
   redirectToOnlyRecipe(id: number): void {
     console.log(id);
     this.router.navigate(['restaurant/recipes', id]);

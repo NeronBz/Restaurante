@@ -25,6 +25,7 @@ export class RecipesService {
         'Agregar queso, lechuga, tomate, cebolla',
         'condimentar con mayonesa y mostaza',
       ],
+      alergenos: ['trigo' , 'lactosa'],
     },
     {
       id: 2,
@@ -45,6 +46,7 @@ export class RecipesService {
         'Colocar tomate, queso, pepperoni, aceitunas y orégano',
         'Hornear durante 15-20 minutos o hasta que la masa esté dorada',
       ],
+      alergenos: ['lactosa', 'trigo', 'huevo'],
     },
     {
       id: 3,
@@ -66,6 +68,7 @@ export class RecipesService {
         'Colocar la carne en tortillas y agregar cilantro, limón y salsa',
         'Agregar aguacate si lo deseas',
       ],
+      alergenos: ['verdura', 'trigo'],
     },
   ];
 
