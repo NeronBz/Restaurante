@@ -17,21 +17,9 @@
   </div>
   <div class="row">
     <div class="col-md-4" *ngFor="let comida of comidas">
-<<<<<<< HEAD
-      <div class="card mb-4" (click)="redirectToOnlyProduct(comida.id)">
+      <div class="card mb-4" id="cardPrincipal" (click)="redirectToOnlyProduct(comida.id)">
         <img [src]="comida.imagen" class="card-img-top" alt="{{ comida.nombre }}" />
-=======
-      <div
-        class="card mb-4"
-        id="cardPrincipal"
-        (click)="redirectToOnlyProduct(comida.id)"
-      >
-        <img
-          [src]="comida.imagen"
-          class="card-img-top"
-          alt="{{ comida.nombre }}"
-        />
->>>>>>> 85dacc46746754858d9c544ad30382f3e89670c5
+
         <div class="card-body">
           <h5 class="card-title">{{ comida.nombre }}</h5>
           <p class="card-text">{{ comida.descripcion }}</p>
