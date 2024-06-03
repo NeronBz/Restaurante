@@ -4,14 +4,14 @@
     <div class="col-md-12">
       <div class="input-group">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="AlergenoSelect">Alergenos:</label>
+          <label class="input-group-text" for="AlergenoSelect">Alergenos</label>
         </div>
         <select class="custom-select" id="AlergenoSelect" (change)="onFilterChange($event)">
           <option value="all" selected>Elige uno...</option>
-          <option value="lactosa">Lactosa</option>
-          <option value="verdura">Verdura</option>
-          <option value="huevo">Huevo</option>
-          <option value="trigo">Trigo</option>
+          <option value="lactosa">No contiene lactosa</option>
+          <option value="verdura">No contiene verdura</option>
+          <option value="huevo">No contiene huevo</option>
+          <option value="trigo">No contiene trigo</option>
         </select>
       </div>
     </div>

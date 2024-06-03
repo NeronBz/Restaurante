@@ -23,7 +23,9 @@ export class RecipesPageComponent implements OnInit {
     if (filterValue === 'all') {
       this.recipes = this.recipesService.getRecipes();
     } else {
-      this.recipes = this.recipesService.getRecipes().filter(recipes => recipes.alergenos.includes(filterValue));
+      this.recipes = this.recipesService.getRecipes().filter(
+        recipe => !recipe.alergenos.includes(filterValue)
+      );
     }
   }
 
