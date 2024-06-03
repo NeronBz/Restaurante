@@ -22,6 +22,8 @@ export class AllCommentsPageComponent implements OnInit {
     });
   }
 
+  
+
   goBack(): void {
     this.router.navigate([
       '/restaurant/products',
