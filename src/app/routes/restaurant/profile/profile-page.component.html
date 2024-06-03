@@ -14,14 +14,30 @@
     </div>
     <div class="form-group">
       <label for="password">Contraseña</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        [(ngModel)]="user.password"
-        name="password"
-        required
-      />
+      <div class="input-group">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          [(ngModel)]="user.password"
+          name="password"
+          required
+          #passwordInput
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="togglePasswordVisibility(passwordInput)"
+        >
+          <i
+            [class]="
+              passwordInput.type === 'password'
+                ? 'bi bi-eye-fill'
+                : 'bi bi-eye-slash-fill'
+            "
+          ></i>
+        </button>
+      </div>
     </div>
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     <button type="button" class="btn btn-secondary" onclick="history.back(-1)">

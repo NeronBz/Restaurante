@@ -22,6 +22,14 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
+  togglePasswordVisibility(inputElement: any) {
+    if (inputElement.type === 'password') {
+      inputElement.type = 'text';
+    } else {
+      inputElement.type = 'password';
+    }
+  }
+
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files![0];
     const reader = new FileReader();
