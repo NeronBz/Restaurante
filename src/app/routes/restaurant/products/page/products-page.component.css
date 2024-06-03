@@ -2,6 +2,19 @@
   margin-top: 20px;
 }
 
+.input-group-text {
+  background-color: #3a3a3a;
+  color: #fff;
+  border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
+}
+
+.custom-select {
+  width: 85%;
+  border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
+}
+
+.input-group-prepend{ width: 15%;}
+
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
@@ -28,4 +41,26 @@
 
 ::ng-deep [data-bs-theme="dark"] .card:hover {
   box-shadow: 0 4px 16px 0 rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .custom-select{ width: 80%;}
+
+  .input-group-prepend{ width: 20%;}
+ 
+}
+
+@media (min-width: 992px) {
+  .custom-select{ width: 90%;}
+
+  .input-group-prepend{ width: 10%;}
+ 
+}
+
+
+@media (max-width: 500px) {
+  .custom-select{ width: 100%;}
+
+  .input-group-prepend{ width: 100%;}
+ 
 }

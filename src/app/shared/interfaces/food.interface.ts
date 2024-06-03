@@ -8,6 +8,7 @@ export interface Comida {
   descripcion: string;
   restaurante: string;
   comentarios: Comentario[];
+  tipo: string;
 }
 
 export interface Comentario {

@@ -18,6 +18,7 @@ export class FoodService {
         { autor: 'Ana', comentario: 'Me encantó la salsa especial.' },
       ],
       precio: 15,
+      tipo: 'postre',
     },
     {
       id: 2,
@@ -30,6 +31,7 @@ export class FoodService {
         { autor: 'Lucia', comentario: 'La masa estaba perfecta.' },
       ],
       precio: 20,
+      tipo: 'entrante',
     },
     {
       id: 3,
@@ -43,6 +45,7 @@ export class FoodService {
         { autor: 'Sofia', comentario: 'Muy auténticos y llenos de sabor.' },
       ],
       precio: 10,
+      tipo: 'segundo',
     },
   ];
 

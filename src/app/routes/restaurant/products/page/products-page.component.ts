@@ -17,6 +17,16 @@ export class ProductsPageComponent implements OnInit {
     console.log(this.comidas);
   }
 
+  onFilterChange(event: Event) {
+    const filterValue = (event.target as HTMLSelectElement).value;
+
+    if (filterValue === 'all') {
+      this.comidas = this.foodService.getComidas();
+    } else {
+      this.comidas = this.foodService.getComidas().filter(comida => comida.tipo === filterValue);
+    }
+  }
+
   redirectToOnlyProduct(id: number): void {
     console.log(id);
     this.router.navigate(['restaurant/products', id]);
