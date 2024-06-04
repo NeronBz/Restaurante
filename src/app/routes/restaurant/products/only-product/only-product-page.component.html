@@ -11,6 +11,9 @@
           <h3>{{ nombreRestaurante }}</h3>
           <h2>Descripción</h2>
           <p>{{ descripcionComida }}</p>
+          <div class="text-bg-danger" *ngIf="stock < 6">
+            ¡Quedan {{ stock }} cantidades!
+          </div>
         </div>
         <div class="recipe-image d-flex justify-items-center">
           <img
@@ -44,12 +47,11 @@
           <i class="bi bi-plus"></i> Añadir al Carrito
         </button>
       </div>
-      <!-- New Comments Card -->
       <div class="card mt-4 border text-center text-white">
         <div class="card-header border">
           <h3>Comentarios</h3>
         </div>
-        <div class="card-body border">
+        <div class="card-body border" *ngIf="isLoggedIn">
           <form [formGroup]="commentForm">
             <div class="row">
               <div class="col-md-6 d-flex flex-column justify-content-center">

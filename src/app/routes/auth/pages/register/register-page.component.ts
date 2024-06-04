@@ -11,20 +11,34 @@ export class RegisterPageComponent {
   username = '';
   password = '';
   name = '';
+  password2 = '';
+  inputError = false;
+  passwordsDoNotMatch = false;
+  itExists = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   register(): void {
-    if (this.username && this.password) {
-      if (this.authService.register(this.username, this.name, this.password)) {
-        this.router.navigate(['/auth/login'], {
-          queryParams: { registered: 'true' },
-        });
+    this.inputError = false;
+    this.passwordsDoNotMatch = false;
+    if (this.username && this.password && this.password2) {
+      if (this.password === this.password2) {
+        if (
+          this.authService.register(this.username, this.name, this.password)
+        ) {
+          this.router.navigate(['/auth/login'], {
+            queryParams: { registered: 'true' },
+          });
+        } else {
+          this.itExists = true;
+        }
       } else {
-        alert('Ya existe un usuario con ese nombre');
+        this.passwordsDoNotMatch = true;
+        this.password = '';
+        this.password2 = '';
       }
     } else {
-      alert('Tiene que escribir en los campos');
+      this.inputError = true;
     }
   }
 }

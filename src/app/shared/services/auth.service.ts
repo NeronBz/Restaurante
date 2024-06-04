@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
+import { environmentAuth } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  // private login: string = environmentAuth.login;
+  // private logout: string = environmentAuth.logout;
+  // private register: string = environmentAuth.register;
+
   private storageKey = 'users';
   private currentUserKey = 'currentUser';
 

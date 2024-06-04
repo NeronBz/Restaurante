@@ -7,4 +7,3 @@ export interface Recipe {
   ingredients?: string[];
   alergenos: string[];
 }
-

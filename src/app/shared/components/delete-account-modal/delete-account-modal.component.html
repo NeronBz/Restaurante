@@ -1,24 +1,24 @@
 <div
   class="modal fade"
-  id="logout"
+  id="deleteAccountDialog"
   tabindex="-1"
-  aria-labelledby="logoutLabel"
+  aria-labelledby="deleteAccountDialogLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-flex justify-content-center">
-        <h1 class="modal-title fs-5" id="logoutLabel">
-          Estás seguro de que quieres cerrar sesión?
+        <h1 class="modal-title fs-5" id="deleteAccountDialogLabel">
+          Estás seguro de que quieres eliminar la cuenta?
         </h1>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary" (click)="onLogout()">
+        <!-- <button type="button" class="btn btn-primary" (click)="deleteAccount()">
           Aceptar
-        </button>
+        </button> -->
       </div>
     </div>
   </div>

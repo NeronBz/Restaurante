@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environmentProducts } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FoodService {
+  private getAllProducts: string = environmentProducts.getAllProducts;
+  private getProductById: string = environmentProducts.getProductById;
+  private createProduct: string = environmentProducts.createProduct;
+  private updateProduct: string = environmentProducts.updateProduct;
+  private deleteProduct: string = environmentProducts.deleteProduct;
   private comidas = [
     {
       id: 1,
@@ -19,7 +25,7 @@ export class FoodService {
       ],
       precio: 15,
       tipo: 'postre',
-      
+      stock: 40,
     },
     {
       id: 2,
@@ -33,7 +39,7 @@ export class FoodService {
       ],
       precio: 20,
       tipo: 'entrante',
-      
+      stock: 20,
     },
     {
       id: 3,
@@ -48,7 +54,7 @@ export class FoodService {
       ],
       precio: 10,
       tipo: 'segundo',
-      
+      stock: 30,
     },
   ];
 
@@ -72,6 +78,11 @@ export class FoodService {
     return of(comida);
   }
 
-  
- 
+  updateStock(id: number, stock: number): Observable<any> {
+    const comida = this.comidas.find((comida) => comida.id === id);
+    if (comida) {
+      comida.stock = Number(comida.stock) - 1;
+    }
+    return of(comida);
+  }
 }

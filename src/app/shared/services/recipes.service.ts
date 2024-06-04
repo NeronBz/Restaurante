@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environmentRecipes } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
+  private createRecipes: string = environmentRecipes.createRecipes;
+  private deleteRecipes: string = environmentRecipes.deleteRecipes;
+  private getAllRecipes: string = environmentRecipes.getAllRecipes;
+  private getRecipesById: string = environmentRecipes.getRecipesById;
+  private updateRecipes: string = environmentRecipes.updateRecipes;
+
   private recetas = [
     {
       id: 1,
@@ -25,7 +32,7 @@ export class RecipesService {
         'Agregar queso, lechuga, tomate, cebolla',
         'condimentar con mayonesa y mostaza',
       ],
-      alergenos: ['trigo' , 'lactosa'],
+      alergenos: ['trigo', 'lactosa'],
     },
     {
       id: 2,

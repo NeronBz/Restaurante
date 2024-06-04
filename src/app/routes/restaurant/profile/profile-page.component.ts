@@ -41,12 +41,4 @@ export class ProfilePageComponent implements OnInit {
     this.authService.updateUser(this.user);
     alert('Perfil actualizado con éxito!');
   }
-
-  deleteAccount(): void {
-    if (confirm('¿Está seguro de que desea eliminar su cuenta?')) {
-      this.authService.deleteUser(this.user.username);
-      this.authService.logout();
-      this.router.navigate(['/auth/register']);
-    }
-  }
 }

@@ -18,8 +18,9 @@ export class OnlyProductPageComponent implements OnInit {
   nombreRestaurante = '';
   precio = 0;
   id = 0;
-  commentForm!: FormGroup;
+  stock = 10;
   comments: any[] = [];
+  commentForm!: FormGroup;
   isLoggedIn = false;
   currentUser: User | null = null;
   hasText = false;
@@ -43,6 +44,7 @@ export class OnlyProductPageComponent implements OnInit {
         this.nombreRestaurante = data.restaurante;
         this.precio = data.precio;
         this.comments = data.comentarios;
+        this.stock = data.stock;
       });
     });
 
@@ -68,15 +70,22 @@ export class OnlyProductPageComponent implements OnInit {
   }
 
   addToCart(): void {
-    this.cartService.addToCart({
-      id: this.id,
-      nombre: this.nombreComida,
-      descripcion: this.descripcionComida,
-      imagen: this.imagenComida,
-      restaurante: this.nombreRestaurante,
-      cantidad: 1,
-      precio: this.precio,
-    });
+    if (this.stock > 0) {
+      this.stock -= 1;
+      this.cartService.addToCart({
+        id: this.id,
+        nombre: this.nombreComida,
+        descripcion: this.descripcionComida,
+        imagen: this.imagenComida,
+        restaurante: this.nombreRestaurante,
+        cantidad: 1,
+        precio: this.precio,
+      });
+      this.foodService.updateStock(this.id, this.stock).subscribe((data) => {
+        console.log(data?.stock);
+        this.stock = data?.stock ?? 0;
+      });
+    }
   }
 
   viewAllComments(): void {

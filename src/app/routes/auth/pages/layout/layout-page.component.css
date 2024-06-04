@@ -135,6 +135,10 @@ form.form1 > * {
   border-color: #f5c6cb;
 }
 
+.input-error {
+  border: 2px solid red;
+}
+
 @media (min-width: 768px) {
   .button-72 {
     font-size: 21px;

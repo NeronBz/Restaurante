@@ -9,6 +9,7 @@
         placeholder="Nombre de usuario"
         name="username"
         [(ngModel)]="username"
+        [ngClass]="{ 'input-error': inputError }"
       />
       <input
         class="un"
@@ -17,6 +18,7 @@
         placeholder="Nombre"
         name="name"
         [(ngModel)]="name"
+        [ngClass]="{ 'input-error': inputError }"
       />
       <input
         class="pass"
@@ -25,7 +27,26 @@
         placeholder="Contraseña"
         name="password"
         [(ngModel)]="password"
+        [ngClass]="{ 'input-error': inputError }"
+        [ngClass]="{ 'input-error': passwordsDoNotMatch }"
       />
+      <input
+        class="pass"
+        type="password"
+        align="center"
+        placeholder="Confirmar contraseña"
+        name="password2"
+        [(ngModel)]="password2"
+        [ngClass]="{ 'input-error': inputError }"
+        [ngClass]="{ 'input-error': passwordsDoNotMatch }"
+      />
+      <span *ngIf="passwordsDoNotMatch" class="text-danger">
+        Las contraseñas no coinciden
+      </span>
+      <span *ngIf="inputError" class="text-danger">
+        Tiene que escribir en los campos
+      </span>
+      <span *ngIf="itExists" class="text-danger">Ya existe ese usuario</span>
       <a class="submit" align="center" (click)="register()">Sign in</a>
       <p class="forgot" align="center">
         <a routerLink="/auth/login">¿Ya tienes cuenta?</a>
