@@ -1,34 +1,51 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
-  private recipes: string = environment.baseUrl + 'recetas';
-  private categories: string = environment.baseUrl + 'categorias';
+  private recipesUrl: string = environment.baseUrl + 'recetas';
+  private categoriesUrl: string = environment.baseUrl + 'categorias';
 
   private recetas: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loadRecipes();
+  }
 
-  getRecipes(): Observable<any> {
-    return this.http.get(this.recipes);
+  private loadRecipes(): void {
+    this.getRecipes().subscribe({
+      next: (data) => {
+        this.recetas = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar las recetas', err);
+      },
+    });
+  }
+
+  getRecipes(): Observable<any[]> {
+    return this.http.get<any[]>(this.recipesUrl).pipe(
+      tap((data) => (this.recetas = data)),
+      catchError((error) => {
+        console.error('Error al obtener las recetas', error);
+        return of([]);
+      })
+    );
   }
 
   getRecipeById(id: number): Observable<any> {
-    let recetaById: any;
-    recetaById = this.recetas.find((receta) => receta.id == id);
-    console.log(recetaById);
-
-    return of(recetaById);
+    const receta = this.recetas.find((receta) => receta.id === id);
+    return of(receta || null);
   }
 
   getCategorias(): Observable<any> {
-    return this.http.get(this.categories);
+    return this.http.get(this.categoriesUrl);
   }
 
-  getRecetaByCategory(category: number) {
-    return this.http.get(`${this.recipes}?idCategoria=${category}`);
+  getRecetaByCategory(category: number): Observable<any> {
+    return this.http.get(`${this.recipesUrl}?idCategoria=${category}`);
   }
 }

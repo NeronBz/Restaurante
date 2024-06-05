@@ -25,12 +25,12 @@ export class OnlyRecipePageComponent implements OnInit {
       this.id = +params['recipeId'];
     });
     this.recipesService.getRecipeById(this.id).subscribe((data) => {
-      this.nombreReceta = data.nombre;
+      console.log(data);
+      this.nombreReceta = data.nombreReceta;
       this.imagenReceta = data.imagen;
-      this.ingredientesReceta = data.ingredients;
-      this.preparacionReceta = data.cocina;
+      this.ingredientesReceta = data.ingredientes.split(',');
+      this.preparacionReceta = data.instrucciones.split(',');
     });
-    console.log(this.ingredientesReceta);
   }
 
   goBack(): void {

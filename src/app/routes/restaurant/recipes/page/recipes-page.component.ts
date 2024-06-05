@@ -17,6 +17,9 @@ export class RecipesPageComponent implements OnInit {
     this.recipesService.getRecipes().subscribe((recipes) => {
       this.recipes = recipes;
     });
+    this.recipesService.getCategorias().subscribe((categorias) => {
+      this.categorias = categorias;
+    });
     console.log(this.recipes);
   }
 

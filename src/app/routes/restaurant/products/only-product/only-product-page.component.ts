@@ -40,8 +40,6 @@ export class OnlyProductPageComponent implements OnInit {
       console.log(this.id);
 
       this.foodService.getComidaById(this.id).subscribe((data) => {
-        console.log(data);
-
         this.nombreComida = data.nombreProducto;
         this.imagenComida = data.imagen;
         this.descripcionComida = data.descripcion;
