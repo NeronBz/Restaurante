@@ -18,7 +18,7 @@ export class OnlyProductPageComponent implements OnInit {
   nombreRestaurante = '';
   precio = 0;
   id = 0;
-  stock = 10;
+  stock = true;
   comments: any[] = [];
   commentForm!: FormGroup;
   isLoggedIn = false;
@@ -37,11 +37,14 @@ export class OnlyProductPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params['productId'];
+      console.log(this.id);
+
       this.foodService.getComidaById(this.id).subscribe((data) => {
-        this.nombreComida = data.nombre;
+        console.log(data);
+
+        this.nombreComida = data.nombreProducto;
         this.imagenComida = data.imagen;
         this.descripcionComida = data.descripcion;
-        this.nombreRestaurante = data.restaurante;
         this.precio = data.precio;
         this.comments = data.comentarios;
         this.stock = data.stock;
@@ -70,22 +73,19 @@ export class OnlyProductPageComponent implements OnInit {
   }
 
   addToCart(): void {
-    if (this.stock > 0) {
-      this.stock -= 1;
-      this.cartService.addToCart({
-        id: this.id,
-        nombre: this.nombreComida,
-        descripcion: this.descripcionComida,
-        imagen: this.imagenComida,
-        restaurante: this.nombreRestaurante,
-        cantidad: 1,
-        precio: this.precio,
-      });
-      this.foodService.updateStock(this.id, this.stock).subscribe((data) => {
-        console.log(data?.stock);
-        this.stock = data?.stock ?? 0;
-      });
-    }
+    this.cartService.addToCart({
+      id: this.id,
+      nombre: this.nombreComida,
+      descripcion: this.descripcionComida,
+      imagen: this.imagenComida,
+      restaurante: this.nombreRestaurante,
+      cantidad: 1,
+      precio: this.precio,
+    });
+    // this.foodService.updateStock(this.id, this.stock).subscribe((data) => {
+    //   console.log(data?.stock);
+    //   this.stock = data?.stock ?? 0;
+    // });
   }
 
   viewAllComments(): void {

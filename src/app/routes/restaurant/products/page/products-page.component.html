@@ -4,9 +4,15 @@
     <div class="col-md-12">
       <div class="input-group">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="tipoComidaSelect">Filtrar por:</label>
+          <label class="input-group-text" for="tipoComidaSelect"
+            >Filtrar por:</label
+          >
         </div>
-        <select class="custom-select" id="tipoComidaSelect" (change)="onFilterChange($event)">
+        <select
+          class="custom-select"
+          id="tipoComidaSelect"
+          (change)="onFilterChange($event)"
+        >
           <option value="all" selected>Elige uno...</option>
           <option value="entrante">Entrantes</option>
           <option value="segundo">Segundo</option>
@@ -17,11 +23,19 @@
   </div>
   <div class="row">
     <div class="col-md-4" *ngFor="let comida of comidas">
-      <div class="card mb-4" id="cardPrincipal" (click)="redirectToOnlyProduct(comida.id)">
-        <img [src]="comida.imagen" class="card-img-top" alt="{{ comida.nombre }}" />
+      <div
+        class="card mb-4"
+        id="cardPrincipal"
+        (click)="redirectToOnlyProduct(comida.id)"
+      >
+        <img
+          [src]="comida.imagen"
+          class="card-img-top"
+          alt="{{ comida.nombreProducto }}"
+        />
 
         <div class="card-body">
-          <h5 class="card-title">{{ comida.nombre }}</h5>
+          <h5 class="card-title">{{ comida.nombreProducto }}</h5>
           <p class="card-text">{{ comida.descripcion }}</p>
         </div>
       </div>

@@ -11,9 +11,7 @@
           <h3>{{ nombreRestaurante }}</h3>
           <h2>Descripción</h2>
           <p>{{ descripcionComida }}</p>
-          <div class="text-bg-danger" *ngIf="stock < 6">
-            ¡Quedan {{ stock }} cantidades!
-          </div>
+          <div class="text-bg-danger" *ngIf="!stock">¡No hay stock!</div>
         </div>
         <div class="recipe-image d-flex justify-items-center">
           <img
@@ -55,7 +53,7 @@
           <form [formGroup]="commentForm">
             <div class="row">
               <div class="col-md-6 d-flex flex-column justify-content-center">
-                <h5 class="text-warning m-0">{{ currentUser?.username }}</h5>
+                <h5 class="text-warning m-0">{{ currentUser?.name }}</h5>
               </div>
               <div class="col-md-6 d-flex justify-content-center">
                 <div class="rating">
