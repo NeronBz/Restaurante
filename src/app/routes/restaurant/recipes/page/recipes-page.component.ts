@@ -9,11 +9,14 @@ import { Router } from '@angular/router';
 })
 export class RecipesPageComponent implements OnInit {
   recipes: any[] = [];
+  categorias: any[] = [];
 
   constructor(private recipesService: RecipesService, private router: Router) {}
 
   ngOnInit(): void {
-    this.recipes = this.recipesService.getRecipes();
+    this.recipesService.getRecipes().subscribe((recipes) => {
+      this.recipes = recipes;
+    });
     console.log(this.recipes);
   }
 
@@ -21,11 +24,21 @@ export class RecipesPageComponent implements OnInit {
     const filterValue = (event.target as HTMLSelectElement).value;
 
     if (filterValue === 'all') {
-      this.recipes = this.recipesService.getRecipes();
+      this.recipesService.getRecipes().subscribe((recipes) => {
+        this.recipes = recipes;
+      });
     } else {
-      this.recipes = this.recipesService.getRecipes().filter(
-        recipe => !recipe.alergenos.includes(filterValue)
+      const categoriaSeleccionada = this.categorias.find(
+        (categoria) => categoria.nombreCategoria === filterValue
       );
+
+      if (categoriaSeleccionada) {
+        this.recipesService
+          .getRecetaByCategory(categoriaSeleccionada.id)
+          .subscribe((response) => {
+            this.recipes = response as any[];
+          });
+      }
     }
   }
 

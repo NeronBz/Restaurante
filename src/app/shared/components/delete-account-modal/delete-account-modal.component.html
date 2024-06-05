@@ -9,16 +9,17 @@
     <div class="modal-content">
       <div class="modal-header d-flex justify-content-center">
         <h1 class="modal-title fs-5" id="deleteAccountDialogLabel">
-          Estás seguro de que quieres eliminar la cuenta?
+          ¿Estás seguro de que quieres eliminar la cuenta,
+          {{ user.username }}?
         </h1>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <!-- <button type="button" class="btn btn-primary" (click)="deleteAccount()">
+        <button type="button" class="btn btn-primary" (click)="deleteAccount()">
           Aceptar
-        </button> -->
+        </button>
       </div>
     </div>
   </div>

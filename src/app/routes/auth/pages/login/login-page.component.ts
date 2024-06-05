@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../shared/services/auth.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -9,10 +10,13 @@ import { AuthService } from '../../../../shared/services/auth.service';
 })
 export class LoginPageComponent implements OnInit {
   username = '';
+  email = '';
   password = '';
   isRegistered = false;
   notificationMessage = '';
   notificationType: 'success' | 'error' = 'success';
+  inputError = false;
+  credencialesError = false;
 
   constructor(
     private authService: AuthService,
@@ -32,17 +36,28 @@ export class LoginPageComponent implements OnInit {
   }
 
   login(): void {
-    if (this.username && this.password) {
-      if (this.authService.login(this.username, this.password)) {
-        this.router.navigate(['/']);
-        setTimeout(() => {
-          location.reload();
-        }, 1);
-      } else {
-        alert('Credenciales incorrectas');
-      }
+    this.inputError = false;
+    this.credencialesError = false;
+    if (this.password && this.email) {
+      this.authService
+        .login(this.email, this.password)
+        .subscribe((response) => {
+          if (response) {
+            this.router.navigate(['/']);
+            setTimeout(() => {
+              location.reload();
+            }, 15);
+            return;
+          } else {
+            this.credencialesError = true;
+            this.username = '';
+            this.email = '';
+            this.password = '';
+            return;
+          }
+        });
     } else {
-      alert('Tiene que escribir en los campos');
+      this.inputError = true;
     }
   }
 

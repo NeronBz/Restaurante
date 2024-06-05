@@ -1,79 +1,104 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
-import { environmentAuth } from '../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, Observable, of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // private login: string = environmentAuth.login;
-  // private logout: string = environmentAuth.logout;
-  // private register: string = environmentAuth.register;
+  private userLogin: string = environment.baseUrl + 'login';
+  private userRegister: string = environment.baseUrl + 'register';
+  private userLogout: string = environment.baseUrl + 'logout';
 
   private storageKey = 'users';
   private currentUserKey = 'currentUser';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  register(username: string, name: string, password: string): boolean {
-    const users = this.getUsersFromStorage();
-    const userExists = users.some((u) => u.username === username);
+  register(
+    username: string,
+    email: string,
+    password: string,
+    password2: string
+  ): Observable<boolean> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {
+      name: username,
+      email: email,
+      password: password,
+      password2: password2,
+    };
 
-    if (userExists) {
-      return false;
-    } else {
-      users.push({
-        username,
-        password,
-        name,
-      });
-      this.saveUsersToStorage(users);
-      return true;
-    }
+    return this.http
+      .post<any>(this.userRegister, body, { headers: headers })
+      .pipe(
+        map((response) => {
+          return response && response.success;
+        }),
+        catchError((error) => {
+          console.error('Register error:', error);
+          return of(false);
+        })
+      );
   }
 
-  login(username: string, password: string): boolean {
-    const users = this.getUsersFromStorage();
-    const user = users.find(
-      (u) => u.username === username && u.password === password
+  login(email: string, password: string): Observable<boolean> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {
+      email: email,
+      password: password,
+    };
+
+    return this.http.post<any>(this.userLogin, body, { headers: headers }).pipe(
+      map((response) => {
+        console.log(response);
+
+        if (response) {
+          console.log('Success');
+
+          this.setCurrentUser(response.user);
+          return true;
+        }
+        return false;
+      }),
+      catchError((error) => {
+        console.error('Login error:', error);
+        return of(false);
+      })
     );
-
-    if (user) {
-      sessionStorage.setItem(this.currentUserKey, JSON.stringify(user));
-      return true;
-    }
-    return false;
   }
 
-  updateUser(updatedUser: User): void {
-    const users = this.getUsersFromStorage();
-    const index = users.findIndex((u) => u.username === updatedUser.username);
-    if (index !== -1) {
-      users[index] = updatedUser;
-      this.saveUsersToStorage(users);
-      sessionStorage.setItem(this.currentUserKey, JSON.stringify(updatedUser));
-    }
-  }
+  // updateUser(updatedUser: User): void {
+  //   const users = this.getUsersFromStorage();
+  //   const index = users.findIndex((u) => u.username === updatedUser.username);
+  //   if (index !== -1) {
+  //     users[index] = updatedUser;
+  //     this.saveUsersToStorage(users);
+  //     sessionStorage.setItem(this.currentUserKey, JSON.stringify(updatedUser));
+  //   }
+  // }
 
-  deleteUser(username: string): void {
-    const users = this.getUsersFromStorage();
-    const updatedUsers = users.filter((u) => u.username !== username);
-    this.saveUsersToStorage(updatedUsers);
-  }
-
-  private getUsersFromStorage(): User[] {
-    const usersJson = localStorage.getItem(this.storageKey);
-    return usersJson ? JSON.parse(usersJson) : [];
-  }
+  // deleteUser(username: string): void {
+  //   const users = this.getUsersFromStorage();
+  //   const updatedUsers = users.filter((u) => u.username !== username);
+  //   this.saveUsersToStorage(updatedUsers);
+  // }
 
   private saveUsersToStorage(users: User[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify(users));
   }
 
-  logout(): void {
+  logout(): Observable<any> {
     sessionStorage.removeItem(this.currentUserKey);
+    return this.http.post<any>(this.userLogout, null);
   }
 
   isLoggedIn(): boolean {
     return !!sessionStorage.getItem(this.currentUserKey);
+  }
+
+  private setCurrentUser(user: User): void {
+    sessionStorage.setItem(this.currentUserKey, JSON.stringify(user));
   }
 
   getCurrentUser(): User | null {

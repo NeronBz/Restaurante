@@ -4,66 +4,8 @@
 
 export const environment = {
   production: false,
-};
-
-export const environmentProducts = {
-  getAllProducts: '',
-  getProductById: '',
-  createProduct: '',
-  updateProduct: '',
-  deleteProduct: '',
-};
-
-export const environmentRecipes = {
-  getAllRecipes: '',
-  getRecipesById: '',
-  createRecipes: '',
-  updateRecipes: '',
-  deleteRecipes: '',
-};
-
-export const environmentCart = {
-  getAllCart: '',
-  getCartById: '',
-  createCart: '',
-  updateCart: '',
-  deleteCart: '',
-};
-
-export const environmentDetailsCart = {
-  getDetailsCart: '',
-  createDetailsCart: '',
-  updateDetailsCart: '',
-  deleteDetailsCart: '',
-};
-
-export const environmentAuth = {
-  register: '',
-  login: '',
-  logout: '',
-};
-
-export const environmentCategories = {
-  getAllCategories: '',
-  createCategories: '',
-  deleteCategories: '',
-};
-
-export const environmentOrder = {
-  getOrder: '',
-  createOrder: '',
-};
-
-export const environmentComments = {
-  getComments: '',
-  createComments: '',
-  updateComments: '',
-};
-
-export const environmentAllergens = {
-  getAllergens: '',
-  createAllergens: '',
-  deleteAllergens: '',
+  baseUrl:
+    'http://ec2-3-238-84-31.compute-1.amazonaws.com/Restaurante2/public/api/',
 };
 
 /*

@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LayoutAuthPageComponent } from './pages/layout/layout-page.component';
 import { LoginPageComponent } from './pages/login/login-page.component';
 import { RegisterPageComponent } from './pages/register/register-page.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,6 @@ import { RegisterPageComponent } from './pages/register/register-page.component'
     LoginPageComponent,
     RegisterPageComponent,
   ],
-  imports: [CommonModule, AuthRoutingModule, FormsModule],
+  imports: [CommonModule, AuthRoutingModule, FormsModule, SharedModule],
 })
 export class AuthModule {}

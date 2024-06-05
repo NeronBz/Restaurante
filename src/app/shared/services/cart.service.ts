@@ -1,25 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import {
-  environmentCart,
-  environmentDetailsCart,
-} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private createCart: string = environmentCart.createCart;
-  private deleteCart: string = environmentCart.deleteCart;
-  private getCartById: string = environmentCart.getCartById;
-  // private updateCart: string = environmentCart.updateCart;
-  private getAllCart: string = environmentCart.getAllCart;
-
-  private createDetailsCart: string = environmentDetailsCart.createDetailsCart;
-  private deleteDetailsCart: string = environmentDetailsCart.deleteDetailsCart;
-  private getDetailsCart: string = environmentDetailsCart.getDetailsCart;
-  private updateDetailsCart: string = environmentDetailsCart.updateDetailsCart;
+  private cart: string = environment.baseUrl + 'carrito';
 
   private itemsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   private items: any[] = [];

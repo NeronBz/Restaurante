@@ -10,7 +10,7 @@ import { AuthService } from '../../../../shared/services/auth.service';
 export class RegisterPageComponent {
   username = '';
   password = '';
-  name = '';
+  email = '';
   password2 = '';
   inputError = false;
   passwordsDoNotMatch = false;
@@ -21,17 +21,21 @@ export class RegisterPageComponent {
   register(): void {
     this.inputError = false;
     this.passwordsDoNotMatch = false;
+    this.itExists = false;
+
     if (this.username && this.password && this.password2) {
       if (this.password === this.password2) {
-        if (
-          this.authService.register(this.username, this.name, this.password)
-        ) {
-          this.router.navigate(['/auth/login'], {
-            queryParams: { registered: 'true' },
+        this.authService
+          .register(this.username, this.email, this.password, this.password2)
+          .subscribe((success) => {
+            if (success) {
+              this.router.navigate(['/auth/login'], {
+                queryParams: { registered: 'true' },
+              });
+            } else {
+              this.itExists = true;
+            }
           });
-        } else {
-          this.itExists = true;
-        }
       } else {
         this.passwordsDoNotMatch = true;
         this.password = '';

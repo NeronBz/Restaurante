@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { environmentRecipes } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
-  private createRecipes: string = environmentRecipes.createRecipes;
-  private deleteRecipes: string = environmentRecipes.deleteRecipes;
-  private getAllRecipes: string = environmentRecipes.getAllRecipes;
-  private getRecipesById: string = environmentRecipes.getRecipesById;
-  private updateRecipes: string = environmentRecipes.updateRecipes;
+  private recipes: string = environment.baseUrl + 'recetas';
+  private categories: string = environment.baseUrl + 'categorias';
 
   private recetas = [
     {
@@ -79,8 +77,10 @@ export class RecipesService {
     },
   ];
 
-  getRecipes() {
-    return this.recetas;
+  constructor(private http: HttpClient) {}
+
+  getRecipes(): Observable<any> {
+    return this.http.get(this.recipes);
   }
 
   getRecipeById(id: number): Observable<any> {
@@ -89,5 +89,13 @@ export class RecipesService {
     console.log(recetaById);
 
     return of(recetaById);
+  }
+
+  getCategorias(): Observable<any> {
+    return this.http.get(this.categories);
+  }
+
+  getRecetaByCategory(category: number) {
+    return this.http.get(`${this.recipes}?idCategoria=${category}`);
   }
 }

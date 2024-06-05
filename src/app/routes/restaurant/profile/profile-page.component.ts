@@ -38,7 +38,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   saveProfile(): void {
-    this.authService.updateUser(this.user);
+    // this.authService.updateUser(this.user);
     alert('Perfil actualizado con éxito!');
   }
 }

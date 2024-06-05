@@ -9,21 +9,39 @@ import { Router } from '@angular/router';
 })
 export class ProductsPageComponent implements OnInit {
   comidas: any[] = [];
+  categorias: any[] = [];
 
   constructor(private foodService: FoodService, private router: Router) {}
 
   ngOnInit(): void {
-    this.comidas = this.foodService.getComidas();
-    console.log(this.comidas);
+    this.foodService.getComidas().subscribe((comidas) => {
+      this.comidas = comidas;
+    });
+    this.foodService.getCategorias().subscribe((categorias) => {
+      this.categorias = categorias;
+    });
+    console.log(this.categorias);
   }
 
   onFilterChange(event: Event) {
     const filterValue = (event.target as HTMLSelectElement).value;
 
     if (filterValue === 'all') {
-      this.comidas = this.foodService.getComidas();
+      this.foodService.getComidas().subscribe((comidas) => {
+        this.comidas = comidas;
+      });
     } else {
-      this.comidas = this.foodService.getComidas().filter(comida => comida.tipo === filterValue);
+      const categoriaSeleccionada = this.categorias.find(
+        (categoria) => categoria.nombreCategoria === filterValue
+      );
+
+      if (categoriaSeleccionada) {
+        this.foodService
+          .getComidaByCategory(categoriaSeleccionada.id)
+          .subscribe((response) => {
+            this.comidas = response as any[];
+          });
+      }
     }
   }
 

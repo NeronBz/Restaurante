@@ -68,7 +68,7 @@
             class="navbar-text me-3 text-warning"
             id="usuario"
             (click)="goProfile()"
-            ><i class="bi bi-person"></i>{{ currentUser.username }}</span
+            ><i class="bi bi-person"></i>{{ currentUser.name }}</span
           >
 
           <button
@@ -108,3 +108,4 @@
 <app-logout-modal></app-logout-modal>
 <router-outlet [attr.data-bs-theme]="themeService.getTheme()"></router-outlet>
 <app-footer></app-footer>
+<app-spinner></app-spinner>

@@ -13,11 +13,11 @@
       />
       <input
         class="un"
-        type="text"
+        type="email"
         align="center"
-        placeholder="Nombre"
-        name="name"
-        [(ngModel)]="name"
+        placeholder="Email"
+        name="email"
+        [(ngModel)]="email"
         [ngClass]="{ 'input-error': inputError }"
       />
       <input
@@ -27,8 +27,7 @@
         placeholder="Contraseña"
         name="password"
         [(ngModel)]="password"
-        [ngClass]="{ 'input-error': inputError }"
-        [ngClass]="{ 'input-error': passwordsDoNotMatch }"
+        [ngClass]="{ 'input-error': inputError || passwordsDoNotMatch }"
       />
       <input
         class="pass"
@@ -37,8 +36,7 @@
         placeholder="Confirmar contraseña"
         name="password2"
         [(ngModel)]="password2"
-        [ngClass]="{ 'input-error': inputError }"
-        [ngClass]="{ 'input-error': passwordsDoNotMatch }"
+        [ngClass]="{ 'input-error': inputError || passwordsDoNotMatch }"
       />
       <span *ngIf="passwordsDoNotMatch" class="text-danger">
         Las contraseñas no coinciden

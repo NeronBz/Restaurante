@@ -1,55 +1,69 @@
-<div class="container mt-4">
+<div class="container mt-4 text-center">
   <h2>Editar Perfil</h2>
   <form (ngSubmit)="saveProfile()">
-    <div class="form-group">
-      <label for="name">Nombre</label>
-      <input
-        type="text"
-        class="form-control"
-        id="name"
-        [(ngModel)]="user.name"
-        name="name"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">Contraseña</label>
-      <div class="input-group">
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          [(ngModel)]="user.password"
-          name="password"
-          required
-          #passwordInput
-        />
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="togglePasswordVisibility(passwordInput)"
-        >
-          <i
-            [class]="
-              passwordInput.type === 'password'
-                ? 'bi bi-eye-fill'
-                : 'bi bi-eye-slash-fill'
-            "
-          ></i>
-        </button>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="user.name"
+            name="name"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              [(ngModel)]="user.password"
+              name="password"
+              required
+              #passwordInput
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="togglePasswordVisibility(passwordInput)"
+            >
+              <i
+                [class]="
+                  passwordInput.type === 'password'
+                    ? 'bi bi-eye-fill'
+                    : 'bi bi-eye-slash-fill'
+                "
+              ></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-    <button type="button" class="btn btn-secondary" onclick="history.back(-1)">
-      Volver
-    </button>
-    <button
-      type="button"
-      class="btn btn-danger"
-      data-bs-toggle="modal"
-      data-bs-target="#deleteAccountDialog"
-    >
-      Eliminar Cuenta
-    </button>
+
+    <div class="d-flex justify-content-center m-3">
+      <button
+        type="button"
+        class="btn btn-danger m-2"
+        data-bs-toggle="modal"
+        data-bs-target="#deleteAccountDialog"
+      >
+        Eliminar Cuenta
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary m-2"
+        onclick="history.back(-1)"
+      >
+        Volver
+      </button>
+      <button type="submit" class="btn btn-primary m-2">Guardar Cambios</button>
+    </div>
   </form>
 </div>
+<app-delete-account-modal [user]="user"></app-delete-account-modal>

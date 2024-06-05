@@ -30,6 +30,16 @@
             placeholder="Nombre de usuario"
             name="username"
             [(ngModel)]="username"
+            [ngClass]="{ 'input-error': inputError || credencialesError }"
+          />
+          <input
+            class="un"
+            type="email"
+            align="center"
+            placeholder="Email"
+            name="email"
+            [(ngModel)]="email"
+            [ngClass]="{ 'input-error': inputError || credencialesError }"
           />
           <input
             class="pass"
@@ -38,7 +48,14 @@
             placeholder="Contraseña"
             name="password"
             [(ngModel)]="password"
+            [ngClass]="{ 'input-error': inputError || credencialesError }"
           />
+          <span *ngIf="inputError" class="text-danger">
+            Tiene que escribir en los campos
+          </span>
+          <span *ngIf="credencialesError" class="text-danger">
+            Credenciales incorrectas
+          </span>
           <a class="submit" align="center" (click)="login()">Log in</a>
           <p class="forgot" align="center">
             <a routerLink="/auth/register">¿No tienes cuenta?</a>
