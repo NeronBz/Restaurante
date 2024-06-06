@@ -5,24 +5,7 @@
 .input-group-text {
   background-color: #3a3a3a;
   color: #fff;
-  border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
-}
-
-/* .custom-select {
-  width: 85%;
-  border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
-}
-
-.input-group-prepend {
-  width: 15%;
-} */
-
-.input-group-prepend {
-  flex-grow: 1;
-}
-
-.custom-select {
-  flex-grow: 1;
+  border-radius: 0.25rem;
 }
 
 .card {
@@ -55,4 +38,9 @@
 
 ::ng-deep [data-bs-theme="dark"] .card:hover {
   box-shadow: 0 4px 16px 0 rgba(255, 255, 255, 0.4);
+}
+
+::ng-deep [data-bs-theme="dark"] .input-group-text {
+  background-color: #fff;
+  color: #3a3a3a;
 }

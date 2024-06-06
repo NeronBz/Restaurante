@@ -9,7 +9,7 @@ import { User } from '../../interfaces/user.interface';
   styleUrls: ['./delete-account-modal.component.css'],
 })
 export class DeleteAccountModalComponent {
-  @Input() user: User = { username: '', password: '', name: '' };
+  @Input() user: User = { username: '', password: '', name: '', tipo: 'C' };
 
   constructor(private authService: AuthService, private router: Router) {}
 
