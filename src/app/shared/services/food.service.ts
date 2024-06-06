@@ -3,9 +3,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class FoodService {
   private products: string = environment.baseUrl + 'productos';
   private categories: string = environment.baseUrl + 'categorias';

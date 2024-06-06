@@ -2,15 +2,25 @@
   <h1 class="text-center my-4">Nuestros Platos</h1>
   <div class="row mb-4">
     <div class="col-md-12">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <button *ngIf="isAdmin" type="button" class="btn btn-success btn-lg btn-responsive"
-            (click)="goToCreateProduct()">
-            <i class="bi bi-plus"></i> Añadir al Carrito
-          </button>
-          <label class="input-group-text" for="tipoComidaSelect">Filtrar por:</label>
-        </div>
-        <select class="custom-select" id="tipoComidaSelect" (change)="onFilterChange($event)">
+      <div class="input-group row">
+        <button
+          *ngIf="isAdmin"
+          type="button"
+          class="btn btn-success btn-md btn-responsive col-sm-auto ms-2 ms-sm-0"
+          (click)="goToCreateProduct()"
+        >
+          <i class="bi bi-plus"></i> Crear Plato
+        </button>
+        <label
+          class="input-group-text col-sm-auto text-center ms-2 ms-sm-0"
+          for="tipoComidaSelect"
+          >Filtrar por:</label
+        >
+        <select
+          class="custom-select col-sm ms-2 ms-sm-0"
+          id="tipoComidaSelect"
+          (change)="onFilterChange($event)"
+        >
           <option value="all" selected>Elige uno...</option>
           <option value="entrante">Entrantes</option>
           <option value="segundo">Segundo</option>
@@ -19,14 +29,23 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-4 col-xl" *ngFor="let comida of comidas">
-      <div class="card mb-4" id="cardPrincipal" (click)="redirectToOnlyProduct(comida.id)">
-        <img [src]="comida.imagen" class="card-img-top" alt="{{ comida.nombreProducto }}" />
+      <div
+        class="card mb-4"
+        id="cardPrincipal"
+        (click)="redirectToOnlyProduct(comida.id)"
+      >
+        <img
+          [src]="comida.imagen"
+          class="card-img-top"
+          alt="{{ comida.nombreProducto }}"
+        />
         <div class="card-body">
           <h5 class="card-title">{{ comida.nombreProducto }}</h5>
           <p class="card-text">{{ comida.descripcion }}</p>
-          <p class="card-text font-weight-bold">{{ comida.precio | currency }}</p>
+          <p class="card-text font-weight-bold">{{ comida.precio }}€</p>
         </div>
       </div>
     </div>

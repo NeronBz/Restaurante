@@ -8,13 +8,21 @@
   border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
 }
 
-.custom-select {
+/* .custom-select {
   width: 85%;
   border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
 }
 
 .input-group-prepend {
   width: 15%;
+} */
+
+.input-group-prepend {
+  flex-grow: 1;
+}
+
+.custom-select {
+  flex-grow: 1;
 }
 
 .card {
@@ -47,34 +55,4 @@
 
 ::ng-deep [data-bs-theme="dark"] .card:hover {
   box-shadow: 0 4px 16px 0 rgba(255, 255, 255, 0.4);
-}
-
-@media (max-width: 768px) {
-  .custom-select {
-    width: 80%;
-  }
-
-  .input-group-prepend {
-    width: 20%;
-  }
-}
-
-@media (min-width: 992px) {
-  .custom-select {
-    width: 90%;
-  }
-
-  .input-group-prepend {
-    width: 10%;
-  }
-}
-
-@media (max-width: 500px) {
-  .custom-select {
-    width: 100%;
-  }
-
-  .input-group-prepend {
-    width: 100%;
-  }
 }

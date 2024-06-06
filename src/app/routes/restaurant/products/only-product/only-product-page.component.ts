@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FoodService } from '../../../../shared/services/food.service';
 import { AuthService } from '../../../../shared/services/auth.service';
@@ -32,7 +37,20 @@ export class OnlyProductPageComponent implements OnInit {
     private router: Router,
     private cartService: CartService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.nombreComida = '';
+    this.descripcionComida = '';
+    this.imagenComida = '';
+    this.stock = true;
+    this.isLoggedIn = false;
+    this.isAdmin = false;
+    this.currentUser = null;
+
+    this.commentForm = new FormGroup({
+      estrellas: new FormControl(0),
+      comentario: new FormControl(''),
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -80,18 +98,20 @@ export class OnlyProductPageComponent implements OnInit {
   }
 
   addToCart(): void {
-    this.cartService.addToCart({
-      id: this.id,
-      nombre: this.nombreComida,
-      descripcion: this.descripcionComida,
-      imagen: this.imagenComida,
-      cantidad: 1,
-      precio: this.precio,
-    });
-    // this.foodService.updateStock(this.id, this.stock).subscribe((data) => {
-    //   console.log(data?.stock);
-    //   this.stock = data?.stock ?? 0;
-    // });
+    if (this.stock) {
+      const product = {
+        id: this.id,
+        nombre: this.nombreComida,
+        descripcion: this.descripcionComida,
+        precio: this.precio,
+        imagen: this.imagenComida,
+      };
+      this.cartService.addToCart(product);
+    }
+  }
+
+  removeFromCart(productId: number) {
+    this.cartService.removeFromCart(productId);
   }
 
   viewAllComments(): void {
@@ -100,17 +120,10 @@ export class OnlyProductPageComponent implements OnInit {
 
   publishComment(): void {
     if (this.commentForm.valid) {
-      const newComment = {
-        autor: this.currentUser?.username || 'Anonimo',
-        comentario: this.commentForm.value.comentario,
-        estrellas: this.commentForm.value.estrellas,
-      };
-
-      this.foodService.publishComment(this.id, newComment).subscribe((data) => {
-        this.comments = data.comentarios;
-        this.commentForm.reset();
-        this.hasText = false;
-      });
+      const comment = this.commentForm.value;
+      comment.autor = this.currentUser?.name;
+      this.comments.push(comment);
+      this.commentForm.reset();
     }
   }
 }

@@ -28,13 +28,7 @@ export class OnlyRecipePageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params['recipeId'];
-    });
-    this.recipesService.getRecipeById(this.id).subscribe((data) => {
-      console.log(data);
-      this.nombreReceta = data.nombreReceta;
-      this.imagenReceta = data.imagen;
-      this.ingredientesReceta = data.ingredientes.split(',');
-      this.preparacionReceta = data.instrucciones.split('.');
+      this.loadRecipe();
     });
 
     this.currentUser = this.authService.getCurrentUser();
@@ -43,6 +37,20 @@ export class OnlyRecipePageComponent implements OnInit {
     if (this.currentUser?.name == 'admin') {
       this.isAdmin = true;
     }
+  }
+
+  loadRecipe(): void {
+    this.recipesService.getRecipeById(this.id).subscribe((data) => {
+      if (data) {
+        console.log(data);
+        this.nombreReceta = data.nombreReceta;
+        this.imagenReceta = data.imagen;
+        this.ingredientesReceta = data.ingredientes.split(',');
+        this.preparacionReceta = data.instrucciones.split('.');
+      } else {
+        console.error(`No data found for recipe ID ${this.id}`);
+      }
+    });
   }
 
   goToUpdateRecipe(): void {
