@@ -26,7 +26,17 @@ export class FoodService {
 
   getComidaById(id: number): Observable<any> {
     const comida = this.comidas.find((comida) => comida.id === id);
-    return of(comida || null);
+    if (comida) {
+      return of(comida);
+    } else {
+      // Realizar una solicitud HTTP si no se encuentra la comida en el array local
+      return this.http.get<any>(`${this.products}/${id}`).pipe(
+        catchError((error) => {
+          console.error(`Error al obtener la comida con id ${id}`, error);
+          return of(null);
+        })
+      );
+    }
   }
 
   getCategorias(): Observable<any> {

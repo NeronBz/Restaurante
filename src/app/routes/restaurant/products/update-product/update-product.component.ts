@@ -24,16 +24,29 @@ export class UpdateProductComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params['productId'];
-      console.log(this.id);
+      console.log(`Product ID from params: ${this.id}`);
 
-      this.foodService.getComidaById(this.id).subscribe((data) => {
-        console.log(data);
+      if (this.id) {
+        this.foodService.getComidaById(this.id).subscribe(
+          (data) => {
+            if (data) {
+              console.log(`Data fetched for product ID ${this.id}:`, data);
 
-        this.nombreComida = data.nombreProducto;
-        this.imagenComida = data.imagen;
-        this.descripcionComida = data.descripcion;
-        this.precio = data.precio;
-      });
+              this.nombreComida = data.nombreProducto;
+              this.imagenComida = data.imagen;
+              this.descripcionComida = data.descripcion;
+              this.precio = data.precio;
+            } else {
+              console.error(`No data returned for product ID ${this.id}`);
+            }
+          },
+          (error) => {
+            console.error('Error fetching product:', error);
+          }
+        );
+      } else {
+        console.error('Product ID is invalid');
+      }
     });
   }
 
@@ -46,7 +59,7 @@ export class UpdateProductComponent implements OnInit {
         precio: this.precio,
       })
       .subscribe((data) => {
-        console.log(data);
+        console.log(`Product updated with ID ${this.id}:`, data);
         this.success = true;
         setTimeout(() => {
           this.router.navigate(['/restaurant/products']);
