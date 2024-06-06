@@ -15,13 +15,13 @@ export class OnlyProductPageComponent implements OnInit {
   nombreComida = '';
   imagenComida = '';
   descripcionComida = '';
-  nombreRestaurante = '';
   precio = 0;
   id = 0;
   stock = true;
   comments: any[] = [];
   commentForm!: FormGroup;
   isLoggedIn = false;
+  isAdmin = false;
   currentUser: User | null = null;
   hasText = false;
 
@@ -51,6 +51,11 @@ export class OnlyProductPageComponent implements OnInit {
 
     this.isLoggedIn = this.authService.isLoggedIn();
     this.currentUser = this.authService.getCurrentUser();
+    console.log(this.currentUser);
+
+    if (this.currentUser?.name == 'admin') {
+      this.isAdmin = true;
+    }
 
     this.commentForm = this.formBuilder.group({
       comentario: ['', Validators.required],
@@ -70,13 +75,16 @@ export class OnlyProductPageComponent implements OnInit {
     this.router.navigate(['/restaurant/recipes', this.id]);
   }
 
+  goToUpdateProduct(): void {
+    this.router.navigate(['/restaurant/products', this.id, 'update']);
+  }
+
   addToCart(): void {
     this.cartService.addToCart({
       id: this.id,
       nombre: this.nombreComida,
       descripcion: this.descripcionComida,
       imagen: this.imagenComida,
-      restaurante: this.nombreRestaurante,
       cantidad: 1,
       precio: this.precio,
     });

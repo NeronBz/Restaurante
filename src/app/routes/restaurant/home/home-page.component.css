@@ -3,7 +3,7 @@
 }
 body {
   background-color: rgb(141, 140, 140);
-  margin:0;
+  margin: 0;
 }
 
 .imagen1 {
@@ -22,28 +22,26 @@ body {
   background-image: url("../../../../assets/img/home4.jpg");
 }
 
-.tituloP{
+.tituloP {
   color: white;
   font-size: 2.5rem;
   font-weight: bold;
   background-color: rgba(0, 0, 0, 0.8);
-
 }
 
-.cajasRandom{
-    background-color: rgba(0, 0, 0, 0.8);
-    margin-left: 10rem;
-    margin-right: 10rem;
-    align-self: center;
-    
+.cajasRandom {
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-left: 10rem;
+  margin-right: 10rem;
+  align-self: center;
 }
 
-.bordeLetras{
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-    font-size: 1.3rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+.bordeLetras {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  font-size: 1.3rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 h2 {
@@ -52,194 +50,171 @@ h2 {
 }
 
 .imagenx {
-  height: 100vh; 
+  height: 100vh;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   background-attachment: fixed;
   background-size: cover;
-  
 }
 
-#caja{
-    margin-left: 0;
-    margin-right: 0;
+#caja {
+  margin-left: 0;
+  margin-right: 0;
 }
-
-
 
 h4 {
   text-align: center;
 }
 
-
-
 @media (min-width: 992px) {
-
-  .tituloP{
+  .tituloP {
     color: white;
     font-size: 5rem;
     font-weight: bold;
     background-color: rgba(0, 0, 0, 0.8);
-  
   }
-  
-  .cajasRandom{
-      background-color: rgba(0, 0, 0, 0.8);
-      margin-left: 10rem;
-      margin-right: 10rem;
-      align-self: center;
-      
+
+  .cajasRandom {
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-left: 10rem;
+    margin-right: 10rem;
+    align-self: center;
   }
-  
-  .bordeLetras{
+
+  .bordeLetras {
     color: white;
-    
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: black;
-      font-size: 1.5rem;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
-  
+
   h2 {
     text-align: center;
     font-size: 60px;
   }
-  
+
   .imagenx {
-    height: 100vh; 
+    height: 100vh;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
     background-attachment: fixed;
     background-size: cover;
-    
   }
-  
-  #caja{
-      margin-left: 0;
-      margin-right: 0;
+
+  #caja {
+    margin-left: 0;
+    margin-right: 0;
   }
-  
-  
-  
+
   h4 {
     text-align: center;
   }
-  
 }
 
-
-
-
-
-
 @media (max-width: 992px) {
-  .tituloP{
+  .tituloP {
     color: white;
-   
+
     font-weight: bold;
     font-size: 3rem;
     background-color: rgba(0, 0, 0, 0.8);
-  
   }
-  
-  .cajasRandom{
-      background-color: rgba(0, 0, 0, 0.8);
-      margin-left: 10rem;
-      margin-right: 10rem;
-      align-self: center;
-      
+
+  .cajasRandom {
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-left: 10rem;
+    margin-right: 10rem;
+    align-self: center;
   }
-  
-  .bordeLetras{
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: black;
-      font-size: 1.5rem;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+
+  .bordeLetras {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
-  
+
   h2 {
     text-align: center;
     font-size: 60px;
   }
-  
+
   .imagenx {
-    height: 100vh; 
+    height: 100vh;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
     background-attachment: fixed;
     background-size: cover;
-    
   }
-  
-  #caja{
-      margin-left: 0;
-      margin-right: 0;
+
+  #caja {
+    margin-left: 0;
+    margin-right: 0;
   }
-  
-  
-  
+
   h4 {
     text-align: center;
   }
+}
+
+@media (max-width: 576px) {
+  .tituloP {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.8);
   }
 
-  @media (max-width: 576px) {
-    .tituloP{
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-      background-color: rgba(0, 0, 0, 0.8);
-    
-    }
-    
-    .cajasRandom{
-        background-color: rgba(0, 0, 0, 0.8);
-        margin-left: 5rem;
-        margin-right: 5rem;
-        align-self: center;
-        
-    }
-    
-    .bordeLetras{
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: black;
-        font-size: 1rem;
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-    }
-    
-    h2 {
-      text-align: center;
-      font-size: 2rem;
-    }
-    
-    .imagenx {
-      height: 100vh; 
-      width: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      display: flex;
-      background-attachment: fixed;
-      background-size: cover;
-      
-    }
-    
-    #caja{
-        margin-left: 0;
-        margin-right: 0;
-    }
-    
-    
-    
-    h4 {
-      text-align: center;
-    }
-    }
+  .cajasRandom {
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-left: 5rem;
+    margin-right: 5rem;
+    align-self: center;
+  }
+
+  .bordeLetras {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 1rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .imagenx {
+    height: 100vh;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  #caja {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  h4 {
+    text-align: center;
+  }
+
+  .nosotros > h5 {
+    font-size: large;
+  }
+}

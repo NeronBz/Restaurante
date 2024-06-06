@@ -72,10 +72,6 @@ export class LayoutRestaurantPageComponent implements OnInit {
     });
   }
 
-  goProfile() {
-    this.router.navigate(['/restaurant/profile']);
-  }
-
   groupItems(items: any[], groupSize: number): any[][] {
     const groupedItems = [];
     for (let i = 0; i < items.length; i += groupSize) {

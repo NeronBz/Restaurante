@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RestaurantRoutingModule } from './restaurant-routing.module';
 import { LayoutRestaurantPageComponent } from './layout/layout-page.component';
 import { RecipesPageComponent } from './recipes/page/recipes-page.component';
@@ -13,7 +13,7 @@ import { OnlyProductPageComponent } from './products/only-product/only-product-p
 import { CartPageComponent } from './cart/cart-page.component';
 import { AllCommentsPageComponent } from './products/all-comments/all-comments-page.component';
 import { PaymentPageComponent } from './payment/payment-page.component';
-import { ProfilePageComponent } from './profile/profile-page.component';
+import { UpdateProductComponent } from './products/update-product/update-product.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { ProfilePageComponent } from './profile/profile-page.component';
     CartPageComponent,
     AllCommentsPageComponent,
     PaymentPageComponent,
-    ProfilePageComponent,
+    UpdateProductComponent,
   ],
   imports: [
     CommonModule,

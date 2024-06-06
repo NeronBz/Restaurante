@@ -8,7 +8,6 @@
       >
         <div class="mb-3 mb-lg-0 text-center text-white">
           <h1 class="fs-1 text-decoration-underline">{{ nombreComida }}</h1>
-          <h3>{{ nombreRestaurante }}</h3>
           <h2>Descripción</h2>
           <p>{{ descripcionComida }}</p>
           <div class="text-bg-danger" *ngIf="!stock">¡No hay stock!</div>
@@ -37,12 +36,20 @@
           Receta
         </button>
         <button
-          *ngIf="isLoggedIn"
+          *ngIf="isLoggedIn && !isAdmin"
           type="button"
           class="btn btn-success btn-lg btn-responsive m-2"
           (click)="addToCart()"
         >
           <i class="bi bi-plus"></i> Añadir al Carrito
+        </button>
+        <button
+          *ngIf="isLoggedIn && isAdmin"
+          type="button"
+          class="btn btn-success btn-lg btn-responsive m-2"
+          (click)="goToUpdateProduct()"
+        >
+          Actualizar producto
         </button>
       </div>
       <div class="card mt-4 border text-center text-white">
