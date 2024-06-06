@@ -36,7 +36,7 @@
           Receta
         </button>
         <button
-          *ngIf="isLoggedIn && !isAdmin"
+          *ngIf="isLoggedIn && !isAdmin && stock"
           type="button"
           class="btn btn-success btn-lg btn-responsive m-2"
           (click)="addToCart()"

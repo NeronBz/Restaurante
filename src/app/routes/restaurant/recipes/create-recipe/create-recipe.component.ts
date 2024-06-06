@@ -4,16 +4,15 @@ import { FoodService } from '../../../../shared/services/food.service';
 
 @Component({
   selector: 'app-update-product',
-  templateUrl: './update-product.component.html',
-  styleUrls: ['./update-product.component.css'],
+  templateUrl: './create-recipe.component.html',
+  styleUrls: ['./create-recipe.component.css'],
 })
-export class UpdateProductComponent implements OnInit {
+export class CreateRecipeComponent implements OnInit {
   nombreComida = '';
   imagenComida: string | null = '';
   descripcionComida = '';
   precio = 0;
   id = 0;
-  success = false;
 
   constructor(
     private router: Router,
@@ -47,10 +46,7 @@ export class UpdateProductComponent implements OnInit {
       })
       .subscribe((data) => {
         console.log(data);
-        this.success = true;
-        setTimeout(() => {
-          this.router.navigate(['/restaurant/products']);
-        }, 3000);
+        this.router.navigate(['/restaurant/products']);
       });
   }
 }

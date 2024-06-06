@@ -1,6 +1,6 @@
 <div class="container mt-4 text-center">
   <h2>Editar {{ nombreComida }}</h2>
-  <form (ngSubmit)="saveChanges()">
+  <form (ngSubmit)="create()">
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -61,6 +61,16 @@
           </div>
         </div>
       </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select class="input-group" [(ngModel)]="idCategoria" required>
+            <option value="1">Entrante</option>
+            <option value="2">Principal</option>
+            <option value="3">Postre</option>
+          </select>
+        </div>
+      </div>
     </div>
 
     <div class="d-flex justify-content-center m-3">
@@ -71,18 +81,10 @@
       >
         Volver
       </button>
-      <button
-        type="button"
-        class="btn btn-danger m-2"
-        data-bs-toggle="modal"
-        data-bs-target="#deleteAccountDialog"
-      >
-        Eliminar Producto
-      </button>
-      <button type="submit" class="btn btn-primary m-2">Guardar Cambios</button>
+      <button type="submit" class="btn btn-primary m-2">Crear</button>
     </div>
   </form>
   <div *ngIf="success" class="alert alert-success mt-3">
-    Actualización de plato completada. Redirigiendo a Platos...
+    Creación de plato completada. Redirigiendo a Platos...
   </div>
 </div>

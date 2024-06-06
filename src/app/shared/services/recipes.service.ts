@@ -6,8 +6,8 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
-  private recipesUrl: string = environment.baseUrl + 'recetas';
-  private categoriesUrl: string = environment.baseUrl + 'categorias';
+  private recipes: string = environment.baseUrl + 'recetas';
+  private categories: string = environment.baseUrl + 'categorias';
 
   private recetas: any[] = [];
 
@@ -27,7 +27,7 @@ export class RecipesService {
   }
 
   getRecipes(): Observable<any[]> {
-    return this.http.get<any[]>(this.recipesUrl).pipe(
+    return this.http.get<any[]>(this.recipes).pipe(
       tap((data) => (this.recetas = data)),
       catchError((error) => {
         console.error('Error al obtener las recetas', error);
@@ -41,11 +41,15 @@ export class RecipesService {
     return of(receta || null);
   }
 
+  updateReceta(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.recipes}/${id}`, data);
+  }
+
   getCategorias(): Observable<any> {
-    return this.http.get(this.categoriesUrl);
+    return this.http.get(this.categories);
   }
 
   getRecetaByCategory(category: number): Observable<any> {
-    return this.http.get(`${this.recipesUrl}?idCategoria=${category}`);
+    return this.http.get(`${this.recipes}?idCategoria=${category}`);
   }
 }

@@ -14,6 +14,9 @@ import { CartPageComponent } from './cart/cart-page.component';
 import { AllCommentsPageComponent } from './products/all-comments/all-comments-page.component';
 import { PaymentPageComponent } from './payment/payment-page.component';
 import { UpdateProductComponent } from './products/update-product/update-product.component';
+import { UpdateRecipeComponent } from './recipes/update-recipe/update-recipe.component';
+import { CreateProductComponent } from './products/create-product/create-product.component';
+import { CreateRecipeComponent } from './recipes/create-recipe/create-recipe.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { UpdateProductComponent } from './products/update-product/update-product
     AllCommentsPageComponent,
     PaymentPageComponent,
     UpdateProductComponent,
+    UpdateRecipeComponent,
+    CreateProductComponent,
+    CreateRecipeComponent,
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -15,18 +15,18 @@ export class FoodService {
   constructor(private http: HttpClient) {}
 
   getComidas(): Observable<any[]> {
-    return this.http
-      .get<any[]>(this.products)
-      .pipe(tap((data) => (this.comidas = data)));
+    return this.http.get<any[]>(this.products).pipe(
+      tap((data) => (this.comidas = data)),
+      catchError((error) => {
+        console.error('Error al obtener los platos', error);
+        return of([]);
+      })
+    );
   }
 
   getComidaById(id: number): Observable<any> {
     const comida = this.comidas.find((comida) => comida.id === id);
-    return of(comida);
-  }
-
-  updateComida(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.products}/${id}`, data);
+    return of(comida || null);
   }
 
   getCategorias(): Observable<any> {
@@ -35,6 +35,37 @@ export class FoodService {
 
   getComidaByCategory(category: number) {
     return this.http.get(`${this.products}?idCategoria=${category}`);
+  }
+
+  updateComida(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.products}/${id}`, data);
+  }
+
+  createComida(
+    nombreProducto: string,
+    precio: number,
+    descripcion: string,
+    idCategoria: number,
+    imagen: string
+  ): Observable<boolean> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {
+      nombreProducto: nombreProducto,
+      precio: precio,
+      descripcion: descripcion,
+      idCategoria: idCategoria,
+      imagen: imagen,
+    };
+
+    return this.http.post<any>(this.products, body, { headers: headers }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Register error:', error);
+        return of(false);
+      })
+    );
   }
 
   publishComment(

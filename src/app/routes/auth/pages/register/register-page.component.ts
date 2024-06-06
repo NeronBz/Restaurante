@@ -15,6 +15,7 @@ export class RegisterPageComponent {
   inputError = false;
   passwordsDoNotMatch = false;
   itExists = false;
+  success = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -29,9 +30,10 @@ export class RegisterPageComponent {
           .register(this.username, this.email, this.password, this.password2)
           .subscribe((response) => {
             if (response) {
-              this.router.navigate(['/auth/login'], {
-                queryParams: { registered: 'true' },
-              });
+              this.success = true;
+              setTimeout(() => {
+                this.router.navigate(['/auth/login']);
+              }, 3000);
             } else {
               this.itExists = true;
             }

@@ -50,5 +50,8 @@
         <a routerLink="/auth/login">¿Ya tienes cuenta?</a>
       </p>
     </form>
+    <div *ngIf="success" class="alert alert-success mt-3">
+      Registro exitoso. Redirigiendo al login...
+    </div>
   </div>
 </div>

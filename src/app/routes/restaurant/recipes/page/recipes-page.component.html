@@ -4,6 +4,14 @@
     <div class="col-md-12">
       <div class="input-group">
         <div class="input-group-prepend">
+          <button
+            *ngIf="isAdmin"
+            type="button"
+            class="btn btn-success btn-lg btn-responsive"
+            (click)="goToCreateRecipe()"
+          >
+            <i class="bi bi-plus"></i> Añadir al Carrito
+          </button>
           <label class="input-group-text" for="AlergenoSelect">Alérgenos</label>
         </div>
         <select

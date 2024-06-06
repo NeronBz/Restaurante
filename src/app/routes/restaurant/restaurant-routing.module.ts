@@ -11,6 +11,9 @@ import { RecipesPageComponent } from './recipes/page/recipes-page.component';
 import { PaymentPageComponent } from './payment/payment-page.component';
 import { AllCommentsPageComponent } from './products/all-comments/all-comments-page.component';
 import { UpdateProductComponent } from './products/update-product/update-product.component';
+import { UpdateRecipeComponent } from './recipes/update-recipe/update-recipe.component';
+import { CreateProductComponent } from './products/create-product/create-product.component';
+import { CreateRecipeComponent } from './recipes/create-recipe/create-recipe.component';
 
 const routes: Routes = [
   {
@@ -22,6 +25,11 @@ const routes: Routes = [
         path: 'products',
         data: { title: 'Platos' },
         component: ProductsPageComponent,
+      },
+      {
+        path: 'products/createProduct',
+        data: { title: 'Crear Producto' },
+        component: CreateProductComponent,
       },
       {
         path: 'products/:productId',
@@ -44,9 +52,19 @@ const routes: Routes = [
         component: RecipesPageComponent,
       },
       {
+        path: 'recipes/createRecipe',
+        data: { title: 'Crear Receta' },
+        component: CreateRecipeComponent,
+      },
+      {
         path: 'recipes/:recipeId',
         data: { title: 'Receta' },
         component: OnlyRecipePageComponent,
+      },
+      {
+        path: 'recipes/:recipeId/update',
+        data: { title: 'Editar Receta' },
+        component: UpdateRecipeComponent,
       },
       {
         path: 'cart',

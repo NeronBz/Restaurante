@@ -1,5 +1,5 @@
 <div class="container mt-4 text-center">
-  <h2>Editar {{ nombreComida }}</h2>
+  <h2>Editar {{ nombreReceta }}</h2>
   <form (ngSubmit)="saveChanges()">
     <div class="row">
       <div class="col-md-6">
@@ -9,7 +9,7 @@
             type="text"
             class="form-control"
             id="name"
-            [(ngModel)]="nombreComida"
+            [(ngModel)]="nombreReceta"
             name="name"
             required
           />
@@ -17,13 +17,13 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="descripcion">Descripción</label>
+          <label for="descripcion">Ingredientes</label>
           <div class="input-group">
             <input
               type="text"
               class="form-control"
               id="descripcion"
-              [(ngModel)]="descripcionComida"
+              [(ngModel)]="ingredientesReceta"
               name="descripcion"
               required
             />
@@ -40,7 +40,7 @@
             type="text"
             class="form-control"
             id="imagen"
-            [(ngModel)]="imagenComida"
+            [(ngModel)]="imagenReceta"
             name="imagen"
             required
           />
@@ -48,14 +48,14 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="precio">Precio</label>
+          <label for="preparacion">Preparación</label>
           <div class="input-group">
             <input
-              type="number"
+              type="text"
               class="form-control"
-              id="precio"
-              [(ngModel)]="precio"
-              name="precio"
+              id="preparacion"
+              [(ngModel)]="preparacionReceta"
+              name="preparacion"
               required
             />
           </div>
@@ -83,6 +83,6 @@
     </div>
   </form>
   <div *ngIf="success" class="alert alert-success mt-3">
-    Actualización de plato completada. Redirigiendo a Platos...
+    Actualización de Receta. Redirigiendo a Recetas...
   </div>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipesService } from '../../../../shared/services/recipes.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { User } from '../../../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-only-recipe-page',
@@ -13,11 +15,14 @@ export class OnlyRecipePageComponent implements OnInit {
   ingredientesReceta: string[] = [];
   preparacionReceta: string[] = [];
   id = 0;
+  currentUser: User | null = null;
+  isAdmin = false;
 
   constructor(
     private recipesService: RecipesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -29,8 +34,19 @@ export class OnlyRecipePageComponent implements OnInit {
       this.nombreReceta = data.nombreReceta;
       this.imagenReceta = data.imagen;
       this.ingredientesReceta = data.ingredientes.split(',');
-      this.preparacionReceta = data.instrucciones.split(',');
+      this.preparacionReceta = data.instrucciones.split('.');
     });
+
+    this.currentUser = this.authService.getCurrentUser();
+    console.log(this.currentUser);
+
+    if (this.currentUser?.name == 'admin') {
+      this.isAdmin = true;
+    }
+  }
+
+  goToUpdateRecipe(): void {
+    this.router.navigate(['/restaurant/recipes', this.id, 'update']);
   }
 
   goBack(): void {

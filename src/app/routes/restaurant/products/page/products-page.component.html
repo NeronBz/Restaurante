@@ -4,6 +4,14 @@
     <div class="col-md-12">
       <div class="input-group">
         <div class="input-group-prepend">
+          <button
+            *ngIf="isAdmin"
+            type="button"
+            class="btn btn-success btn-lg btn-responsive"
+            (click)="goToCreateProduct()"
+          >
+            <i class="bi bi-plus"></i> Añadir al Carrito
+          </button>
           <label class="input-group-text" for="tipoComidaSelect"
             >Filtrar por:</label
           >
@@ -22,7 +30,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4" *ngFor="let comida of comidas">
+    <div class="col-md-4 col-xl" *ngFor="let comida of comidas">
       <div
         class="card mb-4"
         id="cardPrincipal"

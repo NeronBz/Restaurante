@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FoodService } from '../../../../shared/services/food.service';
 import { Router } from '@angular/router';
+import { User } from '../../../../shared/interfaces/user.interface';
+import { AuthService } from '../../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-products-page',
@@ -8,10 +10,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./products-page.component.css'],
 })
 export class ProductsPageComponent implements OnInit {
+  currentUser: User | null = null;
+  isAdmin = false;
   comidas: any[] = [];
   categorias: any[] = [];
 
-  constructor(private foodService: FoodService, private router: Router) {}
+  constructor(
+    private foodService: FoodService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.foodService.getComidas().subscribe((comidas) => {
@@ -21,6 +29,13 @@ export class ProductsPageComponent implements OnInit {
       this.categorias = categorias;
     });
     console.log(this.categorias);
+
+    this.currentUser = this.authService.getCurrentUser();
+    console.log(this.currentUser);
+
+    if (this.currentUser?.name == 'admin') {
+      this.isAdmin = true;
+    }
   }
 
   onFilterChange(event: Event) {
@@ -43,6 +58,10 @@ export class ProductsPageComponent implements OnInit {
           });
       }
     }
+  }
+
+  goToCreateProduct(): void {
+    this.router.navigate(['/restaurant/products/createProduct']);
   }
 
   redirectToOnlyProduct(id: number): void {
