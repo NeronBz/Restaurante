@@ -27,8 +27,8 @@ export class RegisterPageComponent {
       if (this.password === this.password2) {
         this.authService
           .register(this.username, this.email, this.password, this.password2)
-          .subscribe((success) => {
-            if (success) {
+          .subscribe((response) => {
+            if (response) {
               this.router.navigate(['/auth/login'], {
                 queryParams: { registered: 'true' },
               });

@@ -9,12 +9,11 @@ import { FoodService } from '../../../../shared/services/food.service';
 })
 export class UpdateProductComponent implements OnInit {
   nombreComida = '';
-  imagenComida = '';
+  imagenComida: string | ArrayBuffer | null = '';
   descripcionComida = '';
   precio = 0;
   id = 0;
-  stock = true;
-  comments: any[] = [];
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -27,11 +26,38 @@ export class UpdateProductComponent implements OnInit {
       console.log(this.id);
 
       this.foodService.getComidaById(this.id).subscribe((data) => {
+        console.log(data);
+
         this.nombreComida = data.nombreProducto;
         this.imagenComida = data.imagen;
         this.descripcionComida = data.descripcion;
         this.precio = data.precio;
       });
     });
+  }
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagenComida = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  saveChanges(): void {
+    this.foodService
+      .updateComida(this.id, {
+        nombreProducto: this.nombreComida,
+        imagen: this.imagenComida,
+        descripcion: this.descripcionComida,
+        precio: this.precio,
+      })
+      .subscribe((data) => {
+        console.log(data);
+        this.router.navigate(['/restaurant/products', this.id]);
+      });
   }
 }

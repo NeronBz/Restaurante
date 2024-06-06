@@ -1,6 +1,6 @@
-<!-- <div class="container mt-4 text-center">
-  <h2>Editar {{nombreComida}}</h2>
-  <form>
+<div class="container mt-4 text-center">
+  <h2>Editar {{ nombreComida }}</h2>
+  <form (ngSubmit)="saveChanges()">
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -9,7 +9,7 @@
             type="text"
             class="form-control"
             id="name"
-            [(ngModel)]="user.name"
+            [(ngModel)]="nombreComida"
             name="name"
             required
           />
@@ -17,16 +17,46 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="password">Descripción</label>
+          <label for="descripcion">Descripción</label>
           <div class="input-group">
             <input
-              type="password"
+              type="text"
               class="form-control"
-              id="password"
-              [(ngModel)]="user.password"
-              name="password"
+              id="descripcion"
+              [(ngModel)]="descripcionComida"
+              name="descripcion"
               required
-              #passwordInput
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="imagen">Imagen</label>
+          <input
+            type="file"
+            class="form-control"
+            id="imagen"
+            (change)="onFileSelected($event)"
+            name="imagen"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="precio">Precio</label>
+          <div class="input-group">
+            <input
+              type="number"
+              class="form-control"
+              id="precio"
+              [(ngModel)]="precio"
+              name="precio"
+              required
             />
           </div>
         </div>
@@ -36,21 +66,20 @@
     <div class="d-flex justify-content-center m-3">
       <button
         type="button"
+        class="btn btn-secondary m-2"
+        onclick="history.back(-1)"
+      >
+        Volver
+      </button>
+      <button
+        type="button"
         class="btn btn-danger m-2"
         data-bs-toggle="modal"
         data-bs-target="#deleteAccountDialog"
       >
         Eliminar Producto
       </button>
-      <button
-        type="button"
-        class="btn btn-secondary m-2"
-        onclick="history.back(-1)"
-      >
-        Volver
-      </button>
       <button type="submit" class="btn btn-primary m-2">Guardar Cambios</button>
     </div>
   </form>
 </div>
-<app-delete-account-modal [user]="user"></app-delete-account-modal> -->

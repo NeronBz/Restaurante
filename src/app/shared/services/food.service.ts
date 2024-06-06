@@ -25,6 +25,10 @@ export class FoodService {
     return of(comida);
   }
 
+  updateComida(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.products}/${id}`, data);
+  }
+
   getCategorias(): Observable<any> {
     return this.http.get(this.categories);
   }

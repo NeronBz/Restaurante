@@ -33,7 +33,7 @@ export class AuthService {
       .post<any>(this.userRegister, body, { headers: headers })
       .pipe(
         map((response) => {
-          return response && response.success;
+          return response;
         }),
         catchError((error) => {
           console.error('Register error:', error);
