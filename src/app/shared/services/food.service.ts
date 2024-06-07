@@ -29,6 +29,12 @@ export class FoodService {
     } else {
       // Realizar una solicitud HTTP si no se encuentra la comida en el array local
       return this.http.get<any>(`${this.products}/${id}`).pipe(
+        tap((data) => {
+          if (data) {
+            // Si se obtiene la comida, agregarla al arreglo local
+            this.comidas.push(data);
+          }
+        }),
         catchError((error) => {
           console.error(`Error al obtener la comida con id ${id}`, error);
           return of(null);
@@ -70,7 +76,19 @@ export class FoodService {
         return response;
       }),
       catchError((error) => {
-        console.error('Register error:', error);
+        console.error('Crear comida error:', error);
+        return of(false);
+      })
+    );
+  }
+
+  deleteComida(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.products}/${id}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Delete comida error:', error);
         return of(false);
       })
     );

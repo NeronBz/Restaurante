@@ -1,22 +1,27 @@
 <div
   class="modal fade"
-  id="deleteAccountDialog"
+  id="deleteRecetaDialog"
   tabindex="-1"
-  aria-labelledby="deleteAccountDialogLabel"
+  aria-labelledby="deleteRecetaDialogLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-flex justify-content-center">
-        <h1 class="modal-title fs-5" id="deleteAccountDialogLabel">
-          ¿Estás seguro de que quieres eliminar el plato {{ user.username }}?
+        <h1 class="modal-title fs-5" id="deleteRecetaDialogLabel">
+          ¿Estás seguro de que quieres eliminar "{{ nombre }}"?
         </h1>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary" (click)="deleteAccount()">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="deleteModal(idReceta)"
+          data-bs-dismiss="modal"
+        >
           Aceptar
         </button>
       </div>

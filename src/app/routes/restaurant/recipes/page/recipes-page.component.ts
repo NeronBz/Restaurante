@@ -15,6 +15,9 @@ export class RecipesPageComponent implements OnInit {
   recipes: any[] = [];
   categorias: any[] = [];
 
+  selectedRecetaId: number | null = null;
+  selectedRecetaNombre: string | null = null;
+
   constructor(
     private recipesService: RecipesService,
     private router: Router,
@@ -67,5 +70,10 @@ export class RecipesPageComponent implements OnInit {
   redirectToOnlyRecipe(id: number): void {
     console.log(id);
     this.router.navigate(['restaurant/recipes', id]);
+  }
+
+  setSelectedReceta(id: number, nombre: string): void {
+    this.selectedRecetaId = id;
+    this.selectedRecetaNombre = nombre;
   }
 }

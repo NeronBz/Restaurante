@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FoodService } from '../../../../shared/services/food.service';
 import { Router } from '@angular/router';
 import { User } from '../../../../shared/interfaces/user.interface';
@@ -15,6 +15,9 @@ export class ProductsPageComponent implements OnInit {
   comidas: any[] = [];
   categorias: any[] = [];
 
+  selectedComidaId: number | null = null;
+  selectedComidaNombre: string | null = null;
+
   constructor(
     private foodService: FoodService,
     private router: Router,
@@ -28,8 +31,6 @@ export class ProductsPageComponent implements OnInit {
     this.foodService.getCategorias().subscribe((categorias) => {
       this.categorias = categorias;
     });
-    console.log(this.categorias);
-
     this.currentUser = this.authService.getCurrentUser();
     console.log(this.currentUser);
 
@@ -67,5 +68,10 @@ export class ProductsPageComponent implements OnInit {
   redirectToOnlyProduct(id: number): void {
     console.log(id);
     this.router.navigate(['restaurant/products', id]);
+  }
+
+  setSelectedComida(id: number, nombre: string): void {
+    this.selectedComidaId = id;
+    this.selectedComidaNombre = nombre;
   }
 }

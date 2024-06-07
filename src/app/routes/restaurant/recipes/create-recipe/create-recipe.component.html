@@ -1,6 +1,6 @@
 <div class="container mt-4 text-center">
-  <h2>Editar {{ nombreComida }}</h2>
-  <form (ngSubmit)="saveChanges()">
+  <h2>Crear Receta</h2>
+  <form (ngSubmit)="create()">
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -9,7 +9,7 @@
             type="text"
             class="form-control"
             id="name"
-            [(ngModel)]="nombreComida"
+            [(ngModel)]="nombreReceta"
             name="name"
             required
           />
@@ -17,14 +17,14 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="descripcion">Descripción</label>
+          <label for="ingredientes">Ingredientes (separar por comas)</label>
           <div class="input-group">
             <input
               type="text"
               class="form-control"
-              id="descripcion"
-              [(ngModel)]="descripcionComida"
-              name="descripcion"
+              id="ingredientes"
+              [(ngModel)]="ingredientes"
+              name="ingredientes"
               required
             />
           </div>
@@ -40,7 +40,7 @@
             type="text"
             class="form-control"
             id="imagen"
-            [(ngModel)]="imagenComida"
+            [(ngModel)]="imagenReceta"
             name="imagen"
             required
           />
@@ -48,17 +48,37 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="precio">Precio</label>
+          <label for="preparacion"
+            >Preparación (separar los pasos por puntos)</label
+          >
           <div class="input-group">
             <input
-              type="number"
+              type="text"
               class="form-control"
-              id="precio"
-              [(ngModel)]="precio"
-              name="precio"
+              id="preparacion"
+              [(ngModel)]="preparacion"
+              name="preparacion"
               required
             />
           </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label for="alergenos">Alérgenos</label>
+          <select
+            class="input-group text-center"
+            [(ngModel)]="idAlergeno"
+            multiple
+            (ngModelChange)="updateSelectedOptions($event)"
+            name="idAlergeno"
+            id="idAlergeno"
+          >
+            <option [ngValue]="1">No contiene lactosa</option>
+            <option [ngValue]="2">No contiene verdura</option>
+            <option [ngValue]="3">No contiene huevo</option>
+            <option [ngValue]="4">No contiene trigo</option>
+          </select>
         </div>
       </div>
     </div>
@@ -74,4 +94,13 @@
       <button type="submit" class="btn btn-primary m-2">Crear</button>
     </div>
   </form>
+  <div *ngIf="success" class="alert alert-success mt-3">
+    Creación de receta completada. Redirigiendo a Recetas...
+  </div>
+  <div *ngIf="failed" class="alert alert-danger mt-3">
+    No se ha podido crear la receta
+  </div>
+  <div *ngIf="itExists" class="alert alert-danger mt-3">
+    Ya existe esa receta
+  </div>
 </div>

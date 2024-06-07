@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FoodService } from '../../../../shared/services/food.service';
 
 @Component({
-  selector: 'app-update-product',
+  selector: 'app-update-product-page',
   templateUrl: './update-product.component.html',
   styleUrls: ['./update-product.component.css'],
 })

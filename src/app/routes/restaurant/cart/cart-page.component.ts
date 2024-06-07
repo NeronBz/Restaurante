@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
-  selector: 'app-cart',
+  selector: 'app-cart-page',
   templateUrl: './cart-page.component.html',
   styleUrls: ['./cart-page.component.css'],
 })

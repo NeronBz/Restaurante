@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
@@ -27,11 +27,9 @@ export class RecipesService {
     if (receta) {
       return of(receta);
     } else {
-      // Realizar una solicitud HTTP si no se encuentra la receta en el array local
       return this.http.get<any>(`${this.recipes}/${id}`).pipe(
         tap((data) => {
           if (data) {
-            // Si se obtiene la receta, agregarla al arreglo local
             this.recetas.push(data);
           }
         }),
@@ -53,5 +51,44 @@ export class RecipesService {
 
   updateReceta(id: number, data: any): Observable<any> {
     return this.http.put<any>(`${this.recipes}/${id}`, data);
+  }
+
+  createReceta(
+    nombreReceta: string,
+    ingredientes: string,
+    instrucciones: string,
+    imagen: string,
+    alergenos: number[]
+  ): Observable<boolean> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {
+      nombreReceta: nombreReceta,
+      ingredientes: ingredientes,
+      instrucciones: instrucciones,
+      imagen: imagen,
+      'alergenos[]': alergenos,
+    };
+
+    return this.http.post<any>(this.recipes, body, { headers: headers }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Crear receta error:', error);
+        return of(false);
+      })
+    );
+  }
+
+  deleteReceta(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.recipes}/${id}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Delete comida error:', error);
+        return of(false);
+      })
+    );
   }
 }

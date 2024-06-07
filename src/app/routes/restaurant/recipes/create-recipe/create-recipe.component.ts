@@ -1,52 +1,77 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FoodService } from '../../../../shared/services/food.service';
+import { Router } from '@angular/router';
+import { RecipesService } from '../../../../shared/services/recipes.service';
 
 @Component({
-  selector: 'app-update-product',
+  selector: 'app-create-recipe-page',
   templateUrl: './create-recipe.component.html',
   styleUrls: ['./create-recipe.component.css'],
 })
 export class CreateRecipeComponent implements OnInit {
-  nombreComida = '';
-  imagenComida: string | null = '';
-  descripcionComida = '';
-  precio = 0;
+  nombreReceta = '';
+  imagenReceta = '';
+  preparacion = '';
+  ingredientes = '';
+  idAlergeno: number[] = [];
   id = 0;
+  success = false;
+  failed = false;
+  recetas: any = [];
+  itExists = false;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private foodService: FoodService
-  ) {}
+  alergenos = [
+    { id: 1, nombre: 'No contiene lactosa' },
+    { id: 2, nombre: 'No contiene verdura' },
+    { id: 3, nombre: 'No contiene huevo' },
+    { id: 4, nombre: 'No contiene trigo' },
+  ];
+
+  selectedAlergenos: any[] = [];
+
+  constructor(private router: Router, private recipesService: RecipesService) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.id = +params['productId'];
-      console.log(this.id);
-
-      this.foodService.getComidaById(this.id).subscribe((data) => {
-        console.log(data);
-
-        this.nombreComida = data.nombreProducto;
-        this.imagenComida = data.imagen;
-        this.descripcionComida = data.descripcion;
-        this.precio = data.precio;
-      });
+    this.recipesService.getRecipes().subscribe((recipe) => {
+      this.recetas.push(recipe);
     });
+    console.log(this.recetas);
   }
 
-  saveChanges(): void {
-    this.foodService
-      .updateComida(this.id, {
-        nombreProducto: this.nombreComida,
-        imagen: this.imagenComida,
-        descripcion: this.descripcionComida,
-        precio: this.precio,
-      })
-      .subscribe((data) => {
-        console.log(data);
-        this.router.navigate(['/restaurant/products']);
-      });
+  updateSelectedOptions(event: any) {
+    this.idAlergeno = Array.from(event.target.selectedOptions, (option: any) =>
+      Number(option.value)
+    );
+  }
+
+  create(): void {
+    const recipeExists = this.recetas[0].find(
+      (comida: any) => comida.nombreReceta === this.nombreReceta
+    );
+    console.log(this.idAlergeno);
+
+    if (!recipeExists) {
+      this.itExists = false;
+      this.recipesService
+        .createReceta(
+          this.nombreReceta,
+          this.ingredientes,
+          this.preparacion,
+          this.imagenReceta,
+          this.idAlergeno
+        )
+        .subscribe((success) => {
+          console.log(success);
+          if (success) {
+            this.success = true;
+            setTimeout(() => {
+              this.router.navigate(['/restaurant/recipes']);
+            }, 3000);
+          } else {
+            this.failed = true;
+          }
+        });
+    } else {
+      this.itExists = true;
+    }
   }
 }

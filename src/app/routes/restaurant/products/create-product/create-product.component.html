@@ -1,5 +1,5 @@
 <div class="container mt-4 text-center">
-  <h2>Editar {{ nombreComida }}</h2>
+  <h2>Crear Plato</h2>
   <form (ngSubmit)="create()">
     <div class="row">
       <div class="col-md-6">
@@ -64,10 +64,19 @@
       <div class="col-12">
         <div class="form-group">
           <label for="categoria">Categoria</label>
-          <select class="input-group" [(ngModel)]="idCategoria" required>
-            <option value="1">Entrante</option>
-            <option value="2">Principal</option>
-            <option value="3">Postre</option>
+          <select
+            class="input-group"
+            [(ngModel)]="idCategoria"
+            name="idCategoria"
+            id="idCategoria"
+            required
+          >
+            <option
+              *ngFor="let categoria of categorias"
+              [ngValue]="categoria.id"
+            >
+              {{ categoria.nombre }}
+            </option>
           </select>
         </div>
       </div>
@@ -86,5 +95,12 @@
   </form>
   <div *ngIf="success" class="alert alert-success mt-3">
     Creación de plato completada. Redirigiendo a Platos...
+  </div>
+  <div *ngIf="failed" class="alert alert-danger mt-3">
+    No se ha podido crear el plato (la Url es de la propia imagen, no del sitio
+    web)
+  </div>
+  <div *ngIf="itExists" class="alert alert-danger mt-3">
+    Ya existe ese plato
   </div>
 </div>

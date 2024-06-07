@@ -2,20 +2,22 @@
   <h1 class="text-center my-4">Nuestras Recetas</h1>
   <div class="row mb-4">
     <div class="col-md-12">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <button
-            *ngIf="isAdmin"
-            type="button"
-            class="btn btn-success btn-lg btn-responsive"
-            (click)="goToCreateRecipe()"
-          >
-            <i class="bi bi-plus"></i> Crear Receta
-          </button>
-          <label class="input-group-text" for="AlergenoSelect">Alérgenos</label>
-        </div>
+      <div class="input-group row">
+        <button
+          *ngIf="isAdmin"
+          type="button"
+          class="btn btn-success btn-md btn-responsive col-sm-auto ms-2 ms-sm-0"
+          (click)="goToCreateRecipe()"
+        >
+          <i class="bi bi-plus"></i> Crear Receta
+        </button>
+        <label
+          class="input-group-text col-sm-auto text-center ms-2 ms-sm-0"
+          for="AlergenoSelect"
+          >Alérgenos</label
+        >
         <select
-          class="custom-select"
+          class="custom-select col-sm ms-2 ms-sm-0"
           id="AlergenoSelect"
           (change)="onFilterChange($event)"
         >
@@ -40,10 +42,26 @@
           class="card-img-top"
           alt="{{ recipe.nombreReceta }}"
         />
-        <div class="card-body">
-          <h5 class="card-title">{{ recipe.nombreReceta }}</h5>
+        <div class="card-body row">
+          <h5 class="card-title col">{{ recipe.nombreReceta }}</h5>
+          <button
+            *ngIf="isAdmin"
+            class="btn btn-danger btn-md col"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteRecetaDialog"
+            (click)="
+              setSelectedReceta(recipe.id, recipe.nombreReceta);
+              $event.stopPropagation()
+            "
+          >
+            Borrar
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-delete-recipe-modal
+  [idReceta]="selectedRecetaId"
+  [nombre]="selectedRecetaNombre"
+></app-delete-recipe-modal>

@@ -34,7 +34,7 @@ export class OnlyRecipePageComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser();
     console.log(this.currentUser);
 
-    if (this.currentUser?.name == 'admin') {
+    if (this.currentUser?.tipo == 'A') {
       this.isAdmin = true;
     }
   }

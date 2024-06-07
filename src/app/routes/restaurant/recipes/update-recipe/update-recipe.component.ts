@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecipesService } from '../../../../shared/services/recipes.service';
 
 @Component({
-  selector: 'app-update-recipe',
+  selector: 'app-update-recipe-page',
   templateUrl: './update-recipe.component.html',
   styleUrls: ['./update-recipe.component.css'],
 })
