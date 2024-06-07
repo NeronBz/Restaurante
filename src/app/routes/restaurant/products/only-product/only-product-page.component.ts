@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FoodService } from '../../../../shared/services/food.service';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { CartService } from '../../../../shared/services/cart.service';
+import { CommentsService } from '../../../../shared/services/comments.service';
 import { User } from '../../../../shared/interfaces/user.interface';
 
 @Component({
@@ -36,16 +37,9 @@ export class OnlyProductPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cartService: CartService,
-    private authService: AuthService
+    private authService: AuthService,
+    private commentsService: CommentsService
   ) {
-    this.nombreComida = '';
-    this.descripcionComida = '';
-    this.imagenComida = '';
-    this.stock = true;
-    this.isLoggedIn = false;
-    this.isAdmin = false;
-    this.currentUser = null;
-
     this.commentForm = new FormGroup({
       estrellas: new FormControl(0),
       comentario: new FormControl(''),
@@ -55,23 +49,14 @@ export class OnlyProductPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params['productId'];
-      console.log(this.id);
-
-      this.foodService.getComidaById(this.id).subscribe((data) => {
-        this.nombreComida = data.nombreProducto;
-        this.imagenComida = data.imagen;
-        this.descripcionComida = data.descripcion;
-        this.precio = data.precio;
-        this.comments = data.comentarios;
-        this.stock = data.stock;
-      });
+      this.loadProductData();
+      this.loadComments();
     });
 
     this.isLoggedIn = this.authService.isLoggedIn();
     this.currentUser = this.authService.getCurrentUser();
-    console.log(this.currentUser);
 
-    if (this.currentUser?.tipo == 'A') {
+    if (this.currentUser?.tipo === 'A') {
       this.isAdmin = true;
     }
 
@@ -82,6 +67,22 @@ export class OnlyProductPageComponent implements OnInit {
 
     this.commentForm.valueChanges.subscribe((value) => {
       this.hasText = value.comentario.trim().length > 0;
+    });
+  }
+
+  private loadProductData() {
+    this.foodService.getComidaById(this.id).subscribe((data) => {
+      this.nombreComida = data.nombreProducto;
+      this.imagenComida = data.imagen;
+      this.descripcionComida = data.descripcion;
+      this.precio = data.precio;
+      this.stock = data.stock;
+    });
+  }
+
+  private loadComments() {
+    this.commentsService.getComments(this.id).subscribe((comments) => {
+      this.comments = comments;
     });
   }
 
@@ -110,20 +111,22 @@ export class OnlyProductPageComponent implements OnInit {
     }
   }
 
-  removeFromCart(productId: number) {
-    this.cartService.removeFromCart(productId);
-  }
-
   viewAllComments(): void {
     this.router.navigate(['/restaurant/products', this.id, 'comments']);
   }
 
   publishComment(): void {
-    if (this.commentForm.valid) {
-      const comment = this.commentForm.value;
-      comment.autor = this.currentUser?.name;
-      this.comments.push(comment);
-      this.commentForm.reset();
-    }
+    // if (this.commentForm.valid) {
+    //   const comment = {
+    //     idUsuario: this.currentUser?.id,
+    //     idProducto: this.id,
+    //     comentario: this.commentForm.value.comentario,
+    //     calificacion: this.commentForm.value.estrellas,
+    //   };
+    //   this.commentsService.postComment(comment).subscribe((newComment) => {
+    //     this.comments.push(newComment);
+    //     this.commentForm.reset();
+    //   });
+    // }
   }
 }
