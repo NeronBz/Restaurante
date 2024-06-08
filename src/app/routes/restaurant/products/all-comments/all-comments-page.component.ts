@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentsService } from '../../../../shared/services/comments.service';
+import { AuthService } from '../../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-all-comments-page',
   templateUrl: './all-comments-page.component.html',
+  styleUrls: ['all-comments-page.component.css'],
 })
 export class AllCommentsPageComponent implements OnInit {
   comments: any[] = [];
@@ -13,7 +15,8 @@ export class AllCommentsPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +27,8 @@ export class AllCommentsPageComponent implements OnInit {
   private loadComments() {
     this.commentsService.getComments(this.productId).subscribe((comments) => {
       this.comments = comments;
+      console.log(this.comments);
+      // this.authService.
     });
   }
 

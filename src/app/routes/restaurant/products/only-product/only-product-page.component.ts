@@ -106,6 +106,7 @@ export class OnlyProductPageComponent implements OnInit {
         descripcion: this.descripcionComida,
         precio: this.precio,
         imagen: this.imagenComida,
+        cantidad: 1, // default to 1
       };
       this.cartService.addToCart(product);
     }
@@ -116,17 +117,19 @@ export class OnlyProductPageComponent implements OnInit {
   }
 
   publishComment(): void {
-    // if (this.commentForm.valid) {
-    //   const comment = {
-    //     idUsuario: this.currentUser?.id,
-    //     idProducto: this.id,
-    //     comentario: this.commentForm.value.comentario,
-    //     calificacion: this.commentForm.value.estrellas,
-    //   };
-    //   this.commentsService.postComment(comment).subscribe((newComment) => {
-    //     this.comments.push(newComment);
-    //     this.commentForm.reset();
-    //   });
-    // }
+    console.log(this.commentForm.valid);
+
+    if (this.commentForm.valid) {
+      const comment = {
+        idUsuario: this.currentUser?.id,
+        idProducto: this.id,
+        comentario: this.commentForm.value.comentario,
+        calificacion: this.commentForm.value.estrellas,
+      };
+      this.commentsService.postComment(comment).subscribe((newComment) => {
+        this.comments.push(newComment);
+        this.commentForm.reset();
+      });
+    }
   }
 }

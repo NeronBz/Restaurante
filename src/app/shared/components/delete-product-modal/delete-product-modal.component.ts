@@ -16,7 +16,7 @@ export class DeleteProductModalComponent {
     if (id !== undefined) {
       this.foodService.deleteComida(id).subscribe((response) => {
         console.log(response);
-        location.reload();
+        // location.reload();
       });
     }
   }

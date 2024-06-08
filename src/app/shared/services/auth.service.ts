@@ -101,6 +101,10 @@ export class AuthService {
     sessionStorage.setItem(this.currentUserKey, JSON.stringify(user));
   }
 
+  // getUser(userId: string): User {
+
+  // }
+
   getCurrentUser(): User | null {
     const currentUserJson = sessionStorage.getItem(this.currentUserKey);
     return currentUserJson ? JSON.parse(currentUserJson) : null;

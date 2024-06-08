@@ -15,20 +15,19 @@ export class CartPageComponent implements OnInit {
   constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cartService.getItems().subscribe((items) => {
-      this.items = items;
-      this.total = this.cartService.getTotal();
-    });
+    this.updateCart();
   }
 
   removeFromCart(id: number): void {
-    this.cartService.removeFromCart(id);
-    this.updateCart();
+    this.cartService.removeFromCart(id).subscribe(() => {
+      this.updateCart();
+    });
   }
 
   clearCart(): void {
-    this.cartService.clearCart();
-    this.updateCart();
+    this.cartService.clearCart().subscribe(() => {
+      this.updateCart();
+    });
   }
 
   checkout(): void {
@@ -38,7 +37,10 @@ export class CartPageComponent implements OnInit {
   private updateCart(): void {
     this.cartService.getItems().subscribe((items) => {
       this.items = items;
-      this.total = this.cartService.getTotal();
+      this.total = this.items.reduce(
+        (acc, item) => acc + item.precio * item.cantidad,
+        0
+      );
     });
   }
 
@@ -57,9 +59,10 @@ export class CartPageComponent implements OnInit {
   onQuantityChange(newQuantity: number): void {
     if (this.selectedItem) {
       this.selectedItem.cantidad = newQuantity;
-      this.cartService.updateCart(this.items);
-      this.updateCart();
-      this.closeQuantityModal();
+      this.cartService.updateCart(this.items).subscribe(() => {
+        this.updateCart();
+        this.closeQuantityModal();
+      });
     }
   }
 

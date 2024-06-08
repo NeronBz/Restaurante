@@ -84,6 +84,14 @@
   fill: #ffa723;
 }
 
+.bi-star-fill.text-secondary {
+  color: #ffffff;
+}
+
+.bi-star-fill.text-warning {
+  color: #ffa723;
+}
+
 @media (max-width: 768px) {
   .btn-responsive {
     font-size: 1rem;

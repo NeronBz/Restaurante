@@ -2,7 +2,18 @@
   <h2>Comentarios</h2>
   <div *ngFor="let comment of comments" class="card my-3">
     <div class="card-body">
-      <h5 class="card-title">{{ comment.autor }}</h5>
+      <h5>
+        {{ comment.autor }}
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let idx = index">
+          <i
+            class="bi bi-star-fill"
+            [ngClass]="{
+              'text-warning': idx < comment.calificacion,
+              'text-secondary': idx >= comment.calificacion
+            }"
+          ></i>
+        </ng-container>
+      </h5>
       <p class="card-text">{{ comment.comentario }}</p>
     </div>
   </div>

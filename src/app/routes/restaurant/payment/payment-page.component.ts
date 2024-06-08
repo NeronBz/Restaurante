@@ -11,7 +11,7 @@ export class PaymentPageComponent {
   constructor(private router: Router, private cartService: CartService) {}
 
   pay(): void {
-    this.cartService.clearCart();
+    // this.cartService.clearCart();
     alert('Pago realizado con éxito!');
     this.router.navigate(['/']);
   }
