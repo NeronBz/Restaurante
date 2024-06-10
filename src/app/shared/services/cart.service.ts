@@ -39,14 +39,14 @@ export class CartService {
     );
   }
 
-  private loadItems(userId: number): void {
+  loadItems(userId: number): void {
     this.http.get(`${this.getcart}/${userId}`).subscribe((response: any) => {
       this.items = response.items || [];
       this.itemsSubject.next(this.items);
     });
   }
 
-  private saveItems(): void {
+  saveItems(): void {
     const cartData = {
       userId: this.user.id,
       items: this.items,
@@ -54,15 +54,15 @@ export class CartService {
     this.http.post(this.postcart, cartData).subscribe();
   }
 
-  private createCart(userId: number): Observable<any> {
+  createCart(userId: number): Observable<any> {
     return this.http.post(this.postcart, { userId });
   }
 
-  private getCartByUserId(userId: number): Observable<any> {
+  getCartByUserId(userId: number): Observable<any> {
     return this.http.get(`${this.getcart}/${userId}`);
   }
 
-  private addOrUpdateCartItem(cartId: number, item: any): Observable<any> {
+  addCartItem(cartId: number, item: any): Observable<any> {
     return this.http.post(this.postdetailsCart, {
       idCarrito: cartId,
       idProducto: item.id,
@@ -70,10 +70,7 @@ export class CartService {
     });
   }
 
-  private updateCartItem(
-    cartDetailId: number,
-    quantity: number
-  ): Observable<any> {
+  updateCartItem(cartDetailId: number, quantity: number): Observable<any> {
     return this.http.put(
       `${this.putdetailsCart.replace('{id}', cartDetailId.toString())}`,
       {
@@ -82,35 +79,20 @@ export class CartService {
     );
   }
 
-  addToCart(item: any): void {
-    this.getCartByUserId(this.user.id)
-      .pipe(
-        switchMap((cart: any) => {
-          if (!cart || !cart.id) {
-            return this.createCart(this.user.id).pipe(
-              switchMap((newCart: any) =>
-                this.addOrUpdateCartItem(newCart.id, item)
-              )
-            );
-          } else {
-            const existingItem = this.items.find(
-              (cartItem) => cartItem.id === item.id
-            );
-            if (existingItem) {
-              existingItem.cantidad++;
-              return this.updateCartItem(
-                existingItem.id,
-                existingItem.cantidad
-              );
-            } else {
-              return this.addOrUpdateCartItem(cart.id, item);
-            }
-          }
-        })
-      )
-      .subscribe(() => {
+  addToCart(cartId: number, item: any): void {
+    const existingItem = this.items.find((cartItem) => cartItem.id === item.id);
+    if (existingItem) {
+      existingItem.cantidad++;
+      this.updateCartItem(existingItem.id, existingItem.cantidad).subscribe(
+        () => {
+          this.loadItems(this.user.id);
+        }
+      );
+    } else {
+      this.addCartItem(cartId, item).subscribe(() => {
         this.loadItems(this.user.id);
       });
+    }
   }
 
   removeFromCart(cartDetailId: number): Observable<any> {

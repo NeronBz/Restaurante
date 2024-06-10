@@ -9,6 +9,9 @@
         class="alert alert-warning m-0 text-center"
       >
         El carrito está vacío
+        <button class="btn btn-primary mt-3" (click)="createCart()">
+          Crear Carrito
+        </button>
       </div>
       <div *ngIf="items.length > 0">
         <div *ngFor="let item of items" class="card mb-3">

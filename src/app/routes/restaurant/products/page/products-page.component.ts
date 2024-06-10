@@ -28,7 +28,7 @@ export class ProductsPageComponent implements OnInit {
   ngOnInit(): void {
     this.foodService.getComidas().subscribe((comidas) => {
       this.comidas = comidas;
-      this.filteredComidas = comidas; // Inicialmente mostrar todas las comidas
+      this.filteredComidas = comidas;
     });
     this.foodService.getCategorias().subscribe((categorias) => {
       this.categorias = categorias;
@@ -47,7 +47,9 @@ export class ProductsPageComponent implements OnInit {
     if (filterValue === 'all') {
       this.filteredComidas = this.comidas;
     } else {
-      this.filteredComidas = this.comidas.filter(comida => comida.idCategoria == filterValue);
+      this.filteredComidas = this.comidas.filter(
+        (comida) => comida.idCategoria == filterValue
+      );
     }
   }
 

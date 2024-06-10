@@ -14,9 +14,11 @@ export class DeleteRecipeModalComponent {
 
   deleteModal(id: number | undefined): void {
     if (id !== undefined) {
+      console.log(id);
+
       this.recipesService.deleteReceta(id).subscribe((response) => {
         console.log(response);
-        location.reload();
+        // location.reload();
       });
     }
   }
