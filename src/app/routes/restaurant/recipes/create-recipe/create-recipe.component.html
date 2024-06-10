@@ -39,7 +39,7 @@
         <div class="form-group">
           <label for="alergenos">Alérgenos</label>
           <select class="form-control" [(ngModel)]="selectedAlergenos" multiple name="alergenos" id="alergenos">
-            <option *ngFor="let alergeno of alergenos" [ngValue]="alergeno.nombre">
+            <option *ngFor="let alergeno of alergenos" [ngValue]="alergeno.id">
               {{ alergeno.nombre }}
             </option>
           </select>

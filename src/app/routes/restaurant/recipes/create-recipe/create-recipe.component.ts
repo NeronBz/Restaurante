@@ -14,14 +14,13 @@ export class CreateRecipeComponent implements OnInit {
   preparacion = '';
   ingredientes = '';
   idAlergeno: number[] = [];
-  id = 0;
   success = false;
   failed = false;
   recetas: any[] = [];
   itExists = false;
 
   alergenos: any[] = [];
-  selectedAlergenos: any[] = [];
+  selectedAlergenos: number[] = [];
 
   constructor(
     private router: Router,
@@ -40,11 +39,8 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   updateSelectedOptions(event: any) {
-    this.idAlergeno = Array.from(event.target.selectedOptions, (option: any) =>
+    this.selectedAlergenos = Array.from(event.target.selectedOptions, (option: any) =>
       Number(option.value)
-    );
-    this.selectedAlergenos = this.alergenos.filter(alergeno =>
-      this.idAlergeno.includes(alergeno.id)
     );
   }
 
@@ -56,19 +52,15 @@ export class CreateRecipeComponent implements OnInit {
     if (!recipeExists) {
       this.itExists = false;
 
-      // Obtener los IDs de los alérgenos seleccionados
-      const alergenosSeleccionadosIDs: number[] = this.selectedAlergenos.map(alergeno => alergeno.id);
-
       this.recipesService
         .createReceta(
           this.nombreReceta,
           this.ingredientes,
           this.preparacion,
           this.imagenReceta,
-          alergenosSeleccionadosIDs // Pasar los IDs de los alérgenos a la API
+          this.selectedAlergenos
         )
         .subscribe((success) => {
-          console.log(success);
           if (success) {
             this.success = true;
             setTimeout(() => {

@@ -6,14 +6,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
-  private recipes: string = environment.baseUrl + 'recetas';
-  private categories: string = environment.baseUrl + 'categorias';
+  private recipesUrl: string = environment.baseUrl + 'recetas';
+  private allergensUrl: string = environment.baseUrl + 'alergenos';
   private recetas: any[] = [];
 
   constructor(private http: HttpClient) {}
 
   getRecipes(): Observable<any[]> {
-    return this.http.get<any[]>(this.recipes).pipe(
+    return this.http.get<any[]>(this.recipesUrl).pipe(
       tap((data) => (this.recetas = data)),
       catchError((error) => {
         console.error('Error al obtener las recetas', error);
@@ -27,7 +27,7 @@ export class RecipesService {
     if (receta) {
       return of(receta);
     } else {
-      return this.http.get<any>(`${this.recipes}/${id}`).pipe(
+      return this.http.get<any>(`${this.recipesUrl}/${id}`).pipe(
         tap((data) => {
           if (data) {
             this.recetas.push(data);
@@ -41,16 +41,16 @@ export class RecipesService {
     }
   }
 
-  getCategorias(): Observable<any> {
-    return this.http.get(this.categories);
+  getAllergens(): Observable<any[]> {
+    return this.http.get<any[]>(this.allergensUrl);
   }
 
-  getRecetaByCategory(category: number): Observable<any> {
-    return this.http.get(`${this.recipes}?idCategoria=${category}`);
+  getRecetaByAllergen(allergens: number): Observable<any> {
+    return this.http.get(`${this.recipesUrl}?idAlergeno=${this.allergensUrl}`);
   }
 
   updateReceta(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.recipes}/${id}`, data);
+    return this.http.put<any>(`${this.recipesUrl}/${id}`, data);
   }
 
   createReceta(
@@ -66,12 +66,12 @@ export class RecipesService {
       ingredientes: ingredientes,
       instrucciones: instrucciones,
       imagen: imagen,
-      'alergenos[]': alergenos,
+      alergenos: alergenos,  // Corregido: enviar alérgenos como un array
     };
 
-    return this.http.post<any>(this.recipes, body, { headers: headers }).pipe(
+    return this.http.post<any>(this.recipesUrl, body, { headers: headers }).pipe(
       map((response) => {
-        return response;
+        return true;
       }),
       catchError((error) => {
         console.error('Crear receta error:', error);
@@ -81,12 +81,12 @@ export class RecipesService {
   }
 
   deleteReceta(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.recipes}/${id}`).pipe(
+    return this.http.delete<any>(`${this.recipesUrl}/${id}`).pipe(
       map((response) => {
         return response;
       }),
       catchError((error) => {
-        console.error('Delete comida error:', error);
+        console.error('Eliminar receta error:', error);
         return of(false);
       })
     );
