@@ -3,57 +3,33 @@
   <div class="row mb-4">
     <div class="col-md-12">
       <div class="input-group row">
-        <button
-          *ngIf="isAdmin"
-          type="button"
-          class="btn btn-success btn-md btn-responsive col-sm-auto ms-2 ms-sm-0"
-          (click)="goToCreateRecipe()"
-        >
+        <button *ngIf="isAdmin" type="button" class="btn btn-success btn-md btn-responsive col-sm-auto ms-2 ms-sm-0"
+          (click)="goToCreateRecipe()">
           <i class="bi bi-plus"></i> Crear Receta
         </button>
-        <label
-          class="input-group-text col-sm-auto text-center ms-2 ms-sm-0"
-          for="AlergenoSelect"
-          >Alérgenos</label
-        >
-        <select
-          class="custom-select col-sm ms-2 ms-sm-0"
-          id="AlergenoSelect"
-          (change)="onFilterChange($event)"
-        >
+        <label class="input-group-text col-sm-auto text-center ms-2 ms-sm-0" for="AlergenoSelect">
+          Alérgenos
+        </label>
+        <select class="custom-select col-sm ms-2 ms-sm-0" id="AlergenoSelect" (change)="onFilterChange($event)">
           <option value="all" selected>Elige uno...</option>
-          <option value="lactosa">No contiene lactosa</option>
-          <option value="verdura">No contiene verdura</option>
-          <option value="huevo">No contiene huevo</option>
-          <option value="trigo">No contiene trigo</option>
+          <option *ngFor="let alergeno of alergenos" [value]="alergeno.nombre">
+            No contiene {{ alergeno.nombre }}
+          </option>
         </select>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-4" *ngFor="let recipe of recipes">
-      <div
-        class="card mb-4"
-        id="cardPrincipal"
-        (click)="redirectToOnlyRecipe(recipe.id)"
-      >
-        <img
-          [src]="recipe.imagen"
-          class="card-img-top"
-          alt="{{ recipe.nombreReceta }}"
-        />
+      <div class="card mb-4" id="cardPrincipal" (click)="redirectToOnlyRecipe(recipe.id)">
+        <img [src]="recipe.imagen" class="card-img-top" alt="{{ recipe.nombreReceta }}" />
         <div class="card-body row">
           <h5 class="card-title col">{{ recipe.nombreReceta }}</h5>
-          <button
-            *ngIf="isAdmin"
-            class="btn btn-danger btn-md col"
-            data-bs-toggle="modal"
-            data-bs-target="#deleteRecetaDialog"
-            (click)="
+          <button *ngIf="isAdmin" class="btn btn-danger btn-md col" data-bs-toggle="modal"
+            data-bs-target="#deleteRecetaDialog" (click)="
               setSelectedReceta(recipe.id, recipe.nombreReceta);
               $event.stopPropagation()
-            "
-          >
+            ">
             Borrar
           </button>
         </div>
@@ -61,7 +37,4 @@
     </div>
   </div>
 </div>
-<app-delete-recipe-modal
-  [idReceta]="selectedRecetaId"
-  [nombre]="selectedRecetaNombre"
-></app-delete-recipe-modal>
+<app-delete-recipe-modal [idReceta]="selectedRecetaId" [nombre]="selectedRecetaNombre"></app-delete-recipe-modal>

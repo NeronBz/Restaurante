@@ -3,6 +3,7 @@ import { RecipesService } from '../../../../shared/services/recipes.service';
 import { Router } from '@angular/router';
 import { User } from '../../../../shared/interfaces/user.interface';
 import { AuthService } from '../../../../shared/services/auth.service';
+import { AllergensService } from '../../../../shared/services/allergens.service';
 
 @Component({
   selector: 'app-recipes-page',
@@ -13,28 +14,26 @@ export class RecipesPageComponent implements OnInit {
   currentUser: User | null = null;
   isAdmin = false;
   recipes: any[] = [];
-  categorias: any[] = [];
-
+  alergenos: any[] = [];
   selectedRecetaId: number | null = null;
   selectedRecetaNombre: string | null = null;
 
   constructor(
     private recipesService: RecipesService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private allergensService: AllergensService
   ) {}
 
   ngOnInit(): void {
     this.recipesService.getRecipes().subscribe((recipes) => {
       this.recipes = recipes;
     });
-    this.recipesService.getCategorias().subscribe((categorias) => {
-      this.categorias = categorias;
+    this.allergensService.getAllergens().subscribe((alergenos) => {
+      this.alergenos = alergenos;
     });
-    console.log(this.recipes);
 
     this.currentUser = this.authService.getCurrentUser();
-    console.log(this.currentUser);
 
     if (this.currentUser?.tipo == 'A') {
       this.isAdmin = true;
@@ -49,17 +48,11 @@ export class RecipesPageComponent implements OnInit {
         this.recipes = recipes;
       });
     } else {
-      const categoriaSeleccionada = this.categorias.find(
-        (categoria) => categoria.nombreCategoria === filterValue
-      );
-
-      if (categoriaSeleccionada) {
-        this.recipesService
-          .getRecetaByCategory(categoriaSeleccionada.id)
-          .subscribe((response) => {
-            this.recipes = response as any[];
-          });
-      }
+      this.recipesService.getRecipes().subscribe((recipes) => {
+        this.recipes = recipes.filter(recipe =>
+          !recipe.alergenos || !recipe.alergenos.some((alergeno: any)  => alergeno.nombre === filterValue)
+        );
+      });
     }
   }
 
@@ -68,7 +61,6 @@ export class RecipesPageComponent implements OnInit {
   }
 
   redirectToOnlyRecipe(id: number): void {
-    console.log(id);
     this.router.navigate(['restaurant/recipes', id]);
   }
 

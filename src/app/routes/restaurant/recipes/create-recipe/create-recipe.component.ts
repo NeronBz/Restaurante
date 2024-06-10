@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RecipesService } from '../../../../shared/services/recipes.service';
+import { AllergensService } from '../../../../shared/services/allergens.service';
 
 @Component({
   selector: 'app-create-recipe-page',
@@ -16,48 +17,55 @@ export class CreateRecipeComponent implements OnInit {
   id = 0;
   success = false;
   failed = false;
-  recetas: any = [];
+  recetas: any[] = [];
   itExists = false;
 
-  alergenos = [
-    { id: 1, nombre: 'No contiene lactosa' },
-    { id: 2, nombre: 'No contiene verdura' },
-    { id: 3, nombre: 'No contiene huevo' },
-    { id: 4, nombre: 'No contiene trigo' },
-  ];
-
+  alergenos: any[] = [];
   selectedAlergenos: any[] = [];
 
-  constructor(private router: Router, private recipesService: RecipesService) {}
+  constructor(
+    private router: Router,
+    private recipesService: RecipesService,
+    private allergensService: AllergensService
+  ) {}
 
   ngOnInit(): void {
-    this.recipesService.getRecipes().subscribe((recipe) => {
-      this.recetas.push(recipe);
+    this.recipesService.getRecipes().subscribe((recipes) => {
+      this.recetas = recipes;
     });
-    console.log(this.recetas);
+
+    this.allergensService.getAllergens().subscribe((alergenos) => {
+      this.alergenos = alergenos;
+    });
   }
 
   updateSelectedOptions(event: any) {
     this.idAlergeno = Array.from(event.target.selectedOptions, (option: any) =>
       Number(option.value)
     );
+    this.selectedAlergenos = this.alergenos.filter(alergeno =>
+      this.idAlergeno.includes(alergeno.id)
+    );
   }
 
   create(): void {
-    const recipeExists = this.recetas[0].find(
+    const recipeExists = this.recetas.find(
       (comida: any) => comida.nombreReceta === this.nombreReceta
     );
-    console.log(this.idAlergeno);
 
     if (!recipeExists) {
       this.itExists = false;
+
+      // Obtener los IDs de los alérgenos seleccionados
+      const alergenosSeleccionadosIDs: number[] = this.selectedAlergenos.map(alergeno => alergeno.id);
+
       this.recipesService
         .createReceta(
           this.nombreReceta,
           this.ingredientes,
           this.preparacion,
           this.imagenReceta,
-          this.idAlergeno
+          alergenosSeleccionadosIDs // Pasar los IDs de los alérgenos a la API
         )
         .subscribe((success) => {
           console.log(success);

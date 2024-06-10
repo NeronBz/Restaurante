@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FoodService } from '../../../../shared/services/food.service';
 import { Router } from '@angular/router';
 import { User } from '../../../../shared/interfaces/user.interface';
@@ -15,6 +15,7 @@ export class ProductsPageComponent implements OnInit {
   comidas: any[] = [];
   categorias: any[] = [];
 
+  filteredComidas: any[] = [];
   selectedComidaId: number | null = null;
   selectedComidaNombre: string | null = null;
 
@@ -27,6 +28,7 @@ export class ProductsPageComponent implements OnInit {
   ngOnInit(): void {
     this.foodService.getComidas().subscribe((comidas) => {
       this.comidas = comidas;
+      this.filteredComidas = comidas; // Inicialmente mostrar todas las comidas
     });
     this.foodService.getCategorias().subscribe((categorias) => {
       this.categorias = categorias;
@@ -34,30 +36,18 @@ export class ProductsPageComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser();
     console.log(this.currentUser);
 
-    if (this.currentUser?.tipo == 'A') {
+    if (this.currentUser?.tipo === 'A') {
       this.isAdmin = true;
     }
   }
 
-  onFilterChange(event: Event) {
+  onFilterChange(event: Event): void {
     const filterValue = (event.target as HTMLSelectElement).value;
 
     if (filterValue === 'all') {
-      this.foodService.getComidas().subscribe((comidas) => {
-        this.comidas = comidas;
-      });
+      this.filteredComidas = this.comidas;
     } else {
-      const categoriaSeleccionada = this.categorias.find(
-        (categoria) => categoria.nombreCategoria === filterValue
-      );
-
-      if (categoriaSeleccionada) {
-        this.foodService
-          .getComidaByCategory(categoriaSeleccionada.id)
-          .subscribe((response) => {
-            this.comidas = response as any[];
-          });
-      }
+      this.filteredComidas = this.comidas.filter(comida => comida.idCategoria == filterValue);
     }
   }
 

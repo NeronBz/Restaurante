@@ -5,28 +5,15 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="name">Nombre</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            [(ngModel)]="nombreReceta"
-            name="name"
-            required
-          />
+          <input type="text" class="form-control" id="name" [(ngModel)]="nombreReceta" name="name" required />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="ingredientes">Ingredientes (separar por comas)</label>
           <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              id="ingredientes"
-              [(ngModel)]="ingredientes"
-              name="ingredientes"
-              required
-            />
+            <input type="text" class="form-control" id="ingredientes" [(ngModel)]="ingredientes" name="ingredientes"
+              required />
           </div>
         </div>
       </div>
@@ -36,59 +23,32 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="imagen">Imagen (url de Internet)</label>
-          <input
-            type="text"
-            class="form-control"
-            id="imagen"
-            [(ngModel)]="imagenReceta"
-            name="imagen"
-            required
-          />
+          <input type="text" class="form-control" id="imagen" [(ngModel)]="imagenReceta" name="imagen" required />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="preparacion"
-            >Preparación (separar los pasos por puntos)</label
-          >
+          <label for="preparacion">Preparación (separar los pasos por puntos)</label>
           <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              id="preparacion"
-              [(ngModel)]="preparacion"
-              name="preparacion"
-              required
-            />
+            <input type="text" class="form-control" id="preparacion" [(ngModel)]="preparacion" name="preparacion"
+              required />
           </div>
         </div>
       </div>
       <div class="col-12">
         <div class="form-group">
           <label for="alergenos">Alérgenos</label>
-          <select
-            class="input-group text-center"
-            [(ngModel)]="idAlergeno"
-            multiple
-            (ngModelChange)="updateSelectedOptions($event)"
-            name="idAlergeno"
-            id="idAlergeno"
-          >
-            <option [ngValue]="1">No contiene lactosa</option>
-            <option [ngValue]="2">No contiene verdura</option>
-            <option [ngValue]="3">No contiene huevo</option>
-            <option [ngValue]="4">No contiene trigo</option>
+          <select class="form-control" [(ngModel)]="selectedAlergenos" multiple name="alergenos" id="alergenos">
+            <option *ngFor="let alergeno of alergenos" [ngValue]="alergeno.nombre">
+              {{ alergeno.nombre }}
+            </option>
           </select>
         </div>
       </div>
     </div>
 
     <div class="d-flex justify-content-center m-3">
-      <button
-        type="button"
-        class="btn btn-secondary m-2"
-        onclick="history.back(-1)"
-      >
+      <button type="button" class="btn btn-secondary m-2" onclick="history.back(-1)">
         Volver
       </button>
       <button type="submit" class="btn btn-primary m-2">Crear</button>

@@ -1,50 +1,26 @@
+<!-- products-page.component.html -->
 <div class="container">
   <h1 class="text-center my-4">Nuestros Platos</h1>
   <div class="row mb-4">
     <div class="col-md-12">
       <div class="input-group row">
-        <button
-          *ngIf="isAdmin"
-          type="button"
-          class="btn btn-success btn-md btn-responsive col-sm-auto ms-2 ms-sm-0"
-          (click)="goToCreateProduct()"
-        >
+        <button *ngIf="isAdmin" type="button" class="btn btn-success btn-md btn-responsive col-sm-auto ms-2 ms-sm-0"
+          (click)="goToCreateProduct()">
           <i class="bi bi-plus"></i> Crear Plato
         </button>
-        <label
-          class="input-group-text col-sm-auto text-center ms-2 ms-sm-0"
-          for="tipoComidaSelect"
-          >Filtrar por:</label
-        >
-        <select
-          class="custom-select col-sm ms-2 ms-sm-0"
-          id="tipoComidaSelect"
-          (change)="onFilterChange($event)"
-        >
+        <label class="input-group-text col-sm-auto text-center ms-2 ms-sm-0" for="tipoComidaSelect">Filtrar por:</label>
+        <select class="custom-select col-sm ms-2 ms-sm-0" id="tipoComidaSelect" (change)="onFilterChange($event)">
           <option value="all" selected>Elige uno...</option>
-          <option value="entrante">Entrantes</option>
-          <option value="principal">Principales</option>
-          <option value="postre">Postres</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombreCategoria }}</option>
         </select>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div
-      class="col-sm-6 col-md-4 col-xl-3 col-xxl-2"
-      *ngFor="let comida of comidas"
-    >
-      <div
-        class="card mb-4"
-        id="cardPrincipal"
-        (click)="redirectToOnlyProduct(comida.id)"
-      >
-        <img
-          [src]="comida.imagen"
-          class="card-img-top"
-          alt="{{ comida.nombreProducto }}"
-        />
+    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2" *ngFor="let comida of filteredComidas">
+      <div class="card mb-4" id="cardPrincipal" (click)="redirectToOnlyProduct(comida.id)">
+        <img [src]="comida.imagen" class="card-img-top" alt="{{ comida.nombreProducto }}" />
         <div class="card-body">
           <h5 class="card-title">{{ comida.nombreProducto }}</h5>
           <p class="card-text">{{ comida.descripcion }}</p>
@@ -53,15 +29,11 @@
               <p class="card-text font-weight-bold">{{ comida.precio }}€</p>
             </div>
             <div class="col d-flex justify-content-center" *ngIf="isAdmin">
-              <button
-                class="btn btn-danger btn-md"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteProductDialog"
+              <button class="btn btn-danger btn-md" data-bs-toggle="modal" data-bs-target="#deleteProductDialog"
                 (click)="
                   setSelectedComida(comida.id, comida.nombreProducto);
                   $event.stopPropagation()
-                "
-              >
+                ">
                 Borrar
               </button>
             </div>
@@ -71,7 +43,4 @@
     </div>
   </div>
 </div>
-<app-delete-product-modal
-  [idComida]="selectedComidaId"
-  [nombre]="selectedComidaNombre"
-></app-delete-product-modal>
+<app-delete-product-modal [idComida]="selectedComidaId" [nombre]="selectedComidaNombre"></app-delete-product-modal>
