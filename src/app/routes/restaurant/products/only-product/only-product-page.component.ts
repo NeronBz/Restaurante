@@ -11,6 +11,7 @@ import { AuthService } from '../../../../shared/services/auth.service';
 import { CartService } from '../../../../shared/services/cart.service';
 import { CommentsService } from '../../../../shared/services/comments.service';
 import { User } from '../../../../shared/interfaces/user.interface';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-only-products-page',
@@ -107,17 +108,34 @@ export class OnlyProductPageComponent implements OnInit {
   }
 
   addToCart(): void {
-    if (this.stock) {
-      const product = {
-        id: this.id,
-        nombre: this.nombreComida,
-        descripcion: this.descripcionComida,
-        precio: this.precio,
-        imagen: this.imagenComida,
-        cantidad: 1, // default to 1
-      };
-      this.cartService.addToCart(product);
-    }
+    const user: User | null = this.authService.getCurrentUser();
+    console.log(user);
+
+    this.cartService
+      .getCartByUserId(user?.id)
+      .pipe(
+        tap((cart) => {
+          console.log(cart);
+          if (this.stock) {
+            const product = {
+              id: this.id,
+              nombre: this.nombreComida,
+              descripcion: this.descripcionComida,
+              precio: this.precio,
+              imagen: this.imagenComida,
+              cantidad: 1, // default to 1
+            };
+            this.cartService.addToCart(cart.id, product);
+          }
+        }),
+        catchError((error) => {
+          if (error.status === 404) {
+            this.router.navigate(['restaurant/cart']); // Redirigir a la página del carrito
+          }
+          return of(null); // Emitir un valor nulo para que el flujo continúe
+        })
+      )
+      .subscribe();
   }
 
   viewAllComments(): void {

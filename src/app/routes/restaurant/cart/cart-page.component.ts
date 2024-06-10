@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../../shared/services/cart.service';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -11,8 +12,15 @@ export class CartPageComponent implements OnInit {
   items: any[] = [];
   total = 0;
   selectedItem: any;
+  user: any;
 
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.user = this.authService.getCurrentUser();
+  }
 
   ngOnInit(): void {
     this.updateCart();
@@ -74,5 +82,15 @@ export class CartPageComponent implements OnInit {
     modalElement.setAttribute('aria-hidden', 'true');
     modalElement.setAttribute('style', 'display: none');
     document.querySelector('.modal-backdrop')?.remove();
+  }
+
+  createCart(): void {
+    this.cartService.getCartByUserId(this.user.id).subscribe((cart) => {
+      if (!cart.id) {
+        this.cartService.createCart(this.user.id).subscribe(() => {
+          this.updateCart();
+        });
+      }
+    });
   }
 }
