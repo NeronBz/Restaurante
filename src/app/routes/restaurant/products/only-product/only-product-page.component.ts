@@ -25,6 +25,7 @@ export class OnlyProductPageComponent implements OnInit {
   id = 0;
   stock = true;
   comments: any[] = [];
+  users: any[] = [];
   commentForm!: FormGroup;
   isLoggedIn = false;
   isAdmin = false;
@@ -83,6 +84,13 @@ export class OnlyProductPageComponent implements OnInit {
   private loadComments() {
     this.commentsService.getComments(this.id).subscribe((comments) => {
       this.comments = comments;
+      for (let i = 0; i < comments.length; i++) {
+        this.authService.getUser(comments[i].idUsuario).subscribe((user) => {
+          const userAny: any = user;
+          this.users.push(userAny);
+          console.log(this.users);
+        });
+      }
     });
   }
 

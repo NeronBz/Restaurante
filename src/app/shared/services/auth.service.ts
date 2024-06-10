@@ -9,8 +9,8 @@ export class AuthService {
   private userLogin: string = environment.baseUrl + 'login';
   private userRegister: string = environment.baseUrl + 'register';
   private userLogout: string = environment.baseUrl + 'logout';
+  private obtainUser: string = environment.baseUrl + 'user';
 
-  private storageKey = 'users';
   private currentUserKey = 'currentUser';
 
   constructor(private http: HttpClient) {}
@@ -68,26 +68,6 @@ export class AuthService {
     );
   }
 
-  // updateUser(updatedUser: User): void {
-  //   const users = this.getUsersFromStorage();
-  //   const index = users.findIndex((u) => u.username === updatedUser.username);
-  //   if (index !== -1) {
-  //     users[index] = updatedUser;
-  //     this.saveUsersToStorage(users);
-  //     sessionStorage.setItem(this.currentUserKey, JSON.stringify(updatedUser));
-  //   }
-  // }
-
-  // deleteUser(username: string): void {
-  //   const users = this.getUsersFromStorage();
-  //   const updatedUsers = users.filter((u) => u.username !== username);
-  //   this.saveUsersToStorage(updatedUsers);
-  // }
-
-  private saveUsersToStorage(users: User[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(users));
-  }
-
   logout(): Observable<any> {
     sessionStorage.removeItem(this.currentUserKey);
     return this.http.post<any>(this.userLogout, null);
@@ -101,9 +81,9 @@ export class AuthService {
     sessionStorage.setItem(this.currentUserKey, JSON.stringify(user));
   }
 
-  // getUser(userId: string): User {
-
-  // }
+  getUser(userId: string): Observable<User> {
+    return this.http.get<User>(`${this.obtainUser}/${userId}`);
+  }
 
   getCurrentUser(): User | null {
     const currentUserJson = sessionStorage.getItem(this.currentUserKey);

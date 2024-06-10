@@ -10,6 +10,7 @@ import { AuthService } from '../../../../shared/services/auth.service';
 })
 export class AllCommentsPageComponent implements OnInit {
   comments: any[] = [];
+  users: any[] = [];
   productId!: number;
 
   constructor(
@@ -28,7 +29,13 @@ export class AllCommentsPageComponent implements OnInit {
     this.commentsService.getComments(this.productId).subscribe((comments) => {
       this.comments = comments;
       console.log(this.comments);
-      // this.authService.
+      for (let i = 0; i < comments.length; i++) {
+        this.authService.getUser(comments[i].idUsuario).subscribe((user) => {
+          const userAny: any = user;
+          this.users.push(userAny);
+          console.log(this.users);
+        });
+      }
     });
   }
 
