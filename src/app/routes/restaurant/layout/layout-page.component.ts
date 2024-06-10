@@ -50,7 +50,10 @@ export class LayoutRestaurantPageComponent implements OnInit {
           '';
       });
     this.cartService.getItems().subscribe((items) => {
-      this.cartItemCount = items.length;
+      this.cartItemCount = items.reduce(
+        (total, item) => total + item.cantidad,
+        0
+      );
     });
   }
 

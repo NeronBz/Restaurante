@@ -9,13 +9,22 @@ import { switchMap, map, catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CartService {
+  //Carrito
   private getcart: string = environment.baseUrl + 'carritos';
   private postcart: string = environment.baseUrl + 'carritos';
+  private getonecart: string = environment.baseUrl + 'carritos/{id}';
+  private deletecart: string = environment.baseUrl + 'carritos/{id}';
+  private putcart: string =
+    environment.baseUrl + 'carritos/{id}/actualizar-total';
+
+  //Detalles-carrito
   private postdetailsCart: string = environment.baseUrl + 'detalles-carrito';
   private putdetailsCart: string =
     environment.baseUrl + 'detalles-carrito/{id}';
   private getdetailsCart: string =
     environment.baseUrl + 'carritos/{idCarrito}/detalles';
+  private deletedetailscart: string =
+    environment.baseUrl + 'detalles-carrito/{id}';
 
   private itemsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   private items: any[] = [];
@@ -29,21 +38,53 @@ export class CartService {
   }
 
   getItems(): Observable<any[]> {
-    return this.itemsSubject.asObservable();
-  }
+    const userId = this.user ? this.user.id : null;
+    if (!userId) {
+      return of([]); // Devolver un array vacío si no hay un usuario autenticado
+    }
 
-  getTotal(): number {
-    return this.items.reduce(
-      (total, item) => total + item.precio * item.cantidad,
-      0
+    return this.getCartByUserId(userId).pipe(
+      switchMap((cart) => {
+        if (cart) {
+          const cartId = cart.id;
+          const url = this.getdetailsCart.replace(
+            '{idCarrito}',
+            cartId.toString()
+          );
+          return this.http.get<any[]>(url).pipe(
+            catchError((error) => {
+              console.error('Error fetching cart details:', error);
+              return of([]);
+            })
+          );
+        } else {
+          return of([]); // Devolver un array vacío si no se encontró un carrito para el usuario
+        }
+      })
     );
   }
 
-  loadItems(userId: number): void {
-    this.http.get(`${this.getcart}/${userId}`).subscribe((response: any) => {
-      this.items = response.items || [];
-      this.itemsSubject.next(this.items);
-    });
+  getTotal(): number {
+    if (this.items) {
+      return this.items.reduce(
+        (total, item) => total + item.precio * item.cantidad,
+        0
+      );
+    } else {
+      return 0; // O cualquier valor predeterminado que desees devolver si los elementos aún no se han cargado
+    }
+  }
+
+  loadItems(userId: number): Observable<any> {
+    return this.getCartByUserId(userId).pipe(
+      map((cart) => {
+        if (cart) {
+          this.items = cart.items || [];
+          this.itemsSubject.next(this.items);
+        }
+        return cart;
+      })
+    );
   }
 
   saveItems(): void {
@@ -54,12 +95,18 @@ export class CartService {
     this.http.post(this.postcart, cartData).subscribe();
   }
 
-  createCart(userId: number): Observable<any> {
-    return this.http.post(this.postcart, { userId });
+  createCart(idUsuario: number): Observable<any> {
+    return this.http.post(this.postcart, { idUsuario });
   }
 
   getCartByUserId(userId: number): Observable<any> {
-    return this.http.get(`${this.getcart}/${userId}`);
+    return this.http.get<any[]>(this.getcart).pipe(
+      map((carts) => carts.find((cart) => cart.idUsuario === userId) || null),
+      catchError((error) => {
+        console.error('Error fetching cart by user ID:', error);
+        return of(null);
+      })
+    );
   }
 
   addCartItem(cartId: number, item: any): Observable<any> {
@@ -111,10 +158,9 @@ export class CartService {
   }
 
   clearCart(): Observable<any> {
-    const deleteRequests = this.items.map((item) =>
-      this.http.delete(
-        `${this.putdetailsCart.replace('{id}', item.id.toString())}`
-      )
+    const cartIds = this.items.map((item) => item.id);
+    const deleteRequests = cartIds.map((cartId) =>
+      this.http.delete(`${this.deletecart.replace('{id}', cartId.toString())}`)
     );
     return forkJoin(deleteRequests).pipe(
       switchMap(() => {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../../shared/services/cart.service';
 import { AuthService } from '../../../shared/services/auth.service';
+import { catchError, of, tap } from 'rxjs';
+import { FoodService } from '../../../shared/services/food.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -17,13 +19,40 @@ export class CartPageComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private foodService: FoodService
   ) {
     this.user = this.authService.getCurrentUser();
   }
 
   ngOnInit(): void {
     this.updateCart();
+  }
+
+  createCart(): void {
+    this.cartService
+      .getCartByUserId(this.user.id)
+      .pipe(
+        tap((cart) => {
+          if (cart && cart.id) {
+            console.log('El carrito ya existe:', cart);
+          }
+        }),
+        catchError((error) => {
+          if (error.status === 404) {
+            return this.cartService.createCart(this.user.id).pipe(
+              tap(() => {
+                this.updateCart();
+                console.log('Carrito creado exitosamente');
+              })
+            );
+          } else {
+            console.error('Error al obtener el carrito:', error);
+            return of(null);
+          }
+        })
+      )
+      .subscribe();
   }
 
   removeFromCart(id: number): void {
@@ -43,12 +72,38 @@ export class CartPageComponent implements OnInit {
   }
 
   private updateCart(): void {
-    this.cartService.getItems().subscribe((items) => {
-      this.items = items;
-      this.total = this.items.reduce(
-        (acc, item) => acc + item.precio * item.cantidad,
-        0
-      );
+    this.cartService.loadItems(this.user.id).subscribe((carrito) => {
+      console.log(carrito);
+
+      this.cartService.getItems().subscribe((items) => {
+        console.log(items);
+
+        // Hacer la segunda llamada a food.service para obtener los detalles del producto
+        const productIds = items.map((item) => item.idProducto);
+        this.foodService.getProductosByIds(productIds).subscribe(
+          (products) => {
+            // Mapear los productos a los items del carrito
+            this.items = items.map((item) => {
+              const product = products.find(
+                (product) => product.id === item.idProducto
+              );
+              return {
+                ...item,
+                product: product, // Adjuntar el producto al item del carrito
+              };
+            });
+
+            // Calcular el total
+            this.total = this.items.reduce(
+              (acc, item) => acc + item.precio * item.cantidad,
+              0
+            );
+          },
+          (error) => {
+            console.error('Error fetching products:', error);
+          }
+        );
+      });
     });
   }
 
@@ -82,15 +137,5 @@ export class CartPageComponent implements OnInit {
     modalElement.setAttribute('aria-hidden', 'true');
     modalElement.setAttribute('style', 'display: none');
     document.querySelector('.modal-backdrop')?.remove();
-  }
-
-  createCart(): void {
-    this.cartService.getCartByUserId(this.user.id).subscribe((cart) => {
-      if (!cart.id) {
-        this.cartService.createCart(this.user.id).subscribe(() => {
-          this.updateCart();
-        });
-      }
-    });
   }
 }

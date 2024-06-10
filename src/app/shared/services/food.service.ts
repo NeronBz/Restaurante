@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, forkJoin, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -27,11 +27,9 @@ export class FoodService {
     if (comida) {
       return of(comida);
     } else {
-      // Realizar una solicitud HTTP si no se encuentra la comida en el array local
       return this.http.get<any>(`${this.products}/${id}`).pipe(
         tap((data) => {
           if (data) {
-            // Si se obtiene la comida, agregarla al arreglo local
             this.comidas.push(data);
           }
         }),
@@ -111,5 +109,10 @@ export class FoodService {
       comida.stock = Number(comida.stock) - 1;
     }
     return of(comida);
+  }
+
+  getProductosByIds(ids: number[]): Observable<any[]> {
+    const requests = ids.map((id) => this.getComidaById(id));
+    return forkJoin(requests);
   }
 }

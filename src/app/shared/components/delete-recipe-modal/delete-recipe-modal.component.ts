@@ -18,7 +18,7 @@ export class DeleteRecipeModalComponent {
 
       this.recipesService.deleteReceta(id).subscribe((response) => {
         console.log(response);
-        // location.reload();
+        location.reload();
       });
     }
   }

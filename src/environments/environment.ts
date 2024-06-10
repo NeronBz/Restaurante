@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl:
-    'http://ec2-3-238-200-135.compute-1.amazonaws.com/Restaurante2/public/api/',
+    'http://ec2-3-238-97-123.compute-1.amazonaws.com/Restaurante2/public/api/',
 };
 
 /*
