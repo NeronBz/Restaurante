@@ -35,9 +35,24 @@ export class CartPageComponent implements OnInit {
       .getCartByUserId(this.user.id)
       .pipe(
         tap((cart) => {
+          console.log(cart);
+
           if (cart && cart.id) {
             this.cartId = cart.id;
             console.log('El carrito ya existe:', cart);
+          }
+
+          if (cart == null) {
+            this.cartService
+              .createCart(this.user.id)
+              .pipe(
+                tap((cart) => {
+                  this.cartId = cart.id;
+                  this.updateCart();
+                  console.log('Carrito creado exitosamente');
+                })
+              )
+              .subscribe();
           }
         }),
         catchError((error) => {

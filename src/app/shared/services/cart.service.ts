@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -122,6 +122,7 @@ export class CartService {
   }
 
   createCart(idUsuario: number): Observable<any> {
+    console.log(idUsuario);
     return this.http.post(this.postcart, { idUsuario });
   }
 
@@ -155,29 +156,29 @@ export class CartService {
   }
 
   addToCart(cartId: number, item: any): void {
-    this.waitForItemsToLoad().subscribe((items) => {
-      console.log(this.items);
-      console.log(item);
+    this.waitForItemsToLoad()
+      .pipe(
+        tap((items) => {
+          const existingItem = items.find(
+            (cartItem) => cartItem.idProducto === item.id
+          );
 
-      const existingItem = this.items.find(
-        (cartItem) => cartItem.idProducto === item.id
-      );
-      console.log(existingItem);
-
-      if (existingItem) {
-        existingItem.cantidad += item.cantidad;
-        this.updateCartItem(
-          existingItem.idCarrito,
-          existingItem.cantidad
-        ).subscribe(() => {
-          this.loadItems(this.user.id).subscribe();
-        });
-      } else {
-        this.addCartItem(cartId, item).subscribe(() => {
-          this.loadItems(this.user.id).subscribe();
-        });
-      }
-    });
+          if (existingItem) {
+            existingItem.cantidad += item.cantidad;
+            this.updateCartItem(
+              existingItem.id,
+              existingItem.cantidad
+            ).subscribe(() => {
+              this.loadItems(this.user.id).subscribe();
+            });
+          } else {
+            this.addCartItem(cartId, item).subscribe(() => {
+              this.loadItems(this.user.id).subscribe();
+            });
+          }
+        })
+      )
+      .subscribe();
   }
 
   removeFromCart(cartDetailId: number): Observable<any> {
@@ -230,19 +231,19 @@ export class CartService {
     );
   }
 
-  updateCart(updatedItems: any[]): Observable<any> {
-    const updateRequests = updatedItems.map((item) =>
-      this.updateCartItem(item.id, item.cantidad)
-    );
-    return forkJoin(updateRequests).pipe(
-      switchMap(() => {
-        this.loadItems(this.user.id).subscribe();
-        return of(null);
-      }),
-      catchError((error) => {
-        console.error('Error updating cart:', error);
-        return of(null);
-      })
-    );
-  }
+  // updateCart(updatedItems: any[]): Observable<any> {
+  //   const updateRequests = updatedItems.map((item) =>
+  //     this.updateCartItem(item.id, item.cantidad)
+  //   );
+  //   return forkJoin(updateRequests).pipe(
+  //     switchMap(() => {
+  //       this.loadItems(this.user.id).subscribe();
+  //       return of(null);
+  //     }),
+  //     catchError((error) => {
+  //       console.error('Error updating cart:', error);
+  //       return of(null);
+  //     })
+  //   );
+  // }
 }

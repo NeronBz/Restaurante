@@ -109,14 +109,16 @@ export class OnlyProductPageComponent implements OnInit {
 
   addToCart(): void {
     const user: User | null = this.authService.getCurrentUser();
-    console.log(user);
+    if (!user) {
+      this.router.navigate(['restaurant/cart']);
+      return;
+    }
 
     this.cartService
-      .getCartByUserId(user?.id)
+      .getCartByUserId(user.id)
       .pipe(
         tap((cart) => {
-          console.log(cart);
-          if (cart != null) {
+          if (cart) {
             if (this.stock) {
               const product = {
                 id: this.id,
