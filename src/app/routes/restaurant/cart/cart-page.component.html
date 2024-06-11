@@ -19,14 +19,14 @@
             <div class="row">
               <div class="col-12 col-sm-4 mb-3">
                 <img
-                  [src]="item.imagen"
-                  alt="{{ item.nombre }}"
+                  [src]="item.producto.imagen"
+                  alt="{{ item.producto.nombreProducto }}"
                   class="img-fluid"
                 />
               </div>
               <div class="col-12 col-sm-8">
-                <h4>{{ item.nombre }}</h4>
-                <p>{{ item.restaurante }}</p>
+                <h4>{{ item.producto.nombreProducto }}</h4>
+                <p>{{ item.producto.descripcion }}</p>
                 <div class="row">
                   <div class="col-6">
                     <p>
@@ -35,7 +35,7 @@
                   </div>
                   <div class="col-6">
                     <p>
-                      <strong>Precio: {{ item.precio }}€</strong>
+                      <strong>Precio: {{ item.producto.precio }}€</strong>
                     </p>
                   </div>
                 </div>

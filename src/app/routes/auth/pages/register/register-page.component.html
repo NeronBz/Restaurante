@@ -1,57 +1,76 @@
-<div class="h-100 d-flex justify-content-center align-items-center">
-  <div class="main">
-    <p class="sign" align="center">Registrar</p>
-    <form class="form1">
-      <input
-        class="un"
-        type="text"
+<div class="h-100">
+  <div class="row justify-content-start">
+    <div class="col">
+      <button
+        class="link-button"
+        [routerLink]="['/']"
+        routerLinkActive="router-link-active"
         align="center"
-        placeholder="Nombre de usuario"
-        name="username"
-        [(ngModel)]="username"
-        [ngClass]="{ 'input-error': inputError }"
-      />
-      <input
-        class="un"
-        type="email"
-        align="center"
-        placeholder="Email"
-        name="email"
-        [(ngModel)]="email"
-        [ngClass]="{ 'input-error': inputError }"
-      />
-      <input
-        class="pass"
-        type="password"
-        align="center"
-        placeholder="Contraseña"
-        name="password"
-        [(ngModel)]="password"
-        [ngClass]="{ 'input-error': inputError || passwordsDoNotMatch }"
-      />
-      <input
-        class="pass"
-        type="password"
-        align="center"
-        placeholder="Confirmar contraseña"
-        name="password2"
-        [(ngModel)]="password2"
-        [ngClass]="{ 'input-error': inputError || passwordsDoNotMatch }"
-      />
-      <span *ngIf="passwordsDoNotMatch" class="text-danger">
-        Las contraseñas no coinciden
-      </span>
-      <span *ngIf="inputError" class="text-danger">
-        Tiene que escribir en los campos
-      </span>
-      <span *ngIf="itExists" class="text-danger">Ya existe ese usuario</span>
-      <a class="submit" align="center" (click)="register()">Sign in</a>
-      <p class="forgot" align="center">
-        <a routerLink="/auth/login">¿Ya tienes cuenta?</a>
-      </p>
-    </form>
-    <div *ngIf="success" class="alert alert-success mt-3">
-      Registro exitoso. Redirigiendo al login...
+        role="button"
+      >
+        Home Page
+      </button>
+    </div>
+  </div>
+  <div class="row fila-principal">
+    <div class="col d-flex justify-content-center align-items-center">
+      <div class="main">
+        <p class="sign" align="center">Registrar</p>
+        <form class="form1">
+          <input
+            class="un"
+            type="text"
+            align="center"
+            placeholder="Nombre de usuario"
+            name="username"
+            [(ngModel)]="username"
+            [ngClass]="{ 'input-error': inputError }"
+          />
+          <input
+            class="un"
+            type="email"
+            align="center"
+            placeholder="Email"
+            name="email"
+            [(ngModel)]="email"
+            [ngClass]="{ 'input-error': inputError }"
+          />
+          <input
+            class="pass"
+            type="password"
+            align="center"
+            placeholder="Contraseña"
+            name="password"
+            [(ngModel)]="password"
+            [ngClass]="{ 'input-error': inputError || passwordsDoNotMatch }"
+          />
+          <input
+            class="pass"
+            type="password"
+            align="center"
+            placeholder="Confirmar contraseña"
+            name="password2"
+            [(ngModel)]="password2"
+            [ngClass]="{ 'input-error': inputError || passwordsDoNotMatch }"
+          />
+          <span *ngIf="passwordsDoNotMatch" class="text-danger">
+            Las contraseñas no coinciden
+          </span>
+          <span *ngIf="inputError" class="text-danger">
+            Tiene que escribir en los campos
+          </span>
+          <span *ngIf="itExists" class="text-danger"
+            >Ya existe ese usuario</span
+          >
+          <a class="submit" align="center" (click)="register()">Sign in</a>
+          <p class="forgot" align="center">
+            <a routerLink="/auth/login">¿Ya tienes cuenta?</a>
+          </p>
+        </form>
+        <div *ngIf="success" class="alert alert-success mt-3">
+          Registro exitoso. Redirigiendo al login...
+        </div>
+      </div>
     </div>
   </div>
 </div>

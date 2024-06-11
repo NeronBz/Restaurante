@@ -49,15 +49,10 @@ export class LayoutRestaurantPageComponent implements OnInit {
           event.snapshot.params['recipeId'] ||
           '';
       });
-    this.cartService.getItems().subscribe((items) => {
-      this.cartItemCount = items.reduce(
-        (total, item) => total + item.cantidad,
-        0
-      );
-    });
   }
 
   ngOnInit(): void {
+    this.subscribeToCartItems();
     const theme = this.themeService.getTheme();
     if (theme) {
       this.themeService.setTheme(theme);
@@ -67,6 +62,9 @@ export class LayoutRestaurantPageComponent implements OnInit {
     document.getElementById('checkbox')?.addEventListener('change', () => {
       document.body.classList.toggle('dark-mode');
     });
+  }
+
+  private subscribeToCartItems(): void {
     this.cartService.getItems().subscribe((items) => {
       this.cartItemCount = items.reduce(
         (total, item) => total + item.cantidad,

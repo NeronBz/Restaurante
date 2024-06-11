@@ -116,23 +116,27 @@ export class OnlyProductPageComponent implements OnInit {
       .pipe(
         tap((cart) => {
           console.log(cart);
-          if (this.stock) {
-            const product = {
-              id: this.id,
-              nombre: this.nombreComida,
-              descripcion: this.descripcionComida,
-              precio: this.precio,
-              imagen: this.imagenComida,
-              cantidad: 1, // default to 1
-            };
-            this.cartService.addToCart(cart.id, product);
+          if (cart != null) {
+            if (this.stock) {
+              const product = {
+                id: this.id,
+                nombre: this.nombreComida,
+                descripcion: this.descripcionComida,
+                precio: this.precio,
+                imagen: this.imagenComida,
+                cantidad: 1, // default to 1
+              };
+              this.cartService.addToCart(cart.id, product);
+            }
+          } else {
+            this.router.navigate(['restaurant/cart']);
           }
         }),
         catchError((error) => {
           if (error.status === 404) {
-            this.router.navigate(['restaurant/cart']); // Redirigir a la página del carrito
+            this.router.navigate(['restaurant/cart']);
           }
-          return of(null); // Emitir un valor nulo para que el flujo continúe
+          return of(null);
         })
       )
       .subscribe();
@@ -143,14 +147,14 @@ export class OnlyProductPageComponent implements OnInit {
   }
 
   publishComment(): void {
-    console.log(this.commentForm.valid);
+    console.log(this.commentForm.value.estrellas);
 
     if (this.commentForm.valid) {
       const comment = {
         idUsuario: this.currentUser?.id,
         idProducto: this.id,
         comentario: this.commentForm.value.comentario,
-        calificacion: this.commentForm.value.estrellas,
+        calificacion: 6 - this.commentForm.value.estrellas,
       };
       this.commentsService.postComment(comment).subscribe((newComment) => {
         this.comments.push(newComment);

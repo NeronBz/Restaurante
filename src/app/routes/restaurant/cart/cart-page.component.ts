@@ -15,6 +15,7 @@ export class CartPageComponent implements OnInit {
   total = 0;
   selectedItem: any;
   user: any;
+  private cartId: number = 0;
 
   constructor(
     private cartService: CartService,
@@ -35,13 +36,15 @@ export class CartPageComponent implements OnInit {
       .pipe(
         tap((cart) => {
           if (cart && cart.id) {
+            this.cartId = cart.id;
             console.log('El carrito ya existe:', cart);
           }
         }),
         catchError((error) => {
           if (error.status === 404) {
             return this.cartService.createCart(this.user.id).pipe(
-              tap(() => {
+              tap((cart) => {
+                this.cartId = cart.id;
                 this.updateCart();
                 console.log('Carrito creado exitosamente');
               })
@@ -62,9 +65,11 @@ export class CartPageComponent implements OnInit {
   }
 
   clearCart(): void {
-    this.cartService.clearCart().subscribe(() => {
-      this.updateCart();
-    });
+    if (this.cartId) {
+      this.cartService.deleteCart(this.cartId).subscribe(() => {
+        this.updateCart();
+      });
+    }
   }
 
   checkout(): void {
@@ -73,29 +78,22 @@ export class CartPageComponent implements OnInit {
 
   private updateCart(): void {
     this.cartService.loadItems(this.user.id).subscribe((carrito) => {
-      console.log(carrito);
-
       this.cartService.getItems().subscribe((items) => {
-        console.log(items);
-
-        // Hacer la segunda llamada a food.service para obtener los detalles del producto
         const productIds = items.map((item) => item.idProducto);
         this.foodService.getProductosByIds(productIds).subscribe(
           (products) => {
-            // Mapear los productos a los items del carrito
             this.items = items.map((item) => {
               const product = products.find(
                 (product) => product.id === item.idProducto
               );
               return {
                 ...item,
-                product: product, // Adjuntar el producto al item del carrito
+                producto: product,
               };
             });
 
-            // Calcular el total
             this.total = this.items.reduce(
-              (acc, item) => acc + item.precio * item.cantidad,
+              (acc, item) => acc + item.producto.precio * item.cantidad,
               0
             );
           },
@@ -109,33 +107,16 @@ export class CartPageComponent implements OnInit {
 
   openQuantityModal(item: any): void {
     this.selectedItem = item;
-    const modalElement = document.getElementById(
-      'quantityModal'
-    ) as HTMLElement;
-    modalElement.classList.add('show');
-    modalElement.setAttribute('aria-hidden', 'false');
-    modalElement.setAttribute('style', 'display: block');
-    document.body.appendChild(document.createElement('div')).className =
-      'modal-backdrop fade show';
   }
 
   onQuantityChange(newQuantity: number): void {
     if (this.selectedItem) {
       this.selectedItem.cantidad = newQuantity;
-      this.cartService.updateCart(this.items).subscribe(() => {
-        this.updateCart();
-        this.closeQuantityModal();
-      });
+      this.cartService
+        .updateCartItem(this.selectedItem.id, newQuantity)
+        .subscribe(() => {
+          this.updateCart();
+        });
     }
-  }
-
-  closeQuantityModal(): void {
-    const modalElement = document.getElementById(
-      'quantityModal'
-    ) as HTMLElement;
-    modalElement.classList.remove('show');
-    modalElement.setAttribute('aria-hidden', 'true');
-    modalElement.setAttribute('style', 'display: none');
-    document.querySelector('.modal-backdrop')?.remove();
   }
 }
