@@ -49,8 +49,12 @@ export class RecipesPageComponent implements OnInit {
       });
     } else {
       this.recipesService.getRecipes().subscribe((recipes) => {
-        this.recipes = recipes.filter(recipe =>
-          !recipe.alergenos || !recipe.alergenos.some((alergeno: any)  => alergeno.nombre === filterValue)
+        this.recipes = recipes.filter(
+          (recipe) =>
+            !recipe.alergenos ||
+            !recipe.alergenos.some(
+              (alergeno: any) => alergeno.nombre === filterValue
+            )
         );
       });
     }

@@ -4,11 +4,17 @@
       <h2>Carrito de Compras</h2>
     </div>
     <div class="card-body">
-      <div *ngIf="carritoCreado; else carritoNoCreado" class="alert alert-success m-0 text-center">
+      <div
+        *ngIf="carritoCreado; else carritoNoCreado"
+        class="alert alert-success m-0 text-center"
+      >
         Carrito creado, seleccione los platos
       </div>
       <ng-template #carritoNoCreado>
-        <div *ngIf="items.length === 0" class="alert alert-warning m-0 text-center">
+        <div
+          *ngIf="items.length === 0"
+          class="alert alert-warning m-0 text-center"
+        >
           El carrito está vacío
           <button class="btn btn-primary mt-3" (click)="createCart()">
             Crear Carrito
@@ -20,7 +26,11 @@
           <div class="card-body text-center">
             <div class="row">
               <div class="col-12 col-sm-4 mb-3">
-                <img [src]="item.producto.imagen" alt="{{ item.producto.nombreProducto }}" class="img-fluid" />
+                <img
+                  [src]="item.producto.imagen"
+                  alt="{{ item.producto.nombreProducto }}"
+                  class="img-fluid"
+                />
               </div>
               <div class="col-12 col-sm-8">
                 <h4>{{ item.producto.nombreProducto }}</h4>
@@ -38,11 +48,19 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <button class="btn btn-danger" (click)="removeFromCart(item.id)">
+                  <button
+                    class="btn btn-danger"
+                    (click)="removeFromCart(item.id)"
+                  >
                     Eliminar
                   </button>
-                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#quantityModal"
-                    (click)="openQuantityModal(item)">
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    data-bs-toggle="modal"
+                    data-bs-target="#quantityModal"
+                    (click)="openQuantityModal(item)"
+                  >
                     Ajustar Cantidad
                   </button>
                 </div>
@@ -68,6 +86,9 @@
       </div>
     </div>
   </div>
-  <app-cart-quantity-modal [currentQuantity]="selectedItem?.cantidad" (quantityChange)="onQuantityChange($event)">
+  <app-cart-quantity-modal
+    [currentQuantity]="selectedItem?.cantidad"
+    (quantityChange)="onQuantityChange($event)"
+  >
   </app-cart-quantity-modal>
 </div>

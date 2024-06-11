@@ -13,7 +13,6 @@ import { CommentsService } from '../../../../shared/services/comments.service';
 import { User } from '../../../../shared/interfaces/user.interface';
 import { catchError, of, tap } from 'rxjs';
 
-
 @Component({
   selector: 'app-only-products-page',
   templateUrl: './only-product-page.component.html',
@@ -131,10 +130,8 @@ export class OnlyProductPageComponent implements OnInit {
               };
               this.cartService.addToCart(cart.id, product);
               this.router.navigate(['restaurant/cart']);
-              this.reloadPage(); 
-            
+              this.reloadPage();
             }
-           
           } else {
             this.router.navigate(['restaurant/cart']);
           }
@@ -145,10 +142,8 @@ export class OnlyProductPageComponent implements OnInit {
           }
           return of(null);
         })
-        
       )
       .subscribe();
-     
   }
 
   viewAllComments(): void {
@@ -168,6 +163,7 @@ export class OnlyProductPageComponent implements OnInit {
       this.commentsService.postComment(comment).subscribe((newComment) => {
         this.comments.push(newComment);
         this.commentForm.reset();
+        location.reload();
       });
     }
   }

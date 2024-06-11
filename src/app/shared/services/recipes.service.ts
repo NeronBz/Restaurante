@@ -66,18 +66,20 @@ export class RecipesService {
       ingredientes: ingredientes,
       instrucciones: instrucciones,
       imagen: imagen,
-      alergenos: alergenos,  // Corregido: enviar alérgenos como un array
+      alergenos: alergenos,
     };
 
-    return this.http.post<any>(this.recipesUrl, body, { headers: headers }).pipe(
-      map((response) => {
-        return true;
-      }),
-      catchError((error) => {
-        console.error('Crear receta error:', error);
-        return of(false);
-      })
-    );
+    return this.http
+      .post<any>(this.recipesUrl, body, { headers: headers })
+      .pipe(
+        map((response) => {
+          return true;
+        }),
+        catchError((error) => {
+          console.error('Crear receta error:', error);
+          return of(false);
+        })
+      );
   }
 
   deleteReceta(id: number): Observable<any> {

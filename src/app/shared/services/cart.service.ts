@@ -11,10 +11,7 @@ import { switchMap, map, catchError, tap, take } from 'rxjs/operators';
 export class CartService {
   private getcart: string = environment.baseUrl + 'carritos';
   private postcart: string = environment.baseUrl + 'carritos';
-  private getonecart: string = environment.baseUrl + 'carritos/{id}';
   private deletecart: string = environment.baseUrl + 'carritos/{id}';
-  private putcart: string =
-    environment.baseUrl + 'carritos/{id}/actualizar-total';
 
   private postdetailsCart: string = environment.baseUrl + 'detalles-carrito';
   private putdetailsCart: string =
@@ -158,23 +155,22 @@ export class CartService {
   addToCart(cartId: number, item: any): void {
     this.waitForItemsToLoad()
       .pipe(
-        take(1), // solo escuchar una vez
+        take(1),
         tap((items) => {
           const existingItem = items.find(
             (cartItem) => cartItem.idProducto === item.id
           );
 
           if (existingItem) {
-            this.updateCartItem(existingItem.id, existingItem.cantidad + item.cantidad)
-              .pipe(
-                switchMap(() => this.loadItems(this.user.id))
-              )
+            this.updateCartItem(
+              existingItem.id,
+              existingItem.cantidad + item.cantidad
+            )
+              .pipe(switchMap(() => this.loadItems(this.user.id)))
               .subscribe();
           } else {
             this.addCartItem(cartId, item)
-              .pipe(
-                switchMap(() => this.loadItems(this.user.id))
-              )
+              .pipe(switchMap(() => this.loadItems(this.user.id)))
               .subscribe();
           }
         })
@@ -190,14 +186,13 @@ export class CartService {
       .pipe(
         switchMap(() => {
           this.loadItems(this.user.id).subscribe();
-          return of(null);  
+          return of(null);
         }),
         catchError((error) => {
           console.error('Error removing item from cart:', error);
           return of(null);
         })
       );
-      
   }
 
   clearCart(): Observable<any> {
@@ -218,20 +213,20 @@ export class CartService {
     );
   }
 
- deleteCart(cartId: number): Observable<any> {
+  deleteCart(cartId: number): Observable<any> {
     const url = this.deletecart.replace('{id}', cartId.toString());
     return this.http.delete(url).pipe(
-        tap(() => {
-            this.items = [];
-            this.itemsSubject.next(this.items);
-        }),
-        switchMap(() => {
-            return this.loadItems(this.user.id);
-        }),
-        catchError((error) => {
-            console.error('Error deleting cart:', error);
-            return of(null);
-        })
+      tap(() => {
+        this.items = [];
+        this.itemsSubject.next(this.items);
+      }),
+      switchMap(() => {
+        return this.loadItems(this.user.id);
+      }),
+      catchError((error) => {
+        console.error('Error deleting cart:', error);
+        return of(null);
+      })
     );
-}
+  }
 }

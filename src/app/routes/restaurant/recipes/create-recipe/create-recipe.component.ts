@@ -39,8 +39,9 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   updateSelectedOptions(event: any) {
-    this.selectedAlergenos = Array.from(event.target.selectedOptions, (option: any) =>
-      Number(option.value)
+    this.selectedAlergenos = Array.from(
+      event.target.selectedOptions,
+      (option: any) => Number(option.value)
     );
   }
 
