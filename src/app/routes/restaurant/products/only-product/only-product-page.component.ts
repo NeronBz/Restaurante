@@ -13,10 +13,11 @@ import { CommentsService } from '../../../../shared/services/comments.service';
 import { User } from '../../../../shared/interfaces/user.interface';
 import { catchError, of, tap } from 'rxjs';
 
+
 @Component({
   selector: 'app-only-products-page',
-  templateUrl: 'only-product-page.component.html',
-  styleUrls: ['only-product-page.component.css'],
+  templateUrl: './only-product-page.component.html',
+  styleUrls: ['./only-product-page.component.css'],
 })
 export class OnlyProductPageComponent implements OnInit {
   nombreComida = '';
@@ -129,7 +130,11 @@ export class OnlyProductPageComponent implements OnInit {
                 cantidad: 1, // default to 1
               };
               this.cartService.addToCart(cart.id, product);
+              this.router.navigate(['restaurant/cart']);
+              this.reloadPage(); 
+            
             }
+           
           } else {
             this.router.navigate(['restaurant/cart']);
           }
@@ -140,8 +145,10 @@ export class OnlyProductPageComponent implements OnInit {
           }
           return of(null);
         })
+        
       )
       .subscribe();
+     
   }
 
   viewAllComments(): void {
@@ -163,5 +170,11 @@ export class OnlyProductPageComponent implements OnInit {
         this.commentForm.reset();
       });
     }
+  }
+
+  reloadPage() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.router.url]);
   }
 }

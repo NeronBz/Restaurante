@@ -16,6 +16,7 @@ export class CartPageComponent implements OnInit {
   selectedItem: any;
   user: any;
   private cartId: number = 0;
+  carritoCreado: boolean = false;
 
   constructor(
     private cartService: CartService,
@@ -50,6 +51,7 @@ export class CartPageComponent implements OnInit {
                   this.cartId = cart.id;
                   this.updateCart();
                   console.log('Carrito creado exitosamente');
+                  this.carritoCreado = true;
                 })
               )
               .subscribe();
@@ -62,6 +64,7 @@ export class CartPageComponent implements OnInit {
                 this.cartId = cart.id;
                 this.updateCart();
                 console.log('Carrito creado exitosamente');
+                this.carritoCreado = true;
               })
             );
           } else {
@@ -76,15 +79,20 @@ export class CartPageComponent implements OnInit {
   removeFromCart(id: number): void {
     this.cartService.removeFromCart(id).subscribe(() => {
       this.updateCart();
+      location.reload();
     });
   }
 
   clearCart(): void {
-    if (this.cartId) {
-      this.cartService.deleteCart(this.cartId).subscribe(() => {
-        this.updateCart();
-      });
-    }
+    this.cartService.getCartByUserId(this.user.id).subscribe((cart) =>{
+      this.cartId = cart.id;
+      if (this.cartId) {
+        this.cartService.deleteCart(this.cartId).subscribe(() => {
+          this.updateCart();
+          this.reloadPage();
+        });
+      }
+    });
   }
 
   checkout(): void {
@@ -93,30 +101,35 @@ export class CartPageComponent implements OnInit {
 
   private updateCart(): void {
     this.cartService.loadItems(this.user.id).subscribe((carrito) => {
-      this.cartService.getItems().subscribe((items) => {
-        const productIds = items.map((item) => item.idProducto);
-        this.foodService.getProductosByIds(productIds).subscribe(
-          (products) => {
-            this.items = items.map((item) => {
-              const product = products.find(
-                (product) => product.id === item.idProducto
-              );
-              return {
-                ...item,
-                producto: product,
-              };
-            });
+        this.cartService.getItems().subscribe((items) => {
+            const productIds = items.map((item) => item.idProducto);
+            if (productIds.length > 0) {
+                this.foodService.getProductosByIds(productIds).subscribe(
+                    (products) => {
+                        this.items = items.map((item) => {
+                            const product = products.find(
+                                (product) => product.id === item.idProducto
+                            );
+                            return {
+                                ...item,
+                                producto: product,
+                            };
+                        });
 
-            this.total = this.items.reduce(
-              (acc, item) => acc + item.producto.precio * item.cantidad,
-              0
-            );
-          },
-          (error) => {
-            console.error('Error fetching products:', error);
-          }
-        );
-      });
+                        this.total = this.items.reduce(
+                            (acc, item) => acc + item.producto.precio * item.cantidad,
+                            0
+                        );
+                    },
+                    (error) => {
+                        console.error('Error fetching products:', error);
+                    }
+                );
+            } else {
+                this.items = [];
+                this.total = 0;
+            }
+        });
     });
   }
 
@@ -133,5 +146,11 @@ export class CartPageComponent implements OnInit {
           this.updateCart();
         });
     }
+  }
+
+  reloadPage() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.router.url]);
   }
 }

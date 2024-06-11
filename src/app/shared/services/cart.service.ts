@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
+import { switchMap, map, catchError, tap, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -158,23 +158,24 @@ export class CartService {
   addToCart(cartId: number, item: any): void {
     this.waitForItemsToLoad()
       .pipe(
+        take(1), // solo escuchar una vez
         tap((items) => {
           const existingItem = items.find(
             (cartItem) => cartItem.idProducto === item.id
           );
 
           if (existingItem) {
-            existingItem.cantidad += item.cantidad;
-            this.updateCartItem(
-              existingItem.id,
-              existingItem.cantidad
-            ).subscribe(() => {
-              this.loadItems(this.user.id).subscribe();
-            });
+            this.updateCartItem(existingItem.id, existingItem.cantidad + item.cantidad)
+              .pipe(
+                switchMap(() => this.loadItems(this.user.id))
+              )
+              .subscribe();
           } else {
-            this.addCartItem(cartId, item).subscribe(() => {
-              this.loadItems(this.user.id).subscribe();
-            });
+            this.addCartItem(cartId, item)
+              .pipe(
+                switchMap(() => this.loadItems(this.user.id))
+              )
+              .subscribe();
           }
         })
       )
@@ -189,13 +190,14 @@ export class CartService {
       .pipe(
         switchMap(() => {
           this.loadItems(this.user.id).subscribe();
-          return of(null);
+          return of(null);  
         }),
         catchError((error) => {
           console.error('Error removing item from cart:', error);
           return of(null);
         })
       );
+      
   }
 
   clearCart(): Observable<any> {
@@ -216,34 +218,20 @@ export class CartService {
     );
   }
 
-  deleteCart(cartId: number): Observable<any> {
+ deleteCart(cartId: number): Observable<any> {
     const url = this.deletecart.replace('{id}', cartId.toString());
     return this.http.delete(url).pipe(
-      switchMap(() => {
-        this.items = [];
-        this.itemsSubject.next(this.items);
-        return of(null);
-      }),
-      catchError((error) => {
-        console.error('Error deleting cart:', error);
-        return of(null);
-      })
+        tap(() => {
+            this.items = [];
+            this.itemsSubject.next(this.items);
+        }),
+        switchMap(() => {
+            return this.loadItems(this.user.id);
+        }),
+        catchError((error) => {
+            console.error('Error deleting cart:', error);
+            return of(null);
+        })
     );
-  }
-
-  // updateCart(updatedItems: any[]): Observable<any> {
-  //   const updateRequests = updatedItems.map((item) =>
-  //     this.updateCartItem(item.id, item.cantidad)
-  //   );
-  //   return forkJoin(updateRequests).pipe(
-  //     switchMap(() => {
-  //       this.loadItems(this.user.id).subscribe();
-  //       return of(null);
-  //     }),
-  //     catchError((error) => {
-  //       console.error('Error updating cart:', error);
-  //       return of(null);
-  //     })
-  //   );
-  // }
+}
 }
